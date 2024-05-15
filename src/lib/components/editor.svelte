@@ -10,7 +10,7 @@
   let editor: Monaco.editor.IStandaloneCodeEditor;
   let monaco: typeof Monaco;
   let editorContainer: HTMLElement;
-  // let vimMode: any;
+  let vimMode: any;
 
   onMount(async () => {
     // Import monaco code editor
@@ -40,8 +40,10 @@
     );
     editor.setModel(model);
     // Initialize vim mode
-    // vimMode = imports.initVimMode(editor, document.getElementById("status-bar")); // UNCOMMENT ME FOR VIM
-    // Focus
+    vimMode = imports.initVimMode(
+      editor,
+      document.getElementById("status-bar")
+    );
     editor.focus();
   });
 

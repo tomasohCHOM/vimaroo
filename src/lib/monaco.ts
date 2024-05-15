@@ -1,4 +1,6 @@
 import * as monaco from "monaco-editor";
+// @ts-ignore (No types support for monaco-vim yet)
+import { initVimMode } from "monaco-vim";
 
 // Import the workers in a production-safe way.
 // This is different than in Monaco's documentation for Vite,
@@ -31,4 +33,4 @@ self.MonacoEnvironment = {
   },
 };
 
-export default { monaco: monaco };
+export default { monaco, initVimMode };
