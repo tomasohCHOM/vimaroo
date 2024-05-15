@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let language: string = "python";
-  export let theme: string = "Monokai";
-  const themes: string[] = ["Monokai"];
+  export let language: string = "typescript";
+  export let theme: string = "Github";
+  const themes: string[] = ["Monokai", "Github"];
 
   import { onDestroy, onMount } from "svelte";
 
@@ -34,7 +34,10 @@
     });
     // Create editor & model to be displayed
     const editor = monaco.editor.create(editorContainer);
-    const model = monaco.editor.createModel('print("Hello, World!")', language);
+    const model = monaco.editor.createModel(
+      `console.log("Hello World");`,
+      language
+    );
     editor.setModel(model);
     // Initialize vim mode
     // vimMode = imports.initVimMode(editor, document.getElementById("status-bar")); // UNCOMMENT ME FOR VIM
