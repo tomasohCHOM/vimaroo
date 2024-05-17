@@ -1,6 +1,5 @@
 <script lang="ts">
   import Editor from "$lib/components/editor.svelte";
-  import "../globals.css";
 </script>
 
 <h1>VIMaestro</h1>
