@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +7,13 @@
 
 :root {
   --ff-general: "Inter", sans-serif;
+  --ff-code: "Fira Code", monospace;
   --color-primary: 37, 41, 50;
+  --color-secondary: 32, 35, 44;
   --color-contrast: 255, 255, 255;
+  --color-contrast-r: 224, 108, 117;
+  --color-contrast-g: 152, 195, 121;
+  --color-contrast-b: 97, 175, 239;
 
   background-color: rgb(var(--color-primary));
   color: rgb(var(--color-contrast));
@@ -25,7 +31,9 @@ html {
 
 body {
   min-height: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
-  font-family: var(--ff-general);
+  align-items: center;
+  font-family: var(--ff-code);
 }
