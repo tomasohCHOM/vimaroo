@@ -90,6 +90,7 @@
       language: language,
       minimap: { enabled: false },
       scrollBeyondLastLine: false,
+      automaticLayout: true,
     });
     // Initialize vim mode
     vimMode = imports.initVimMode(
@@ -107,4 +108,4 @@
 </script>
 
 <div class="w-full h-full" bind:this={editorContainer} />
-<p id="status-bar" />
+<p class="mt-1 mb-4" id="status-bar" />
