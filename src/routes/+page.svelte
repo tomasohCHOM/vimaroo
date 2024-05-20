@@ -13,10 +13,10 @@
 </script>
 
 <main class="max-w-screen-lg flex flex-col pt-12">
-  <h1 class="font-bold text-3xl">VIMaestro</h1>
+  <h1 class="font-bold text-3xl">vimaestro</h1>
 
   <div
-    class="flex items-center justify-center bg-secondary gap-2 rounded-lg px-4 py-2"
+    class="flex items-center justify-center bg-secondary gap-2 rounded-lg px-4 py-2 mt-2"
   >
     {#each modes as mode, i}
       <button
@@ -26,13 +26,7 @@
     {/each}
   </div>
 
-  <div class="editor">
+  <div class="editor w-[1000px] h-[400px] mt-8">
     <Editor />
   </div>
 </main>
-
-<style>
-  .editor {
-    height: 400px;
-  }
-</style>
