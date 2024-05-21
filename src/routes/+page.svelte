@@ -12,7 +12,7 @@
   let selectedOption = 0;
 </script>
 
-<main class="grid justify-center items-center gap-6">
+<main class="grid justify-center items-center">
   <div class="flex justify-center bg-secondary gap-3 rounded-lg p-2">
     {#each modes as mode, i}
       <button
