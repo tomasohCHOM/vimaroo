@@ -2,7 +2,6 @@
   import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
   import { onDestroy, onMount } from "svelte";
   import Spinner from "./spinner.svelte";
-  import { text } from "@sveltejs/kit";
 
   export let language: string = "html";
   export let theme: string = "Nord";
@@ -30,7 +29,7 @@
     monaco = imports.monaco;
 
     // Import editor theme
-    const res = await fetch(`src/lib/${theme}.json`);
+    const res = await fetch(`/${theme}.json`);
     const data = await res.json();
     monaco.editor.defineTheme(theme, data);
 
