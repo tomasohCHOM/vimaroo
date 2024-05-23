@@ -3,14 +3,18 @@
   import { onDestroy, onMount } from "svelte";
   import Spinner from "./spinner.svelte";
 
-  export let language: string = "html";
-  export let theme: string = "Nord";
+  export let initalPrompt: string;
 
   let editor: Monaco.editor.IStandaloneCodeEditor;
-  let monaco: typeof Monaco;
   let editorContainer: HTMLElement;
+  let language: string = "html";
+  let theme: string = "Nord";
+  let monaco: typeof Monaco;
+
   let vimMode: any;
   let loaded: boolean = false;
+  let gameStarted: boolean = false;
+  let gameOver: boolean = false;
 
   const textArray = new Array(10).fill("\n");
   let currentDeletePos: number;
@@ -39,12 +43,9 @@
       monaco.editor.setTheme(theme);
     });
 
-    updateArray();
-    console.log(textArray);
-
     // Create editor & model to be displayed
     const editor = monaco.editor.create(editorContainer, {
-      value: textArray.join(""),
+      value: initalPrompt,
       language: language,
       minimap: { enabled: false },
       scrollBeyondLastLine: false,
@@ -60,12 +61,35 @@
     );
 
     loaded = true;
+    let startTime: number;
 
     editor.getModel()?.onDidChangeContent(() => {
-      if (editor.getValue().includes("_") || currentScore >= 5) return;
+      if (!gameStarted) {
+        gameStarted = true;
+        startTime = performance.now();
+        updateArray();
+        editor.setValue(textArray.join(""));
+        return;
+      }
+      if (gameOver && !editor.getValue().includes("Want to play again?")) {
+        gameOver = false;
+        currentScore = 0;
+        startTime = performance.now();
+        updateArray();
+        editor.setValue(textArray.join(""));
+        return;
+      }
+      if (editor.getValue().includes("_") || currentScore >= 5) {
+        return;
+      }
       currentScore++;
       if (currentScore >= 5) {
-        editor.setValue("We are done!!");
+        gameOver = true;
+        let endTime = performance.now();
+        let totalTime = ((endTime - startTime) / 1000).toFixed(2);
+        editor.setValue(
+          `Congrats! Your score is ${currentScore}/5\nTotal time = ${totalTime} seconds\nWant to play again? [Delete this line]`
+        );
         return;
       }
       updateArray();
