@@ -10,10 +10,11 @@
   let monaco: typeof Monaco;
   let editorContainer: HTMLElement;
   let vimMode: any;
+  let loaded: boolean = false;
 
   const textArray = new Array(10).fill("\n");
   let currentDeletePos: number;
-  let loaded: boolean = false;
+  let currentScore = 0;
 
   function updateArray() {
     const previousDeletePos = currentDeletePos ?? 0;
@@ -49,6 +50,8 @@
       scrollBeyondLastLine: false,
       automaticLayout: true,
       lineNumbers: "relative",
+      fontFamily: "Fira Code",
+      fontSize: 16,
     });
     // Initialize vim mode
     vimMode = imports.initVimMode(
@@ -59,7 +62,12 @@
     loaded = true;
 
     editor.getModel()?.onDidChangeContent(() => {
-      if (editor.getValue().includes("_")) return;
+      if (editor.getValue().includes("_") || currentScore >= 5) return;
+      currentScore++;
+      if (currentScore >= 5) {
+        editor.setValue("We are done!!");
+        return;
+      }
       updateArray();
       editor.setValue(textArray.join(""));
     });
