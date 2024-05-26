@@ -3,7 +3,7 @@
 </script>
 
 <nav class="px-4 md:px-14">
-  <h1 class="font-bold text-3xl">vimaestro</h1>
+  <h1 class="font-bold text-3xl">vimaroo</h1>
 </nav>
 
 <slot />
