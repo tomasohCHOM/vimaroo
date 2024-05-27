@@ -18,7 +18,7 @@
   </div>
   <div>
     <a
-      href="https://github.com/tomasohCHOM/vimaestro"
+      href="https://github.com/tomasohCHOM/vimaroo"
       class="underline"
       target="_blank"
     >

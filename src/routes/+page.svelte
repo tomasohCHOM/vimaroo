@@ -18,7 +18,7 @@
     },
   ];
 
-  let selectedGameIndex = 2;
+  let selectedGameIndex = 0;
   let selectedTypeIndex = 0;
   let selectedVariantIndex = 0;
 </script>
