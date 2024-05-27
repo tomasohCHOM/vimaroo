@@ -8,8 +8,10 @@
 
   let initialPrompt: string;
   let textArray: string[];
+  let characterCondition: string;
   let updateArray: (currentDeletePos: number) => void;
   let timer: number = 0;
+
   // let scoreCondition: string;
   // let currentScore = 0;
 
@@ -17,6 +19,7 @@
     case GameModes.WORDS:
       initialPrompt = "Navigate through the words";
       textArray = new Array(10).fill("\n");
+      characterCondition = "_";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -27,6 +30,7 @@
     case GameModes.CONTAINERS:
       initialPrompt = "ci inside the containers";
       textArray = new Array(10).fill("\n");
+      characterCondition = "_";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -37,6 +41,7 @@
     case GameModes.RELATIVE:
       initialPrompt = "Delete the lines";
       textArray = new Array(10).fill("\n");
+      characterCondition = "_";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -47,6 +52,7 @@
     case GameModes.MOVEMENT:
       initialPrompt = "Delete single characters in the word";
       textArray = new Array(10).fill("\n");
+      characterCondition = "_";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -75,6 +81,6 @@
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">
   {#key [gameMode, typeMode]}
-    <Editor {initialPrompt} {textArray} {updateArray} />
+    <Editor {initialPrompt} {textArray} {characterCondition} {updateArray} />
   {/key}
 </div>

@@ -5,6 +5,7 @@
 
   export let initialPrompt: string;
   export let textArray: string[];
+  export let characterCondition: string;
   export let updateArray: (currentDeletePos: number) => void;
 
   let editor: Monaco.editor.IStandaloneCodeEditor;
@@ -18,9 +19,9 @@
   let gameStarted: boolean = false;
   let gameOver: boolean = false;
 
-  // const textArray = new Array(10).fill("\n");
   let currentDeletePos: number;
-  let currentScore = 0;
+  let score = 0;
+  let total = 0;
 
   onMount(async () => {
     // Import monaco code editor
@@ -57,6 +58,8 @@
     loaded = true;
     let startTime: number;
 
+    editor.focus();
+
     editor.getModel()?.onDidChangeContent(() => {
       if (!gameStarted) {
         gameStarted = true;
@@ -67,23 +70,27 @@
       }
       if (gameOver && !editor.getValue().includes("Want to play again?")) {
         gameOver = false;
-        currentScore = 0;
+        score = 0;
         startTime = performance.now();
         updateArray(currentDeletePos);
         editor.setValue(textArray.join(""));
         return;
       }
-      if (editor.getValue().includes("_") || currentScore >= 5) {
+      if (score >= 5) {
         return;
       }
-      currentScore++;
-      if (currentScore >= 5) {
+      if (editor.getValue().includes(characterCondition)) {
+        return;
+      }
+      score++, total++;
+      if (score >= 5) {
         gameOver = true;
         let endTime = performance.now();
         let totalTime = ((endTime - startTime) / 1000).toFixed(2);
-        editor.setValue(
-          `Congrats! Your score is ${currentScore}/5\nTotal time = ${totalTime} seconds\nWant to play again? [Delete this line]`
-        );
+        const scoreSummary = `Congrats! Your score is ${score}/${total}`;
+        const timeSummary = `Total time = ${totalTime} seconds`;
+        const playAgainPrompt = `Want to play again? [Delete this line]`;
+        editor.setValue(`${scoreSummary}\n${timeSummary}\n${playAgainPrompt}`);
         return;
       }
       updateArray(currentDeletePos);
