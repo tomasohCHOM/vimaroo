@@ -3,7 +3,9 @@
   import { onDestroy, onMount } from "svelte";
   import Spinner from "./spinner.svelte";
 
-  export let initalPrompt: string;
+  export let initialPrompt: string;
+  export let textArray: string[];
+  export let updateArray: (currentDeletePos: number) => void;
 
   let editor: Monaco.editor.IStandaloneCodeEditor;
   let editorContainer: HTMLElement;
@@ -16,17 +18,9 @@
   let gameStarted: boolean = false;
   let gameOver: boolean = false;
 
-  const textArray = new Array(10).fill("\n");
+  // const textArray = new Array(10).fill("\n");
   let currentDeletePos: number;
   let currentScore = 0;
-
-  function updateArray() {
-    const previousDeletePos = currentDeletePos ?? 0;
-    currentDeletePos = Math.round(Math.random() * textArray.length);
-    textArray[previousDeletePos] = "\n";
-    textArray[currentDeletePos] = "DELETE_ME";
-    return textArray;
-  }
 
   onMount(async () => {
     // Import monaco code editor
@@ -45,7 +39,7 @@
 
     // Create editor & model to be displayed
     const editor = monaco.editor.create(editorContainer, {
-      value: initalPrompt,
+      value: initialPrompt,
       language: language,
       minimap: { enabled: false },
       scrollBeyondLastLine: false,
@@ -67,7 +61,7 @@
       if (!gameStarted) {
         gameStarted = true;
         startTime = performance.now();
-        updateArray();
+        updateArray(currentDeletePos);
         editor.setValue(textArray.join(""));
         return;
       }
@@ -75,7 +69,7 @@
         gameOver = false;
         currentScore = 0;
         startTime = performance.now();
-        updateArray();
+        updateArray(currentDeletePos);
         editor.setValue(textArray.join(""));
         return;
       }
@@ -92,7 +86,7 @@
         );
         return;
       }
-      updateArray();
+      updateArray(currentDeletePos);
       editor.setValue(textArray.join(""));
     });
   });

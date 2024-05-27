@@ -2,6 +2,10 @@
   import "../globals.css";
 </script>
 
+<svelte:head>
+  <title>Vimaroo | Practice your VIM skills</title>
+</svelte:head>
+
 <nav class="px-4 md:px-14">
   <h1 class="font-bold text-3xl">vimaroo</h1>
 </nav>

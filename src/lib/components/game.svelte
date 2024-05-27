@@ -6,32 +6,63 @@
   export let typeMode: TypeMode;
   export let typeModeVariant: number;
 
-  let prompt: string;
+  let initialPrompt: string;
   let textArray: string[];
+  let updateArray: (currentDeletePos: number) => void;
   let timer: number = 0;
   // let scoreCondition: string;
   // let currentScore = 0;
 
   $: switch (gameMode) {
     case GameModes.WORDS:
-      prompt = "Navigate through the words";
+      initialPrompt = "Navigate through the words";
       textArray = new Array(10).fill("\n");
+      updateArray = (currentDeletePos: number) => {
+        const previousDeletePos = currentDeletePos ?? 0;
+        currentDeletePos = Math.round(Math.random() * textArray.length);
+        textArray[previousDeletePos] = "\n";
+        textArray[currentDeletePos] = "DELETE_ME";
+      };
       break;
     case GameModes.CONTAINERS:
-      prompt = "ci inside the containers";
+      initialPrompt = "ci inside the containers";
       textArray = new Array(10).fill("\n");
+      updateArray = (currentDeletePos: number) => {
+        const previousDeletePos = currentDeletePos ?? 0;
+        currentDeletePos = Math.round(Math.random() * textArray.length);
+        textArray[previousDeletePos] = "\n";
+        textArray[currentDeletePos] = "DELETE_ME";
+      };
       break;
     case GameModes.RELATIVE:
-      prompt = "Delete the lines";
+      initialPrompt = "Delete the lines";
       textArray = new Array(10).fill("\n");
+      updateArray = (currentDeletePos: number) => {
+        const previousDeletePos = currentDeletePos ?? 0;
+        currentDeletePos = Math.round(Math.random() * textArray.length);
+        textArray[previousDeletePos] = "\n";
+        textArray[currentDeletePos] = "DELETE_ME";
+      };
       break;
     case GameModes.MOVEMENT:
-      prompt = "Delete single characters in the word";
+      initialPrompt = "Delete single characters in the word";
       textArray = new Array(10).fill("\n");
+      updateArray = (currentDeletePos: number) => {
+        const previousDeletePos = currentDeletePos ?? 0;
+        currentDeletePos = Math.round(Math.random() * textArray.length);
+        textArray[previousDeletePos] = "\n";
+        textArray[currentDeletePos] = "DELETE_ME";
+      };
       break;
     case GameModes.MIXED:
-      prompt = "Mixed exercises";
+      initialPrompt = "Mixed exercises";
       textArray = new Array(10).fill("\n");
+      updateArray = (currentDeletePos: number) => {
+        const previousDeletePos = currentDeletePos ?? 0;
+        currentDeletePos = Math.round(Math.random() * textArray.length);
+        textArray[previousDeletePos] = "\n";
+        textArray[currentDeletePos] = "DELETE_ME";
+      };
       break;
     default:
       break;
@@ -43,5 +74,7 @@
 </script>
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">
-  <Editor initalPrompt={prompt} />
+  {#key [gameMode, typeMode]}
+    <Editor {initialPrompt} {textArray} {updateArray} />
+  {/key}
 </div>
