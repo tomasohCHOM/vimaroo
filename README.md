@@ -6,9 +6,14 @@ A web platform to get good at VIM.
 
 - [X] - Set up Monaco editor
 - [X] - Set up VIM mode as default in Monaco
-- [ ] - Build scaffold UI
+- [X] - Build scaffold UI
 - - [X] One Dark color scheme
-- - [ ] Add navbar for game modes
-- - [ ] Adjust Monaco editor
+- - [X] Add navbar for game modes
+- - [X] Adjust Monaco editor
 - [ ] - Create games
-- [ ] - More to add later...
+- - [X] Words
+- - [ ] Containers
+- - [X] Relative
+- - [ ] Movement
+- - [ ] Mixed
+- [ ] - More TO-DOs later...
