@@ -6,9 +6,10 @@
   export let initialPrompt: string;
   export let textArray: string[];
   export let stringCondition: string;
-  export let joinCharacter: string;
-  export let updateArray: (currentDeletePos: number) => void;
-  export let totalAttempts;
+  export let joinCharacter: string = "";
+  export let updateBuffer: (currentDeletePos: number) => void;
+  export let testType: string;
+  export let testTypeAmount;
 
   let editor: Monaco.editor.IStandaloneCodeEditor;
   let editorContainer: HTMLElement;
@@ -20,6 +21,7 @@
   let loaded: boolean = false;
   let gameStarted: boolean = false;
   let gameOver: boolean = false;
+  let startInterval: number;
 
   let currentDeletePos: number;
   let score = 0;
@@ -59,49 +61,91 @@
 
     loaded = true;
     let startTime: number;
+    let timer: number = testTypeAmount;
 
     editor.focus();
 
     editor.getModel()?.onDidChangeContent(() => {
+      // Prompt message is displayed, start the game now
       if (!gameStarted) {
         gameStarted = true;
         startTime = performance.now();
-        updateArray(currentDeletePos);
-        editor.setValue(textArray.join(joinCharacter ?? ""));
+        if (testType === "time") {
+          timer = testTypeAmount;
+          startInterval = setInterval(() => {
+            timer -= 1;
+            if (timer === 0) {
+              editor.setValue("");
+            }
+          }, 1000);
+        }
+        updateBuffer(currentDeletePos);
+        editor.setValue(textArray.join(joinCharacter));
         return;
       }
+
+      // Game is over and user wants to play again
       if (gameOver && !editor.getValue().includes("Want to play again?")) {
         gameOver = false;
         (score = 0), (total = 0);
         startTime = performance.now();
-        updateArray(currentDeletePos);
-        editor.setValue(textArray.join(joinCharacter ?? ""));
+        updateBuffer(currentDeletePos);
+        editor.setValue(textArray.join(joinCharacter));
         return;
       }
-      if (score >= totalAttempts) {
+
+      if (gameOver) {
         return;
       }
+
+      // Handles editor value change
       if (editor.getValue().includes(stringCondition)) {
-        if (
-          editor.getValue().length !==
-          textArray.join(joinCharacter ?? "").length
-        ) {
+        // If the user has changed the buffer, count it as a miss
+        if (editor.getValue().length !== textArray.join(joinCharacter).length) {
           total++;
+          editor.setValue(textArray.join(joinCharacter));
         }
+        // Otherwise, the editor changed itself automatically
         return;
       }
+
       score++, total++;
-      if (score >= totalAttempts) {
+      // The user has reached the end of the test
+      // Case 1: test is type = "time"
+      if (testType === "time" && timer <= 0) {
         gameOver = true;
-        let endTime = performance.now();
-        let totalTime = ((endTime - startTime) / 1000).toFixed(2);
-        const scoreSummary = `Congrats! Your score is ${score}/${total}`;
+        clearInterval(startInterval);
+        const accuracy = ((score / total) * 100).toFixed(2);
+
+        const scoreSummary = `Your score is ${score}/${total} for the ${testTypeAmount} seconds test`;
+        const accuracySummary = `Your accuracy was ${accuracy}%`;
+        const playAgainPrompt = `Want to play again? [Delete this line]`;
+        editor.setValue(
+          `${scoreSummary}\n${accuracySummary}\n${playAgainPrompt}`
+        );
+        return;
+      }
+
+      // Case 2: test is type = "amount"
+      if (testType === "amount" && total >= testTypeAmount) {
+        gameOver = true;
+        clearInterval(startInterval);
+        const endTime = performance.now();
+        const totalTime = ((endTime - startTime) / 1000).toFixed(2);
+        const accuracy = ((score / total) * 100).toFixed(2);
+
+        const scoreSummary = `Your score is ${score}/${total}`;
+        const accuracySummary = `Your accuracy was ${accuracy}%`;
         const timeSummary = `Total time = ${totalTime} seconds`;
         const playAgainPrompt = `Want to play again? [Delete this line]`;
-        editor.setValue(`${scoreSummary}\n${timeSummary}\n${playAgainPrompt}`);
+        editor.setValue(
+          `${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${playAgainPrompt}`
+        );
         return;
       }
-      updateArray(currentDeletePos);
+
+      // Update buffer and set it as the new editor value
+      updateBuffer(currentDeletePos);
       editor.setValue(textArray.join(joinCharacter ?? ""));
     });
   });
@@ -109,6 +153,7 @@
   onDestroy(() => {
     monaco?.editor.getModels().forEach((model) => model.dispose());
     if (vimMode) vimMode.dispose();
+    clearInterval(startInterval);
     editor?.dispose();
   });
 </script>

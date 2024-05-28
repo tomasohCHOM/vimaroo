@@ -9,8 +9,8 @@
   let initialPrompt: string;
   let textArray: string[];
   let stringCondition: string;
-  let joinCharacter: string;
-  let updateArray: (currentDeletePos: number) => void;
+  let joinCharacter: string = "";
+  let updateBuffer: (currentDeletePos: number) => void;
   let timer: number = 0;
 
   // let scoreCondition: string;
@@ -20,9 +20,9 @@
     case GameModes.WORDS:
       initialPrompt = "Navigate through the words";
       textArray = new Array(10).fill("bar");
-      stringCondition = "bar bar bar bar bar bar bar bar bar";
+      stringCondition = "zar";
       joinCharacter = " ";
-      updateArray = (currentDeletePos: number) => {
+      updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
         textArray[previousDeletePos] = "bar";
@@ -33,7 +33,8 @@
       initialPrompt = "ci inside the containers";
       textArray = new Array(10).fill("\n");
       stringCondition = "DELETE_ME";
-      updateArray = (currentDeletePos: number) => {
+      joinCharacter = "";
+      updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
@@ -44,7 +45,8 @@
       initialPrompt = "Delete the lines";
       textArray = new Array(10).fill("\n");
       stringCondition = "DELETE_ME";
-      updateArray = (currentDeletePos: number) => {
+      joinCharacter = "";
+      updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
@@ -55,7 +57,8 @@
       initialPrompt = "Delete single characters in the word";
       textArray = new Array(10).fill("\n");
       stringCondition = "DELETE_ME";
-      updateArray = (currentDeletePos: number) => {
+      joinCharacter = "";
+      updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
@@ -65,7 +68,7 @@
     case GameModes.MIXED:
       initialPrompt = "Mixed exercises";
       textArray = new Array(10).fill("\n");
-      updateArray = (currentDeletePos: number) => {
+      updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
@@ -88,8 +91,9 @@
       {textArray}
       {stringCondition}
       {joinCharacter}
-      {updateArray}
-      totalAttempts={typeModeVariant}
+      {updateBuffer}
+      testType={typeMode.type}
+      testTypeAmount={typeModeVariant}
     />
   {/key}
 </div>
