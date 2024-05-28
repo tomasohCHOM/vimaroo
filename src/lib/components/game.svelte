@@ -8,7 +8,8 @@
 
   let initialPrompt: string;
   let textArray: string[];
-  let characterCondition: string;
+  let stringCondition: string;
+  let joinCharacter: string;
   let updateArray: (currentDeletePos: number) => void;
   let timer: number = 0;
 
@@ -18,19 +19,20 @@
   $: switch (gameMode) {
     case GameModes.WORDS:
       initialPrompt = "Navigate through the words";
-      textArray = new Array(10).fill("\n");
-      characterCondition = "_";
+      textArray = new Array(10).fill("bar");
+      stringCondition = "bar bar bar bar bar bar bar bar bar";
+      joinCharacter = " ";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
-        textArray[previousDeletePos] = "\n";
-        textArray[currentDeletePos] = "DELETE_ME";
+        textArray[previousDeletePos] = "bar";
+        textArray[currentDeletePos] = "zar";
       };
       break;
     case GameModes.CONTAINERS:
       initialPrompt = "ci inside the containers";
       textArray = new Array(10).fill("\n");
-      characterCondition = "_";
+      stringCondition = "DELETE_ME";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -41,7 +43,7 @@
     case GameModes.RELATIVE:
       initialPrompt = "Delete the lines";
       textArray = new Array(10).fill("\n");
-      characterCondition = "_";
+      stringCondition = "DELETE_ME";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -52,7 +54,7 @@
     case GameModes.MOVEMENT:
       initialPrompt = "Delete single characters in the word";
       textArray = new Array(10).fill("\n");
-      characterCondition = "_";
+      stringCondition = "DELETE_ME";
       updateArray = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
         currentDeletePos = Math.round(Math.random() * textArray.length);
@@ -81,6 +83,13 @@
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">
   {#key [gameMode, typeMode]}
-    <Editor {initialPrompt} {textArray} {characterCondition} {updateArray} />
+    <Editor
+      {initialPrompt}
+      {textArray}
+      {stringCondition}
+      {joinCharacter}
+      {updateArray}
+      totalAttempts={typeModeVariant}
+    />
   {/key}
 </div>

@@ -5,8 +5,10 @@
 
   export let initialPrompt: string;
   export let textArray: string[];
-  export let characterCondition: string;
+  export let stringCondition: string;
+  export let joinCharacter: string;
   export let updateArray: (currentDeletePos: number) => void;
+  export let totalAttempts;
 
   let editor: Monaco.editor.IStandaloneCodeEditor;
   let editorContainer: HTMLElement;
@@ -65,25 +67,31 @@
         gameStarted = true;
         startTime = performance.now();
         updateArray(currentDeletePos);
-        editor.setValue(textArray.join(""));
+        editor.setValue(textArray.join(joinCharacter ?? ""));
         return;
       }
       if (gameOver && !editor.getValue().includes("Want to play again?")) {
         gameOver = false;
-        score = 0;
+        (score = 0), (total = 0);
         startTime = performance.now();
         updateArray(currentDeletePos);
-        editor.setValue(textArray.join(""));
+        editor.setValue(textArray.join(joinCharacter ?? ""));
         return;
       }
-      if (score >= 5) {
+      if (score >= totalAttempts) {
         return;
       }
-      if (editor.getValue().includes(characterCondition)) {
+      if (editor.getValue().includes(stringCondition)) {
+        if (
+          editor.getValue().length !==
+          textArray.join(joinCharacter ?? "").length
+        ) {
+          total++;
+        }
         return;
       }
       score++, total++;
-      if (score >= 5) {
+      if (score >= totalAttempts) {
         gameOver = true;
         let endTime = performance.now();
         let totalTime = ((endTime - startTime) / 1000).toFixed(2);
@@ -94,7 +102,7 @@
         return;
       }
       updateArray(currentDeletePos);
-      editor.setValue(textArray.join(""));
+      editor.setValue(textArray.join(joinCharacter ?? ""));
     });
   });
 
