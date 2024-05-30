@@ -62,12 +62,13 @@
     loaded = true;
     let startTime: number;
     let timer: number = testTypeAmount;
+    let triggeredByEditor = false;
 
     editor.focus();
 
     editor.getModel()?.onDidChangeContent(() => {
       // Prompt message is displayed, start the game now
-      if (!gameStarted) {
+      if (!gameOver && !gameStarted) {
         gameStarted = true;
         startTime = performance.now();
         if (testType === "time") {
@@ -80,16 +81,25 @@
           }, 1000);
         }
         updateBuffer(currentDeletePos);
+        triggeredByEditor = true;
         editor.setValue(textArray.join(joinCharacter));
+        return;
+      }
+      // If changes were triggered by the editor, ignore
+      if (triggeredByEditor) {
+        triggeredByEditor = false;
         return;
       }
 
       // Game is over and user wants to play again
       if (gameOver && !editor.getValue().includes("Want to play again?")) {
         gameOver = false;
+        gameStarted = false;
+        timer = testTypeAmount;
         (score = 0), (total = 0);
         startTime = performance.now();
         updateBuffer(currentDeletePos);
+        triggeredByEditor = true;
         editor.setValue(textArray.join(joinCharacter));
         return;
       }
@@ -98,13 +108,15 @@
         return;
       }
 
-      // Handles editor value change
-      if (editor.getValue().includes(stringCondition)) {
-        // If the user has changed the buffer, count it as a miss
-        if (editor.getValue().length !== textArray.join(joinCharacter).length) {
-          total++;
-          editor.setValue(textArray.join(joinCharacter));
-        }
+      // If the user has changed the buffer, count it as a miss
+      if (
+        editor.getValue().includes(stringCondition) &&
+        editor.getValue().length !== textArray.join(joinCharacter).length
+      ) {
+        total++;
+        updateBuffer(currentDeletePos);
+        triggeredByEditor = true;
+        editor.setValue(textArray.join(joinCharacter));
         // Otherwise, the editor changed itself automatically
         return;
       }
@@ -120,6 +132,8 @@
         const scoreSummary = `Your score is ${score}/${total} for the ${testTypeAmount} seconds test`;
         const accuracySummary = `Your accuracy was ${accuracy}%`;
         const playAgainPrompt = `Want to play again? [Delete this line]`;
+
+        triggeredByEditor = true;
         editor.setValue(
           `${scoreSummary}\n${accuracySummary}\n${playAgainPrompt}`
         );
@@ -138,6 +152,8 @@
         const accuracySummary = `Your accuracy was ${accuracy}%`;
         const timeSummary = `Total time = ${totalTime} seconds`;
         const playAgainPrompt = `Want to play again? [Delete this line]`;
+
+        triggeredByEditor = true;
         editor.setValue(
           `${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${playAgainPrompt}`
         );
@@ -146,6 +162,7 @@
 
       // Update buffer and set it as the new editor value
       updateBuffer(currentDeletePos);
+      triggeredByEditor = true;
       editor.setValue(textArray.join(joinCharacter ?? ""));
     });
   });

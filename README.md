@@ -1,4 +1,4 @@
-# VIMaestro
+# vimaroo
 
 A web platform to get good at VIM.
 
