@@ -11,7 +11,6 @@
   let stringCondition: string;
   let joinCharacter: string = "";
   let updateBuffer: (currentDeletePos: number) => void;
-  let timer: number = 0;
 
   // let scoreCondition: string;
   // let currentScore = 0;
@@ -77,10 +76,6 @@
       break;
     default:
       break;
-  }
-
-  $: if (typeMode.type === "time" || typeMode.type === "amount") {
-    timer = typeModeVariant;
   }
 </script>
 

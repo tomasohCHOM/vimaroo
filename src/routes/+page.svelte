@@ -38,7 +38,11 @@
         </button>
       {/each}
     </div>
-    <div class="flex gap-4 pr-4 border-r-4 border-slate-700">
+    <div
+      class="flex gap-4 pr-4 {typeModes[selectedTypeIndex].type !== 'zen'
+        ? 'border-slate-700 border-r-4'
+        : ''}"
+    >
       {#each typeModes as typeMode, i}
         <button
           class="font-semibold transition duration-150
