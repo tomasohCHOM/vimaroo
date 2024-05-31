@@ -23,7 +23,7 @@
       joinCharacter = " ";
       updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.round(Math.random() * textArray.length);
+        currentDeletePos = Math.floor(Math.random() * textArray.length);
         textArray[previousDeletePos] = "bar";
         textArray[currentDeletePos] = "zar";
       };
@@ -35,7 +35,7 @@
       joinCharacter = "";
       updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.round(Math.random() * textArray.length);
+        currentDeletePos = Math.floor(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
         textArray[currentDeletePos] = "DELETE_ME";
       };
@@ -47,7 +47,7 @@
       joinCharacter = "";
       updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.round(Math.random() * textArray.length);
+        currentDeletePos = Math.floor(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
         textArray[currentDeletePos] = "DELETE_ME";
       };
@@ -59,7 +59,7 @@
       joinCharacter = "";
       updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.round(Math.random() * textArray.length);
+        currentDeletePos = Math.floor(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
         textArray[currentDeletePos] = "DELETE_ME";
       };
@@ -69,7 +69,7 @@
       textArray = new Array(10).fill("\n");
       updateBuffer = (currentDeletePos: number) => {
         const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.round(Math.random() * textArray.length);
+        currentDeletePos = Math.floor(Math.random() * textArray.length);
         textArray[previousDeletePos] = "\n";
         textArray[currentDeletePos] = "DELETE_ME";
       };
