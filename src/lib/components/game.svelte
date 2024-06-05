@@ -12,72 +12,76 @@
   let joinCharacter: string = "";
   let updateBuffer: (currentDeletePos: number) => void;
 
-  $: switch (gameMode) {
-    case GameModes.WORDS:
-      initialPrompt = "Navigate through the words";
-      textArray = new Array(10).fill("bar");
-      stringCondition = "zar";
-      joinCharacter = " ";
-      updateBuffer = (currentDeletePos: number) => {
-        const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.floor(Math.random() * textArray.length);
-        textArray[previousDeletePos] = "bar";
-        textArray[currentDeletePos] = "zar";
-      };
-      break;
-    case GameModes.CONTAINERS:
-      initialPrompt = "Delete the contents of the containers (tip: use di)";
-      textArray = ["[", "DELETE_ME", "]"];
-      stringCondition = "";
-      joinCharacter = "";
-      updateBuffer = (currentDeletePos: number) => {
-        const containerTypes = ["[]", "{}", "()", "''", '""'];
-        const containerType =
-          containerTypes[Math.floor(Math.random() * containerTypes.length)];
+  $: handleGameModeChange(gameMode);
 
-        const sampleText = ["Hello there", "Delete me", "foo", "bar"];
-        textArray[0] = containerType[0];
-        textArray[textArray.length - 1] = containerType[1];
-        textArray[1] =
-          sampleText[Math.floor(Math.random() * sampleText.length)];
-      };
-      break;
-    case GameModes.RELATIVE:
-      initialPrompt = "Delete the lines";
-      textArray = new Array(10).fill("\n");
-      stringCondition = "DELETE_ME";
-      joinCharacter = "";
-      updateBuffer = (currentDeletePos: number) => {
-        const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.floor(Math.random() * textArray.length);
-        textArray[previousDeletePos] = "\n";
-        textArray[currentDeletePos] = "DELETE_ME";
-      };
-      break;
-    case GameModes.MOVEMENT:
-      initialPrompt = "Delete single characters in the word";
-      textArray = new Array(10).fill("\n");
-      stringCondition = "DELETE_ME";
-      joinCharacter = "";
-      updateBuffer = (currentDeletePos: number) => {
-        const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.floor(Math.random() * textArray.length);
-        textArray[previousDeletePos] = "\n";
-        textArray[currentDeletePos] = "DELETE_ME";
-      };
-      break;
-    case GameModes.MIXED:
-      initialPrompt = "Mixed exercises";
-      textArray = new Array(10).fill("\n");
-      updateBuffer = (currentDeletePos: number) => {
-        const previousDeletePos = currentDeletePos ?? 0;
-        currentDeletePos = Math.floor(Math.random() * textArray.length);
-        textArray[previousDeletePos] = "\n";
-        textArray[currentDeletePos] = "DELETE_ME";
-      };
-      break;
-    default:
-      break;
+  function handleGameModeChange(gameMode: string) {
+    switch (gameMode) {
+      case GameModes.WORDS:
+        initialPrompt = "Navigate through the words";
+        textArray = new Array(10).fill("bar");
+        stringCondition = "zar";
+        joinCharacter = " ";
+        updateBuffer = (currentDeletePos: number) => {
+          const previousDeletePos = currentDeletePos ?? 0;
+          currentDeletePos = Math.floor(Math.random() * textArray.length);
+          textArray[previousDeletePos] = "bar";
+          textArray[currentDeletePos] = "zar";
+        };
+        break;
+      case GameModes.CONTAINERS:
+        initialPrompt = "Delete the contents of the containers (tip: use di)";
+        textArray = ["[", "DELETE_ME", "]"];
+        stringCondition = "";
+        joinCharacter = "";
+        updateBuffer = (currentDeletePos: number) => {
+          const containerTypes = ["[]", "{}", "()", "''", '""'];
+          const containerType =
+            containerTypes[Math.floor(Math.random() * containerTypes.length)];
+
+          const sampleText = ["Hello there", "Delete me", "foo", "bar"];
+          textArray[0] = containerType[0];
+          textArray[textArray.length - 1] = containerType[1];
+          textArray[1] =
+            sampleText[Math.floor(Math.random() * sampleText.length)];
+        };
+        break;
+      case GameModes.RELATIVE:
+        initialPrompt = "Delete the lines";
+        textArray = new Array(10).fill("\n");
+        stringCondition = "DELETE_ME";
+        joinCharacter = "";
+        updateBuffer = (currentDeletePos: number) => {
+          const previousDeletePos = currentDeletePos ?? 0;
+          currentDeletePos = Math.floor(Math.random() * textArray.length);
+          textArray[previousDeletePos] = "\n";
+          textArray[currentDeletePos] = "DELETE_ME";
+        };
+        break;
+      case GameModes.MOVEMENT:
+        initialPrompt = "Delete single characters in the word";
+        textArray = new Array(10).fill("\n");
+        stringCondition = "DELETE_ME";
+        joinCharacter = "";
+        updateBuffer = (currentDeletePos: number) => {
+          const previousDeletePos = currentDeletePos ?? 0;
+          currentDeletePos = Math.floor(Math.random() * textArray.length);
+          textArray[previousDeletePos] = "\n";
+          textArray[currentDeletePos] = "DELETE_ME";
+        };
+        break;
+      case GameModes.MIXED:
+        initialPrompt = "Mixed exercises";
+        textArray = new Array(10).fill("\n");
+        updateBuffer = (currentDeletePos: number) => {
+          const previousDeletePos = currentDeletePos ?? 0;
+          currentDeletePos = Math.floor(Math.random() * textArray.length);
+          textArray[previousDeletePos] = "\n";
+          textArray[currentDeletePos] = "DELETE_ME";
+        };
+        break;
+      default:
+        break;
+    }
   }
 </script>
 
