@@ -1,100 +1,25 @@
 <script lang="ts">
-  import { type TypeMode, GameModes } from "$lib/types";
+  import { handleGameModeChange } from "$lib/game";
+  import { type Test, type TypeMode } from "$lib/types";
   import Editor from "./editor.svelte";
 
   export let gameMode: string;
   export let typeMode: TypeMode;
   export let typeModeVariant: number;
 
-  let initialPrompt: string;
-  let textArray: string[];
-  let stringCondition: string;
-  let joinCharacter: string = "";
-  let updateBuffer: (currentDeletePos: number) => void;
+  let test: Test = {
+    initialPrompt: "",
+    textBuffer: [],
+    joinCharacter: "",
+    stringCondition: "",
+    updateBuffer: function () {},
+  };
 
-  $: handleGameModeChange(gameMode);
-
-  function handleGameModeChange(gameMode: string) {
-    switch (gameMode) {
-      case GameModes.WORDS:
-        initialPrompt = "Navigate through the words";
-        textArray = new Array(10).fill("bar");
-        stringCondition = "zar";
-        joinCharacter = " ";
-        updateBuffer = (currentDeletePos: number) => {
-          const previousDeletePos = currentDeletePos ?? 0;
-          currentDeletePos = Math.floor(Math.random() * textArray.length);
-          textArray[previousDeletePos] = "bar";
-          textArray[currentDeletePos] = "zar";
-        };
-        break;
-      case GameModes.CONTAINERS:
-        initialPrompt = "Delete the contents of the containers (tip: use di)";
-        textArray = ["[", "DELETE_ME", "]"];
-        stringCondition = "";
-        joinCharacter = "";
-        updateBuffer = (currentDeletePos: number) => {
-          const containerTypes = ["[]", "{}", "()", "''", '""'];
-          const containerType =
-            containerTypes[Math.floor(Math.random() * containerTypes.length)];
-
-          const sampleText = ["Hello there", "Delete me", "foo", "bar"];
-          textArray[0] = containerType[0];
-          textArray[textArray.length - 1] = containerType[1];
-          textArray[1] =
-            sampleText[Math.floor(Math.random() * sampleText.length)];
-        };
-        break;
-      case GameModes.RELATIVE:
-        initialPrompt = "Delete the lines";
-        textArray = new Array(10).fill("\n");
-        stringCondition = "DELETE_ME";
-        joinCharacter = "";
-        updateBuffer = (currentDeletePos: number) => {
-          const previousDeletePos = currentDeletePos ?? 0;
-          currentDeletePos = Math.floor(Math.random() * textArray.length);
-          textArray[previousDeletePos] = "\n";
-          textArray[currentDeletePos] = "DELETE_ME";
-        };
-        break;
-      case GameModes.MOVEMENT:
-        initialPrompt = "Delete single characters in the word";
-        textArray = new Array(10).fill("\n");
-        stringCondition = "DELETE_ME";
-        joinCharacter = "";
-        updateBuffer = (currentDeletePos: number) => {
-          const previousDeletePos = currentDeletePos ?? 0;
-          currentDeletePos = Math.floor(Math.random() * textArray.length);
-          textArray[previousDeletePos] = "\n";
-          textArray[currentDeletePos] = "DELETE_ME";
-        };
-        break;
-      case GameModes.MIXED:
-        initialPrompt = "Mixed exercises";
-        textArray = new Array(10).fill("\n");
-        updateBuffer = (currentDeletePos: number) => {
-          const previousDeletePos = currentDeletePos ?? 0;
-          currentDeletePos = Math.floor(Math.random() * textArray.length);
-          textArray[previousDeletePos] = "\n";
-          textArray[currentDeletePos] = "DELETE_ME";
-        };
-        break;
-      default:
-        break;
-    }
-  }
+  $: handleGameModeChange(test, gameMode);
 </script>
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">
   {#key [gameMode, typeMode]}
-    <Editor
-      {initialPrompt}
-      {textArray}
-      {stringCondition}
-      {joinCharacter}
-      {updateBuffer}
-      testType={typeMode.type}
-      testTypeAmount={typeModeVariant}
-    />
+    <Editor {test} testType={typeMode.type} testTypeAmount={typeModeVariant} />
   {/key}
 </div>

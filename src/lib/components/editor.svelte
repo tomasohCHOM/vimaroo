@@ -2,12 +2,9 @@
   import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
   import { onDestroy, onMount } from "svelte";
   import Spinner from "./spinner.svelte";
+  import type { Test } from "$lib/types";
 
-  export let initialPrompt: string;
-  export let textArray: string[];
-  export let stringCondition: string;
-  export let joinCharacter: string = "";
-  export let updateBuffer: (currentDeletePos: number) => void;
+  export let test: Test;
   export let testType: string;
   export let testTypeAmount;
 
@@ -44,7 +41,7 @@
 
     // Create editor & model to be displayed
     const editor = monaco.editor.create(editorContainer, {
-      value: initialPrompt,
+      value: test.initialPrompt,
       language: language,
       minimap: { enabled: false },
       scrollBeyondLastLine: false,
@@ -80,9 +77,9 @@
             }
           }, 1000);
         }
-        updateBuffer(currentDeletePos);
+        test.updateBuffer(currentDeletePos);
         triggeredByEditor = true;
-        editor.setValue(textArray.join(joinCharacter));
+        editor.setValue(test.textBuffer.join(test.joinCharacter));
         return;
       }
       // If changes were triggered by the editor, ignore
@@ -98,9 +95,9 @@
         timer = testTypeAmount;
         (score = 0), (total = 0);
         startTime = performance.now();
-        updateBuffer(currentDeletePos);
+        test.updateBuffer(currentDeletePos);
         triggeredByEditor = true;
-        editor.setValue(textArray.join(joinCharacter));
+        editor.setValue(test.textBuffer.join(test.joinCharacter));
         return;
       }
 
@@ -110,13 +107,14 @@
 
       // If the user has changed the buffer, count it as a miss
       if (
-        editor.getValue().includes(stringCondition) &&
-        editor.getValue().length !== textArray.join(joinCharacter).length
+        editor.getValue().includes(test.stringCondition) &&
+        editor.getValue().length !==
+          test.textBuffer.join(test.joinCharacter).length
       ) {
         total++;
-        updateBuffer(currentDeletePos);
+        test.updateBuffer(currentDeletePos);
         triggeredByEditor = true;
-        editor.setValue(textArray.join(joinCharacter));
+        editor.setValue(test.textBuffer.join(test.joinCharacter));
         // Otherwise, the editor changed itself automatically
         return;
       }
@@ -161,9 +159,9 @@
       }
 
       // Update buffer and set it as the new editor value
-      updateBuffer(currentDeletePos);
+      test.updateBuffer(currentDeletePos);
       triggeredByEditor = true;
-      editor.setValue(textArray.join(joinCharacter ?? ""));
+      editor.setValue(test.textBuffer.join(test.joinCharacter));
     });
   });
 

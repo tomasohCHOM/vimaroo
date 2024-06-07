@@ -10,3 +10,11 @@ export enum GameModes {
   MOVEMENT = "movement",
   MIXED = "mixed",
 }
+
+export type Test = {
+  initialPrompt: string;
+  textBuffer: string[];
+  stringCondition: string;
+  joinCharacter: string;
+  updateBuffer: (currentDeletePos: number | undefined) => void;
+};
