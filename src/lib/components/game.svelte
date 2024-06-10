@@ -7,15 +7,8 @@
   export let typeMode: TypeMode;
   export let typeModeVariant: number;
 
-  let test: Test = {
-    initialPrompt: "",
-    textBuffer: [],
-    joinCharacter: "",
-    stringCondition: "",
-    updateBuffer: function () {},
-  };
-
-  $: handleGameModeChange(test, gameMode);
+  let test: Test = handleGameModeChange(gameMode);
+  $: test = handleGameModeChange(gameMode);
 </script>
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">

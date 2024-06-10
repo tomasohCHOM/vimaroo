@@ -20,7 +20,6 @@
   let gameOver: boolean = false;
   let startInterval: number;
 
-  let currentDeletePos: number;
   let score = 0;
   let total = 0;
 
@@ -77,7 +76,7 @@
             }
           }, 1000);
         }
-        test.updateBuffer(currentDeletePos);
+        test.updateBuffer();
         triggeredByEditor = true;
         editor.setValue(test.textBuffer.join(test.joinCharacter));
         return;
@@ -95,7 +94,7 @@
         timer = testTypeAmount;
         (score = 0), (total = 0);
         startTime = performance.now();
-        test.updateBuffer(currentDeletePos);
+        test.updateBuffer();
         triggeredByEditor = true;
         editor.setValue(test.textBuffer.join(test.joinCharacter));
         return;
@@ -106,13 +105,9 @@
       }
 
       // If the user has changed the buffer, count it as a miss
-      if (
-        editor.getValue().includes(test.stringCondition) &&
-        editor.getValue().length !==
-          test.textBuffer.join(test.joinCharacter).length
-      ) {
+      if (test.condition(editor.getValue())) {
         total++;
-        test.updateBuffer(currentDeletePos);
+        test.updateBuffer();
         triggeredByEditor = true;
         editor.setValue(test.textBuffer.join(test.joinCharacter));
         // Otherwise, the editor changed itself automatically
@@ -159,7 +154,7 @@
       }
 
       // Update buffer and set it as the new editor value
-      test.updateBuffer(currentDeletePos);
+      test.updateBuffer();
       triggeredByEditor = true;
       editor.setValue(test.textBuffer.join(test.joinCharacter));
     });

@@ -1,8 +1,8 @@
 <script lang="ts">
   import Game from "$lib/components/game.svelte";
-  import { GameModes, type TypeMode } from "$lib/types";
+  import { TestType, type TypeMode } from "$lib/types";
 
-  const gameModes = Object.values(GameModes);
+  const gameModes = Object.values(TestType);
   const typeModes: TypeMode[] = [
     {
       type: "time",
