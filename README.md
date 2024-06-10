@@ -12,8 +12,9 @@ A web platform to get good at VIM.
 - - [X] Adjust Monaco editor
 - [ ] - Create games
 - - [X] Words
-- - [ ] Containers
+- - [X] Containers
 - - [X] Relative
 - - [ ] Movement
 - - [ ] Mixed
-- [ ] - More TO-DOs later...
+- [ ] Update website styles
+- [ ] Add Firebase
