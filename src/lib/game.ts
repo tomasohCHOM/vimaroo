@@ -32,16 +32,14 @@ const wordTest: Test = {
   targetWord: TARGET_WORDS[0],
   populateWord: POPULATE_WORDS[0],
   targetPosition: 0,
-  initialPrompt: "Please change the word hello to world",
+  initialPrompt: "Remove the word that is different from the rest",
   textBuffer: new Array(10).fill(POPULATE_WORDS[0]),
   joinCharacter: " ",
   condition: (currentBuffer: string) => {
-    if (currentBuffer.length === 0) {
-      return false;
-    }
-    if (wordTest.type === TestType.WORDS)
-      return !currentBuffer.includes(wordTest.targetWord);
-    return false;
+    if (currentBuffer.length === 0) return false;
+    if (wordTest.type !== TestType.WORDS) return false;
+
+    return !currentBuffer.includes(wordTest.targetWord);
   },
   updateBuffer: () => {
     if (wordTest.type !== TestType.WORDS) return;
@@ -85,7 +83,10 @@ const relativeTest: Test = {
   textBuffer: new Array(10).fill("\n"),
   joinCharacter: "",
   condition: (currentBuffer: string) => {
-    return false;
+    if (currentBuffer.length === 0) return false;
+    if (relativeTest.type !== TestType.RELATIVE) return false;
+
+    return !currentBuffer.includes("DELETE_ME");
   },
   updateBuffer: () => {
     if (relativeTest.type !== TestType.RELATIVE) return;
@@ -101,11 +102,14 @@ const relativeTest: Test = {
 const movementTest: Test = {
   type: TestType.MOVEMENT,
   targetPosition: 0,
-  initialPrompt: "Delete the lines by using relative line jumping",
+  initialPrompt: "Remove the odd character by moving around with hjkl",
   textBuffer: new Array(10).fill("\n"),
   joinCharacter: "",
   condition: (currentBuffer: string) => {
-    return false;
+    if (currentBuffer.length === 0) return false;
+    if (movementTest.type !== TestType.MOVEMENT) return false;
+
+    return !currentBuffer.includes("DELETE_ME");
   },
   updateBuffer: () => {
     if (movementTest.type !== TestType.MOVEMENT) return;

@@ -104,17 +104,6 @@
         return;
       }
 
-      // If the user has changed the buffer, count it as a miss
-      if (test.condition(editor.getValue())) {
-        total++;
-        test.updateBuffer();
-        triggeredByEditor = true;
-        editor.setValue(test.textBuffer.join(test.joinCharacter));
-        // Otherwise, the editor changed itself automatically
-        return;
-      }
-
-      score++, total++;
       // The user has reached the end of the test
       // Case 1: test is type = "time"
       if (testType === "time" && timer <= 0) {
@@ -153,6 +142,12 @@
         return;
       }
 
+      // Check if we count it as a success or failure
+      // In either case, increment the total count
+      if (test.condition(editor.getValue())) {
+        score++;
+      }
+      total++;
       // Update buffer and set it as the new editor value
       test.updateBuffer();
       triggeredByEditor = true;
