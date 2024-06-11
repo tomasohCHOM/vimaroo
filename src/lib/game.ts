@@ -24,16 +24,42 @@ export function handleGameModeChange(gameMode: string): Test {
   }
 }
 
-const POPULATE_WORDS = ["zar"];
-const TARGET_WORDS = ["bar"];
+const EXTRA_WORDS = [
+  "aar",
+  "bar",
+  "car",
+  "dar",
+  "ear",
+  "far",
+  "gar",
+  "har",
+  "iar",
+  "jar",
+  "kar",
+  "lar",
+  "mar",
+  "nar",
+  "oar",
+  "par",
+  "qar",
+  "rar",
+  "sar",
+  "tar",
+  "uar",
+  "var",
+  "war",
+  "xar",
+  "yar",
+  "zar",
+];
 
 const wordTest: Test = {
   type: TestType.WORDS,
-  targetWord: TARGET_WORDS[0],
-  populateWord: POPULATE_WORDS[0],
+  targetWord: EXTRA_WORDS[0],
+  populateWord: EXTRA_WORDS[1],
   targetPosition: 0,
   initialPrompt: "Remove the word that is different from the rest",
-  textBuffer: new Array(10).fill(POPULATE_WORDS[0]),
+  textBuffer: new Array(10).fill(EXTRA_WORDS[1]),
   joinCharacter: " ",
   condition: (currentBuffer: string) => {
     if (currentBuffer.length === 0) return false;
@@ -58,8 +84,10 @@ const containersTest: Test = {
   initialPrompt: "Delete the contents of the containers (tip: use di)",
   textBuffer: ["[", "DELETE_ME", "]"],
   condition: (currentBuffer: string) => {
-    const wrapper = containersTest.textBuffer[0] + containersTest.textBuffer[2];
-    return !currentBuffer.includes(wrapper);
+    const wrapper =
+      containersTest.textBuffer[0] +
+      containersTest.textBuffer[containersTest.textBuffer.length - 1];
+    return currentBuffer.includes(wrapper);
   },
   joinCharacter: "",
   updateBuffer: () => {
@@ -103,21 +131,41 @@ const movementTest: Test = {
   type: TestType.MOVEMENT,
   targetPosition: 0,
   initialPrompt: "Remove the odd character by moving around with hjkl",
-  textBuffer: new Array(10).fill("\n"),
-  joinCharacter: "",
+  textBuffer: new Array(8).fill(".........."),
+  joinCharacter: "\n",
   condition: (currentBuffer: string) => {
-    if (currentBuffer.length === 0) return false;
     if (movementTest.type !== TestType.MOVEMENT) return false;
 
-    return !currentBuffer.includes("DELETE_ME");
+    const parsedBuffer = currentBuffer.split("\n").join("");
+    const rowLength = movementTest.textBuffer.length;
+    const columnLength = movementTest.textBuffer[0].length;
+    return parsedBuffer === ".".repeat(rowLength * columnLength - 1);
   },
   updateBuffer: () => {
     if (movementTest.type !== TestType.MOVEMENT) return;
+
+    const rowLength = movementTest.textBuffer.length;
+    const columnLength = movementTest.textBuffer[0].length;
+
+    // Change previous target position to a normal character
     const previousDeletePos = movementTest.targetPosition;
-    movementTest.targetPosition = Math.floor(
-      Math.random() * movementTest.textBuffer.length
-    );
-    movementTest.textBuffer[previousDeletePos] = "\n";
-    movementTest.textBuffer[movementTest.targetPosition] = "DELETE_ME";
+    let row = Math.floor(previousDeletePos / columnLength);
+    let column = Math.floor(previousDeletePos % columnLength);
+    let previousRow: string | string[] = [...movementTest.textBuffer[row]];
+    previousRow[column] = ".";
+    previousRow = previousRow.join("");
+    movementTest.textBuffer[row] = previousRow;
+
+    // Randomly select a new target position
+    const randomPosition = Math.random() * rowLength * columnLength;
+    movementTest.targetPosition = Math.floor(randomPosition);
+
+    // Change new target position to a target character
+    row = Math.floor(movementTest.targetPosition / columnLength);
+    column = Math.floor(movementTest.targetPosition % columnLength);
+    let targetRow: string | string[] = [...movementTest.textBuffer[row]];
+    targetRow[column] = "X";
+    targetRow = targetRow.join("");
+    movementTest.textBuffer[row] = targetRow;
   },
 } satisfies MovementTest;
