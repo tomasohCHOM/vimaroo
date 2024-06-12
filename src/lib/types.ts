@@ -52,7 +52,12 @@ interface MixedTest extends BaseTest {
   targetPosition: number;
 }
 
-type Test = WordsTest | ContainersTest | RelativeTest | MovementTest;
+type Test =
+  | WordsTest
+  | ContainersTest
+  | RelativeTest
+  | MovementTest
+  | MixedTest;
 
 export { TestType };
 export type {

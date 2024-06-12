@@ -5,6 +5,7 @@ import type {
   ContainersTest,
   RelativeTest,
   MovementTest,
+  MixedTest,
 } from "../types";
 import {
   EXTRA_DELETE_SENTENCES,
@@ -24,10 +25,9 @@ export function handleGameModeChange(gameMode: string): Test {
     case TestType.MOVEMENT:
       return movementTest;
     case TestType.MIXED:
-      return movementTest;
-    default:
-      return movementTest;
+      return mixedTest;
   }
+  return wordTest;
 }
 
 const wordTest: Test = {
@@ -164,3 +164,46 @@ const movementTest: Test = {
     movementTest.textBuffer[row] = targetRow;
   },
 } satisfies MovementTest;
+
+let mixedTest: Test = {
+  type: TestType.MIXED,
+  targetWord: "",
+  populateWord: "",
+  targetCharacter: "",
+  populateCharacter: "",
+  targetPosition: 0,
+  initialPrompt: "A combination of all other tests into one!",
+  textBuffer: [],
+  joinCharacter: "",
+  condition: (currrentBuffer: string) => false,
+  updateBuffer: () => {
+    const testTypes = [
+      TestType.WORDS,
+      TestType.CONTAINERS,
+      TestType.RELATIVE,
+      TestType.MOVEMENT,
+    ];
+    const randomTest = testTypes[Math.floor(Math.random() * testTypes.length)];
+    const savedUpdatedBuffer = mixedTest.updateBuffer;
+    switch (randomTest) {
+      case TestType.WORDS:
+        wordTest.updateBuffer();
+        mixedTest = wordTest;
+        break;
+      case TestType.CONTAINERS:
+        containersTest.updateBuffer();
+        mixedTest = containersTest;
+        break;
+      case TestType.RELATIVE:
+        relativeTest.updateBuffer();
+        mixedTest = relativeTest;
+        break;
+      case TestType.MOVEMENT:
+        movementTest.updateBuffer();
+        mixedTest = movementTest;
+        break;
+    }
+    console.log(mixedTest.textBuffer);
+    mixedTest.updateBuffer = savedUpdatedBuffer;
+  },
+} satisfies MixedTest;

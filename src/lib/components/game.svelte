@@ -9,6 +9,8 @@
 
   let test: Test = handleGameModeChange(gameMode);
   $: test = handleGameModeChange(gameMode);
+
+  test.updateBuffer();
 </script>
 
 <div class="w-[min(1000px,_90vw)] h-[400px]">

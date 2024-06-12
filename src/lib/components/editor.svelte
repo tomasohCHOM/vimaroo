@@ -63,6 +63,15 @@
     editor.focus();
 
     editor.getModel()?.onDidChangeContent(() => {
+      // Helper function for updating the editor contents via the
+      // test object updateBuffer() method
+      const updateEditorContets = () => {
+        test.updateBuffer();
+        console.log(test.textBuffer);
+        triggeredByEditor = true;
+        editor.setValue(test.textBuffer.join(test.joinCharacter));
+      };
+
       // Prompt message is displayed, start the game now
       if (!gameOver && !gameStarted) {
         gameStarted = true;
@@ -76,9 +85,7 @@
             }
           }, 1000);
         }
-        test.updateBuffer();
-        triggeredByEditor = true;
-        editor.setValue(test.textBuffer.join(test.joinCharacter));
+        updateEditorContets();
         return;
       }
       // If changes were triggered by the editor, ignore
@@ -94,9 +101,7 @@
         timer = testTypeAmount;
         (score = 0), (total = 0);
         startTime = performance.now();
-        test.updateBuffer();
-        triggeredByEditor = true;
-        editor.setValue(test.textBuffer.join(test.joinCharacter));
+        updateEditorContets();
         return;
       }
 
@@ -149,9 +154,7 @@
       }
       total++;
       // Update buffer and set it as the new editor value
-      test.updateBuffer();
-      triggeredByEditor = true;
-      editor.setValue(test.textBuffer.join(test.joinCharacter));
+      updateEditorContets();
     });
   });
 
