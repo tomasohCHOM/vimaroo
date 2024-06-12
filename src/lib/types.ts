@@ -1,9 +1,9 @@
-export type TypeMode = {
+type TypeMode = {
   type: string;
   variances: number[];
 };
 
-export enum TestType {
+enum TestType {
   WORDS = "words",
   CONTAINERS = "containers",
   RELATIVE = "relative",
@@ -11,7 +11,7 @@ export enum TestType {
   MIXED = "mixed",
 }
 
-export type BaseTest = {
+type BaseTest = {
   initialPrompt: string;
   textBuffer: string[];
   joinCharacter: string;
@@ -19,25 +19,49 @@ export type BaseTest = {
   updateBuffer: () => void;
 };
 
-export interface WordsTest extends BaseTest {
+interface WordsTest extends BaseTest {
   type: TestType.WORDS;
   targetWord: string;
   populateWord: string;
   targetPosition: number;
 }
 
-export interface ContainersTest extends BaseTest {
+interface ContainersTest extends BaseTest {
   type: TestType.CONTAINERS;
 }
 
-export interface RelativeTest extends BaseTest {
+interface RelativeTest extends BaseTest {
   type: TestType.RELATIVE;
+  targetWord: string;
   targetPosition: number;
 }
 
-export interface MovementTest extends BaseTest {
+interface MovementTest extends BaseTest {
   type: TestType.MOVEMENT;
+  targetCharacter: string;
+  populateCharacter: string;
   targetPosition: number;
 }
 
-export type Test = WordsTest | ContainersTest | RelativeTest | MovementTest;
+interface MixedTest extends BaseTest {
+  type: TestType.MIXED;
+  targetWord: string;
+  populateWord: string;
+  targetCharacter: string;
+  populateCharacter: string;
+  targetPosition: number;
+}
+
+type Test = WordsTest | ContainersTest | RelativeTest | MovementTest;
+
+export { TestType };
+export type {
+  TypeMode,
+  BaseTest,
+  WordsTest,
+  ContainersTest,
+  RelativeTest,
+  MovementTest,
+  MixedTest,
+  Test,
+};

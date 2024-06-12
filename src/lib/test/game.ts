@@ -1,11 +1,17 @@
-import { TestType } from "./types";
+import { TestType } from "../types";
 import type {
   Test,
   WordsTest,
   ContainersTest,
   RelativeTest,
   MovementTest,
-} from "./types";
+} from "../types";
+import {
+  EXTRA_DELETE_SENTENCES,
+  EXTRA_SENTENCES,
+  EXTRA_SYMBOLS,
+  EXTRA_WORDS,
+} from "./utils";
 
 export function handleGameModeChange(gameMode: string): Test {
   switch (gameMode) {
@@ -24,35 +30,6 @@ export function handleGameModeChange(gameMode: string): Test {
   }
 }
 
-const EXTRA_WORDS = [
-  "aar",
-  "bar",
-  "car",
-  "dar",
-  "ear",
-  "far",
-  "gar",
-  "har",
-  "iar",
-  "jar",
-  "kar",
-  "lar",
-  "mar",
-  "nar",
-  "oar",
-  "par",
-  "qar",
-  "rar",
-  "sar",
-  "tar",
-  "uar",
-  "var",
-  "war",
-  "xar",
-  "yar",
-  "zar",
-];
-
 const wordTest: Test = {
   type: TestType.WORDS,
   targetWord: EXTRA_WORDS[0],
@@ -70,11 +47,17 @@ const wordTest: Test = {
   updateBuffer: () => {
     if (wordTest.type !== TestType.WORDS) return;
 
-    const previousDeletePos = wordTest.targetPosition;
+    wordTest.populateWord =
+      EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)];
+    do {
+      wordTest.targetWord =
+        EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)];
+    } while (wordTest.populateWord === wordTest.targetWord);
+
+    wordTest.textBuffer = Array(10).fill(wordTest.populateWord);
     wordTest.targetPosition = Math.floor(
       Math.random() * wordTest.textBuffer.length
     );
-    wordTest.textBuffer[previousDeletePos] = wordTest.populateWord;
     wordTest.textBuffer[wordTest.targetPosition] = wordTest.targetWord;
   },
 } satisfies WordsTest;
@@ -95,17 +78,17 @@ const containersTest: Test = {
     const containerType =
       containerTypes[Math.floor(Math.random() * containerTypes.length)];
 
-    const sampleText = ["Hello there", "Delete me", "foo", "bar"];
     containersTest.textBuffer[0] = containerType[0];
     containersTest.textBuffer[containersTest.textBuffer.length - 1] =
       containerType[1];
     containersTest.textBuffer[1] =
-      sampleText[Math.floor(Math.random() * sampleText.length)];
+      EXTRA_SENTENCES[Math.floor(Math.random() * EXTRA_SENTENCES.length)];
   },
 } satisfies ContainersTest;
 
 const relativeTest: Test = {
   type: TestType.RELATIVE,
+  targetWord: EXTRA_DELETE_SENTENCES[1],
   targetPosition: 0,
   initialPrompt: "Delete the lines by using relative line jumping",
   textBuffer: new Array(10).fill("\n"),
@@ -114,21 +97,28 @@ const relativeTest: Test = {
     if (currentBuffer.length === 0) return false;
     if (relativeTest.type !== TestType.RELATIVE) return false;
 
-    return !currentBuffer.includes("DELETE_ME");
+    return !currentBuffer.includes(relativeTest.targetWord);
   },
   updateBuffer: () => {
     if (relativeTest.type !== TestType.RELATIVE) return;
-    const previousDeletePos = relativeTest.targetPosition;
+
+    relativeTest.textBuffer = Array(10).fill("\n");
     relativeTest.targetPosition = Math.floor(
       Math.random() * relativeTest.textBuffer.length
     );
-    relativeTest.textBuffer[previousDeletePos] = "\n";
-    relativeTest.textBuffer[relativeTest.targetPosition] = "DELETE_ME";
+    const randomTarget =
+      EXTRA_DELETE_SENTENCES[
+        Math.floor(Math.random() * EXTRA_DELETE_SENTENCES.length)
+      ];
+    relativeTest.targetWord = randomTarget;
+    relativeTest.textBuffer[relativeTest.targetPosition] = randomTarget;
   },
 } satisfies RelativeTest;
 
 const movementTest: Test = {
   type: TestType.MOVEMENT,
+  targetCharacter: EXTRA_SYMBOLS[0],
+  populateCharacter: EXTRA_SYMBOLS[1],
   targetPosition: 0,
   initialPrompt: "Remove the odd character by moving around with hjkl",
   textBuffer: new Array(8).fill(".........."),
@@ -139,7 +129,10 @@ const movementTest: Test = {
     const parsedBuffer = currentBuffer.split("\n").join("");
     const rowLength = movementTest.textBuffer.length;
     const columnLength = movementTest.textBuffer[0].length;
-    return parsedBuffer === ".".repeat(rowLength * columnLength - 1);
+    return (
+      parsedBuffer ===
+      movementTest.populateCharacter.repeat(rowLength * columnLength - 1)
+    );
   },
   updateBuffer: () => {
     if (movementTest.type !== TestType.MOVEMENT) return;
@@ -147,24 +140,26 @@ const movementTest: Test = {
     const rowLength = movementTest.textBuffer.length;
     const columnLength = movementTest.textBuffer[0].length;
 
-    // Change previous target position to a normal character
-    const previousDeletePos = movementTest.targetPosition;
-    let row = Math.floor(previousDeletePos / columnLength);
-    let column = Math.floor(previousDeletePos % columnLength);
-    let previousRow: string | string[] = [...movementTest.textBuffer[row]];
-    previousRow[column] = ".";
-    previousRow = previousRow.join("");
-    movementTest.textBuffer[row] = previousRow;
+    // Populate the text buffer with a new random character
+    movementTest.populateCharacter = ".";
+    movementTest.textBuffer = Array(rowLength).fill(
+      movementTest.populateCharacter.repeat(columnLength)
+    );
 
     // Randomly select a new target position
     const randomPosition = Math.random() * rowLength * columnLength;
     movementTest.targetPosition = Math.floor(randomPosition);
 
-    // Change new target position to a target character
-    row = Math.floor(movementTest.targetPosition / columnLength);
-    column = Math.floor(movementTest.targetPosition % columnLength);
+    // Change new target position to a new random target character
+    const row = Math.floor(movementTest.targetPosition / columnLength);
+    const column = Math.floor(movementTest.targetPosition % columnLength);
+    do {
+      movementTest.targetCharacter =
+        EXTRA_SYMBOLS[Math.floor(Math.random() * EXTRA_SYMBOLS.length)];
+    } while (movementTest.populateCharacter === movementTest.targetCharacter);
+
     let targetRow: string | string[] = [...movementTest.textBuffer[row]];
-    targetRow[column] = "X";
+    targetRow[column] = movementTest.targetCharacter;
     targetRow = targetRow.join("");
     movementTest.textBuffer[row] = targetRow;
   },

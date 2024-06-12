@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { handleGameModeChange } from "$lib/game";
+  import { handleGameModeChange } from "$lib/test/game";
   import { type Test, type TypeMode } from "$lib/types";
   import Editor from "./editor.svelte";
 
