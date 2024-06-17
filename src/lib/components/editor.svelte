@@ -48,6 +48,9 @@
       lineNumbers: "relative",
       fontFamily: "Fira Code",
       fontSize: 16,
+      padding: {
+        top: 12,
+      },
     });
     // Initialize vim mode
     vimMode = imports.initVimMode(
@@ -67,7 +70,6 @@
       // test object updateBuffer() method
       const updateEditorContets = () => {
         test.updateBuffer();
-        console.log(test.textBuffer);
         triggeredByEditor = true;
         editor.setValue(test.textBuffer.join(test.joinCharacter));
       };

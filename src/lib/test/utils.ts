@@ -88,4 +88,4 @@ export const EXTRA_DELETE_SENTENCES = [
   "You don't use vim btw",
 ];
 
-export const EXTRA_SYMBOLS = ["#", "*", "+", "%", "★", "@", "$", "-"];
+export const EXTRA_SYMBOLS = ["#", "*", "+", "%", "@", "$", "-"];

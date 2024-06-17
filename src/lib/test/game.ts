@@ -203,7 +203,6 @@ let mixedTest: Test = {
         mixedTest = movementTest;
         break;
     }
-    console.log(mixedTest.textBuffer);
     mixedTest.updateBuffer = savedUpdatedBuffer;
   },
 } satisfies MixedTest;

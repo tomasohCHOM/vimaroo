@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "rgb(var(--color-primary))",
-        secondary: "rgb(var(--color-secondary))",
+        "background-400": "rgb(var(--color-background-400))",
+        "background-500": "rgb(var(--color-background-500))",
+        "background-600": "rgb(var(--color-background-600))",
         contrast: "rgb(var(--color-contrast))",
         contrast_g: "rgb(var(--color-contrast-g))",
         contrast_b: "rgb(var(--color-contrast-b))",
