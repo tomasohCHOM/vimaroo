@@ -84,8 +84,11 @@ export const EXTRA_DELETE_SENTENCES = [
   "You are not good enough",
   "Stop trying so hard",
   "Give up",
-  "Out of here",
+  "Get out of here",
   "You don't use vim btw",
+  "You are too weak for me",
+  "Too slow",
+  "You will never win",
 ];
 
 export const EXTRA_SYMBOLS = ["#", "*", "+", "%", "@", "$", "-"];

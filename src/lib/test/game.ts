@@ -33,7 +33,7 @@ export function handleGameModeChange(gameMode: string): Test {
 const wordTest: Test = {
   type: TestType.WORDS,
   targetWord: EXTRA_WORDS[0],
-  populateWord: EXTRA_WORDS[1],
+  populateWord: EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)],
   targetPosition: 0,
   initialPrompt: "Remove the word that is different from the rest",
   textBuffer: new Array(10).fill(EXTRA_WORDS[1]),
@@ -47,8 +47,6 @@ const wordTest: Test = {
   updateBuffer: () => {
     if (wordTest.type !== TestType.WORDS) return;
 
-    wordTest.populateWord =
-      EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)];
     do {
       wordTest.targetWord =
         EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)];
