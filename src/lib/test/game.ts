@@ -64,13 +64,13 @@ const containersTest: Test = {
   type: TestType.CONTAINERS,
   initialPrompt: "Delete the contents of the containers (tip: use di)",
   textBuffer: ["[", "DELETE_ME", "]"],
+  joinCharacter: "",
   condition: (currentBuffer: string) => {
     const wrapper =
       containersTest.textBuffer[0] +
       containersTest.textBuffer[containersTest.textBuffer.length - 1];
     return currentBuffer.includes(wrapper);
   },
-  joinCharacter: "",
   updateBuffer: () => {
     const containerTypes = ["[]", "{}", "()", "''", '""'];
     const containerType =
@@ -186,19 +186,47 @@ let mixedTest: Test = {
     switch (randomTest) {
       case TestType.WORDS:
         wordTest.updateBuffer();
-        mixedTest = wordTest;
+        mixedTest.type = wordTest.type;
+        if (mixedTest.type !== TestType.WORDS) break;
+
+        mixedTest.targetWord = wordTest.targetWord;
+        mixedTest.populateWord = wordTest.populateWord;
+        mixedTest.targetPosition = wordTest.targetPosition;
+        mixedTest.textBuffer = wordTest.textBuffer;
+        mixedTest.joinCharacter = wordTest.joinCharacter;
+        mixedTest.condition = wordTest.condition;
         break;
       case TestType.CONTAINERS:
         containersTest.updateBuffer();
-        mixedTest = containersTest;
+        mixedTest.type = containersTest.type;
+        if (mixedTest.type !== TestType.CONTAINERS) break;
+
+        mixedTest.textBuffer = containersTest.textBuffer;
+        mixedTest.joinCharacter = containersTest.joinCharacter;
+        mixedTest.condition = containersTest.condition;
         break;
       case TestType.RELATIVE:
         relativeTest.updateBuffer();
-        mixedTest = relativeTest;
+        mixedTest.type = relativeTest.type;
+        if (mixedTest.type !== TestType.RELATIVE) break;
+
+        mixedTest.targetWord = relativeTest.targetWord;
+        mixedTest.targetPosition = relativeTest.targetPosition;
+        mixedTest.textBuffer = relativeTest.textBuffer;
+        mixedTest.joinCharacter = relativeTest.joinCharacter;
+        mixedTest.condition = relativeTest.condition;
         break;
       case TestType.MOVEMENT:
         movementTest.updateBuffer();
-        mixedTest = movementTest;
+        mixedTest.type = movementTest.type;
+        if (mixedTest.type !== TestType.MOVEMENT) break;
+
+        mixedTest.targetCharacter = movementTest.targetCharacter;
+        mixedTest.populateCharacter = movementTest.populateCharacter;
+        mixedTest.targetPosition = movementTest.targetPosition;
+        mixedTest.textBuffer = movementTest.textBuffer;
+        mixedTest.joinCharacter = movementTest.joinCharacter;
+        mixedTest.condition = movementTest.condition;
         break;
     }
     mixedTest.updateBuffer = savedUpdatedBuffer;
