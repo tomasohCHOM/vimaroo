@@ -1,20 +1,33 @@
 # vimaroo
 
-A web platform to get good at VIM.
+vimaroo is a web application that aims at making it easy to practice VIM 
+motions without any extra configurations. It was inspired by ThePrimeagen's 
+[vim-be-good](https://github.com/ThePrimeagen/vim-be-good) Neovim plugin and 
+[Monkeytype](https://monkeytype.com/).
 
-## TO-DO
+## Setup / Development
 
-- [X] - Set up Monaco editor
-- [X] - Set up VIM mode as default in Monaco
-- [X] - Build scaffold UI
-- - [X] One Dark color scheme
-- - [X] Add navbar for game modes
-- - [X] Adjust Monaco editor
-- [ ] - Create games
-- - [X] Words
-- - [X] Containers
-- - [X] Relative
-- - [ ] Movement
-- - [ ] Mixed
-- [ ] Update website styles
-- [ ] Add Firebase
+Clone the repository and install all the dependencies:
+
+```bash
+git clone https://github.com/tomasohCHOM/QuizZard.git
+cd QuizZard
+npm install
+```
+
+Then start the development process:
+
+```bash
+npm run dev
+```
+
+To build and start in production mode:
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+Developed with 🔥 by Tomas
