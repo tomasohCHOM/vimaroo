@@ -1,8 +1,8 @@
 # vimaroo
 
-vimaroo is a web application that aims at making it easy to practice VIM 
-motions without any extra configurations. It was inspired by ThePrimeagen's 
-[vim-be-good](https://github.com/ThePrimeagen/vim-be-good) Neovim plugin and 
+vimaroo is a web application that aims at making it easy to practice VIM
+motions without any extra configurations. It was inspired by ThePrimeagen's
+[vim-be-good](https://github.com/ThePrimeagen/vim-be-good) Neovim plugin and
 [Monkeytype](https://monkeytype.com/).
 
 ## Setup / Development

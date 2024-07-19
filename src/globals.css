@@ -6,39 +6,39 @@
 @tailwind utilities;
 
 :root {
-  --ff-general: "Inter", sans-serif;
-  --ff-code: "Fira Code", monospace;
-  --color-background-400: 32, 35, 44;
-  --color-background-500: 37, 41, 50;
-  --color-background-600: 46, 58, 69;
-  --color-contrast: 255, 255, 255;
-  --color-contrast-r: 224, 108, 117;
-  --color-contrast-g: 152, 195, 121;
-  --color-contrast-b: 97, 175, 239;
+	--ff-general: "Inter", sans-serif;
+	--ff-code: "Fira Code", monospace;
+	--color-background-400: 32, 35, 44;
+	--color-background-500: 37, 41, 50;
+	--color-background-600: 46, 58, 69;
+	--color-contrast: 255, 255, 255;
+	--color-contrast-r: 224, 108, 117;
+	--color-contrast-g: 152, 195, 121;
+	--color-contrast-b: 97, 175, 239;
 
-  background-color: rgb(var(--color-background-500));
-  color: rgb(var(--color-contrast));
+	background-color: rgb(var(--color-background-500));
+	color: rgb(var(--color-contrast));
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  transition: all 0.125s linear;
+	transition: all 0.125s linear;
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-  font-family: var(--ff-code);
-  padding-block: 2rem;
+	min-height: 100vh;
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	font-family: var(--ff-code);
+	padding-block: 2rem;
 }
 
 footer {
-  margin-block-start: auto;
+	margin-block-start: auto;
 }

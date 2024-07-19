@@ -12,25 +12,25 @@ import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
 self.MonacoEnvironment = {
-  getWorker: function (_: string, label: string) {
-    switch (label) {
-      case "json":
-        return new jsonWorker();
-      case "css":
-      case "scss":
-      case "less":
-        return new cssWorker();
-      case "html":
-      case "handlebars":
-      case "razor":
-        return new htmlWorker();
-      case "typescript":
-      case "javascript":
-        return new tsWorker();
-      default:
-        return new editorWorker();
-    }
-  },
+	getWorker: function (_: string, label: string) {
+		switch (label) {
+			case "json":
+				return new jsonWorker();
+			case "css":
+			case "scss":
+			case "less":
+				return new cssWorker();
+			case "html":
+			case "handlebars":
+			case "razor":
+				return new htmlWorker();
+			case "typescript":
+			case "javascript":
+				return new tsWorker();
+			default:
+				return new editorWorker();
+		}
+	}
 };
 
 export default { monaco, initVimMode };
