@@ -1,14 +1,16 @@
 <script lang="ts">
+  import Login from "$lib/components/login.svelte";
+  import Navbar from "$lib/components/navbar.svelte";
   import "../globals.css";
+
+  let isLoginOpen: boolean = false;
 </script>
 
 <svelte:head>
   <title>Vimaroo | Practice your VIM skills</title>
 </svelte:head>
 
-<nav class="px-4 md:px-14">
-  <h1 class="font-bold text-3xl">vimaroo</h1>
-</nav>
+<Navbar bind:isLoginOpen />
 
 <slot />
 
@@ -30,3 +32,5 @@
     </a>
   </div>
 </footer>
+
+<Login bind:isLoginOpen />
