@@ -10,7 +10,7 @@
 		<button>
 			<Icon icon="mdi:about-circle-outline" width={24} />
 		</button>
-		<button on:click={() => (isLoginOpen = true)}>
+		<button>
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		<button on:click={() => (isLoginOpen = true)}>

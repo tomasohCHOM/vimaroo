@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Game from "$lib/components/game.svelte";
 	import Gamebar from "$lib/components/gamebar.svelte";
+	import { gameOver, gameStarted } from "$lib/test/status";
+	import { timer } from "$lib/test/timer";
 	import { TestType, type TypeMode } from "$lib/types";
 
 	const gameModes = Object.values(TestType);
@@ -25,13 +27,18 @@
 </script>
 
 <main class="grid items-center justify-center gap-8">
-	<Gamebar
-		{gameModes}
-		{typeModes}
-		bind:selectedGameIndex
-		bind:selectedTypeIndex
-		bind:selectedVariantIndex
-	/>
+	{#if !$gameStarted || $gameOver}
+		<Gamebar
+			{gameModes}
+			{typeModes}
+			bind:selectedGameIndex
+			bind:selectedTypeIndex
+			bind:selectedVariantIndex
+		/>
+	{:else}
+		<div>{$timer}</div>
+	{/if}
+
 	<Game
 		gameMode={gameModes[selectedGameIndex]}
 		typeMode={typeModes[selectedTypeIndex]}

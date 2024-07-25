@@ -3,6 +3,8 @@
 	import { onDestroy, onMount } from "svelte";
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/types";
+	import { timer } from "$lib/test/timer";
+	import { gameOver, gameStarted } from "$lib/test/status";
 
 	export let test: Test;
 	export let testType: string;
@@ -16,9 +18,6 @@
 
 	let vimMode: any;
 	let loaded: boolean = false;
-	let gameStarted: boolean = false;
-	let gameOver: boolean = false;
-	let startInterval: number;
 
 	let score = 0;
 	let total = 0;
@@ -57,7 +56,7 @@
 
 		loaded = true;
 		let startTime: number;
-		let timer: number = testTypeAmount;
+		timer.setInitivalValue(testTypeAmount);
 		let triggeredByEditor = false;
 
 		editor.focus();
@@ -65,26 +64,20 @@
 		editor.getModel()?.onDidChangeContent(() => {
 			// Helper function for updating the editor contents via the
 			// test object updateBuffer() method
-			const updateEditorContets = () => {
+			const updateEditorContents = () => {
 				test.updateBuffer();
 				triggeredByEditor = true;
 				editor.setValue(test.textBuffer.join(test.joinCharacter));
 			};
 
 			// Prompt message is displayed, start the game now
-			if (!gameOver && !gameStarted) {
-				gameStarted = true;
+			if (!$gameOver && !$gameStarted) {
+				$gameStarted = true;
 				startTime = performance.now();
 				if (testType === "time") {
-					timer = testTypeAmount;
-					startInterval = setInterval(() => {
-						timer -= 1;
-						if (timer === 0) {
-							editor.setValue("");
-						}
-					}, 1000);
+					timer.start(editor);
 				}
-				updateEditorContets();
+				updateEditorContents();
 				return;
 			}
 			// If changes were triggered by the editor, ignore
@@ -94,26 +87,25 @@
 			}
 
 			// Game is over and user wants to play again
-			if (gameOver && !editor.getValue().includes("Want to play again?")) {
-				gameOver = false;
-				gameStarted = false;
-				timer = testTypeAmount;
+			if ($gameOver && !editor.getValue().includes("Want to play again?")) {
+				$gameOver = false;
+				$gameStarted = false;
+				timer.setInitivalValue(testTypeAmount);
 				(score = 0), (total = 0);
 				startTime = performance.now();
-				updateEditorContets();
+				updateEditorContents();
 				return;
 			}
 
-			if (gameOver) {
+			if ($gameOver) {
 				return;
 			}
 
 			// The user has reached the end of the test
 			// Case 1: test is type = "time"
-			if (testType === "time" && timer <= 0) {
-				gameOver = true;
-				clearInterval(startInterval);
-				const accuracy = ((score / total) * 100).toFixed(2);
+			if (testType === "time" && $timer <= 0) {
+				$gameOver = true;
+				const accuracy = !total ? "-.-" : ((score / total) * 100).toFixed(2);
 
 				const scoreSummary = `Your score is ${score}/${total} for the ${testTypeAmount} seconds test`;
 				const accuracySummary = `Your accuracy was ${accuracy}%`;
@@ -126,8 +118,7 @@
 
 			// Case 2: test is type = "amount"
 			if (testType === "amount" && total >= testTypeAmount) {
-				gameOver = true;
-				clearInterval(startInterval);
+				$gameOver = true;
 				const endTime = performance.now();
 				const totalTime = ((endTime - startTime) / 1000).toFixed(2);
 				const accuracy = ((score / total) * 100).toFixed(2);
@@ -149,14 +140,13 @@
 			}
 			total++;
 			// Update buffer and set it as the new editor value
-			updateEditorContets();
+			updateEditorContents();
 		});
 	});
 
 	onDestroy(() => {
 		monaco?.editor.getModels().forEach((model) => model.dispose());
 		if (vimMode) vimMode.dispose();
-		clearInterval(startInterval);
 		editor?.dispose();
 	});
 </script>
