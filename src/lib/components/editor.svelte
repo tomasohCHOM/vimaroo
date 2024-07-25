@@ -8,7 +8,7 @@
 
 	export let test: Test;
 	export let testType: string;
-	export let testTypeAmount;
+	export let testTypeAmount: number;
 
 	let editor: Monaco.editor.IStandaloneCodeEditor;
 	let editorContainer: HTMLElement;

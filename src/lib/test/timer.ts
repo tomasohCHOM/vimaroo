@@ -2,15 +2,17 @@ import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { writable } from "svelte/store";
 
 function createTimer(initialValue: number = 15) {
-	const { subscribe, set, update } = writable(0);
-	let interval: number;
+	const { subscribe, set, update } = writable(initialValue);
+	let intervalId: number;
+
+	// Starts the timer using setInterval, clear when it reaches 0
 	const start = (editor: Monaco.editor.IStandaloneCodeEditor) => {
-		stop(); // Ensure no duplicate intervals
-		interval = setInterval(() => {
+		clear(); // Ensure no duplicate intervals
+		intervalId = setInterval(() => {
 			update((n) => {
 				n -= 1;
 				if (n === 0) {
-					stop();
+					clear();
 					set(n);
 					editor.setValue("");
 					return n;
@@ -19,22 +21,16 @@ function createTimer(initialValue: number = 15) {
 			});
 		}, 1000);
 	};
-	const stop = () => {
-		if (interval) clearInterval(interval);
-	};
-	const reset = () => {
-		stop();
-		set(initialValue);
+	const clear = () => {
+		if (intervalId) clearInterval(intervalId);
 	};
 	const setInitivalValue = (value: number) => {
 		set(value);
-		reset();
 	};
 	return {
 		subscribe,
 		start,
-		stop,
-		reset,
+		clear,
 		setInitivalValue
 	};
 }

@@ -14,7 +14,7 @@
 </script>
 
 <div class="h-[400px] w-[min(1000px,_90vw)]">
-	{#key [gameMode, typeMode]}
+	{#key [gameMode, typeMode, typeModeVariant]}
 		<Editor {test} testType={typeMode.type} testTypeAmount={typeModeVariant} />
 	{/key}
 </div>

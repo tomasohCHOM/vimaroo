@@ -36,7 +36,7 @@
 			bind:selectedVariantIndex
 		/>
 	{:else}
-		<div>{$timer}</div>
+		<div class="font-semibold text-contrast_b">{$timer}</div>
 	{/if}
 
 	<Game
