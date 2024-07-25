@@ -1,7 +1,7 @@
 import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { writable } from "svelte/store";
 
-function createTimer(initialValue: number = 15) {
+function createTimerStore(initialValue: number = 15) {
 	const { subscribe, set, update } = writable(initialValue);
 	let intervalId: number;
 
@@ -35,4 +35,4 @@ function createTimer(initialValue: number = 15) {
 	};
 }
 
-export const timer = createTimer();
+export const timer = createTimerStore();

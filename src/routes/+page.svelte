@@ -3,6 +3,8 @@
 	import Gamebar from "$lib/components/gamebar.svelte";
 	import { gameOver, gameStarted } from "$lib/test/status";
 	import { timer } from "$lib/test/timer";
+	import { rounds } from "$lib/test/rounds";
+	import { scores } from "$lib/test/scores";
 	import { TestType, type TypeMode } from "$lib/types";
 
 	const gameModes = Object.values(TestType);
@@ -12,7 +14,7 @@
 			variances: [15, 30, 60, 120]
 		},
 		{
-			type: "amount",
+			type: "rounds",
 			variances: [10, 25, 50, 100]
 		},
 		{
@@ -36,7 +38,20 @@
 			bind:selectedVariantIndex
 		/>
 	{:else}
-		<div class="font-semibold text-contrast_b">{$timer}</div>
+		<div class="flex items-center justify-between">
+			{#if ["time", "rounds"].includes(typeModes[selectedTypeIndex].type)}
+				<span class="font-semibold text-contrast_b">
+					{#if typeModes[selectedTypeIndex].type === "time"}
+						{$timer}
+					{:else}
+						{$rounds}
+					{/if}
+				</span>
+				<span class="font-semibold">
+					{$scores[0]} / {$scores[1]}
+				</span>
+			{/if}
+		</div>
 	{/if}
 
 	<Game

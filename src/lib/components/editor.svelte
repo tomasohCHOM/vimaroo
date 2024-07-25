@@ -5,6 +5,8 @@
 	import type { Test } from "$lib/types";
 	import { timer } from "$lib/test/timer";
 	import { gameOver, gameStarted } from "$lib/test/status";
+	import { scores } from "$lib/test/scores";
+	import { rounds } from "$lib/test/rounds";
 
 	export let test: Test;
 	export let testType: string;
@@ -56,8 +58,10 @@
 
 		loaded = true;
 		let startTime: number;
-		timer.setInitivalValue(testTypeAmount);
 		let triggeredByEditor = false;
+
+		timer.setInitivalValue(testTypeAmount);
+		rounds.setRounds(testTypeAmount);
 
 		editor.focus();
 
@@ -91,7 +95,9 @@
 				$gameOver = false;
 				$gameStarted = false;
 				timer.setInitivalValue(testTypeAmount);
+				rounds.setRounds(testTypeAmount);
 				(score = 0), (total = 0);
+				scores.reset();
 				startTime = performance.now();
 				updateEditorContents();
 				return;
@@ -116,8 +122,18 @@
 				return;
 			}
 
-			// Case 2: test is type = "amount"
-			if (testType === "amount" && total >= testTypeAmount) {
+			// Check if we count it as a success or failure
+			// In either case, increment the total count
+			if (test.condition(editor.getValue())) {
+				score++;
+			}
+			total++;
+
+			scores.set([score, total]);
+			rounds.updateRounds();
+
+			// Case 2: test is type = "rounds"
+			if (testType === "rounds" && total >= testTypeAmount) {
 				$gameOver = true;
 				const endTime = performance.now();
 				const totalTime = ((endTime - startTime) / 1000).toFixed(2);
@@ -133,12 +149,6 @@
 				return;
 			}
 
-			// Check if we count it as a success or failure
-			// In either case, increment the total count
-			if (test.condition(editor.getValue())) {
-				score++;
-			}
-			total++;
 			// Update buffer and set it as the new editor value
 			updateEditorContents();
 		});
