@@ -168,4 +168,4 @@
 {/if}
 
 <div class="h-full w-full" bind:this={editorContainer} />
-<p class="mb-4 mt-1" id="status-bar" />
+<p class="mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2 text-contrast_b" id="status-bar" />

@@ -14,7 +14,7 @@
 
 <slot />
 
-<footer class="flex items-center justify-between px-4 text-sm md:px-14">
+<footer class="mt-auto flex items-center justify-between px-4 pt-8 text-sm md:px-14">
 	<div>
 		Developed with 🔥 by
 		<a href="https://github.com/tomasohCHOM" target="_blank" class="underline"> Chom </a>

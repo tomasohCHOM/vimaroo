@@ -38,7 +38,7 @@
 			bind:selectedVariantIndex
 		/>
 	{:else}
-		<div class="flex items-center justify-between">
+		<div class="flex items-center justify-between p-2">
 			{#if ["time", "rounds"].includes(typeModes[selectedTypeIndex].type)}
 				<span class="font-semibold text-contrast_b">
 					{#if typeModes[selectedTypeIndex].type === "time"}

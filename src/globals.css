@@ -32,13 +32,9 @@ html {
 
 body {
 	min-height: 100vh;
-	display: flex;
-	gap: 1rem;
-	flex-direction: column;
-	font-family: var(--ff-code);
 	padding-block: 2rem;
-}
-
-footer {
-	margin-block-start: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	font-family: var(--ff-code);
 }
