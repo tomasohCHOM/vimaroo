@@ -7,6 +7,7 @@
 	import { gameOver, gameStarted } from "$lib/test/status";
 	import { scores } from "$lib/test/scores";
 	import { rounds } from "$lib/test/rounds";
+	import { theme } from "$lib/theme";
 
 	export let test: Test;
 	export let testType: string;
@@ -14,8 +15,6 @@
 
 	let editor: Monaco.editor.IStandaloneCodeEditor;
 	let editorContainer: HTMLElement;
-	let language: string = "html";
-	let theme: string = "Nord";
 	let monaco: typeof Monaco;
 
 	let vimMode: any;
@@ -30,19 +29,16 @@
 		monaco = imports.monaco;
 
 		// Import editor theme
-		const res = await fetch(`/${theme}.json`);
-		const data = await res.json();
-		monaco.editor.defineTheme(theme, data);
+		monaco.editor.defineTheme("Theme", theme);
 
 		// Set editor creation event to set theme
 		monaco.editor.onDidCreateEditor((_) => {
-			monaco.editor.setTheme(theme);
+			monaco.editor.setTheme("Theme");
 		});
 
 		// Create editor & model to be displayed
 		const editor = monaco.editor.create(editorContainer, {
 			value: test.initialPrompt,
-			language: language,
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
