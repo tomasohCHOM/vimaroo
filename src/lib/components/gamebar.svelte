@@ -1,11 +1,10 @@
 <script lang="ts">
+	import { selectedGameIndex, selectedModeIndex } from "$lib/test/game-index";
 	import type { TestType, TypeMode } from "$lib/types";
 
 	export let gameModes: TestType[];
 	export let typeModes: TypeMode[];
 
-	export let selectedGameIndex: number;
-	export let selectedTypeIndex: number;
 	export let selectedVariantIndex: number;
 </script>
 
@@ -16,31 +15,31 @@
 		{#each gameModes as gameMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === selectedGameIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
-				on:click={() => (selectedGameIndex = i)}
+        {i === $selectedGameIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
+				on:click={() => selectedGameIndex.set(i)}
 			>
 				{gameMode}
 			</button>
 		{/each}
 	</div>
 	<div
-		class="flex gap-4 pr-4 text-sm {typeModes[selectedTypeIndex].type !== 'zen'
+		class="flex gap-4 pr-4 text-sm {typeModes[$selectedModeIndex].type !== 'zen'
 			? 'border-r-4 border-background-600'
 			: ''}"
 	>
 		{#each typeModes as typeMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === selectedTypeIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
-				on:click={() => (selectedTypeIndex = i)}
+        {i === $selectedModeIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
+				on:click={() => selectedModeIndex.set(i)}
 			>
 				{typeMode.type}
 			</button>
 		{/each}
 	</div>
-	{#if typeModes[selectedTypeIndex].variances.length !== 0}
+	{#if typeModes[$selectedModeIndex].variances.length !== 0}
 		<div class="flex gap-3">
-			{#each typeModes[selectedTypeIndex].variances as variant, i}
+			{#each typeModes[$selectedModeIndex].variances as variant, i}
 				<button
 					class="text-sm font-semibold transition duration-150
           {i === selectedVariantIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
