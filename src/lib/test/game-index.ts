@@ -9,8 +9,6 @@ if (browser) {
 	const storedGameIndex = window.localStorage.getItem("game-index");
 	const storedTypeIndex = window.localStorage.getItem("mode-index");
 
-	console.log(storedTypeIndex);
-
 	gameIndex = storedGameIndex != null ? JSON.parse(storedGameIndex) : DEFAULT_INDEX;
 	modeIndex = storedTypeIndex != null ? JSON.parse(storedTypeIndex) : DEFAULT_INDEX;
 }

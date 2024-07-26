@@ -2,7 +2,7 @@
 	import { selectedGameIndex, selectedModeIndex } from "$lib/test/game-index";
 	import type { TestType, TypeMode } from "$lib/types";
 
-	export let gameModes: TestType[];
+	export let gameOptions: TestType[];
 	export let typeModes: TypeMode[];
 
 	export let selectedVariantIndex: number;
@@ -12,7 +12,7 @@
 	class="bg-secondary fixed flex justify-center gap-3 rounded-lg bg-background-400 p-[10px] md:static"
 >
 	<div class="flex gap-4 border-r-4 border-background-600 pr-4 text-sm">
-		{#each gameModes as gameMode, i}
+		{#each gameOptions as gameMode, i}
 			<button
 				class="font-semibold transition duration-150
         {i === $selectedGameIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"

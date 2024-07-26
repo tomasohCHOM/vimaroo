@@ -7,8 +7,8 @@
 	import { scores } from "$lib/test/scores";
 	import { TestType, type TypeMode } from "$lib/types";
 	import { selectedGameIndex, selectedModeIndex } from "$lib/test/game-index";
+	import { gameOptions, modeOptions } from "$lib/test/options";
 
-	const gameModes = Object.values(TestType);
 	const typeModes: TypeMode[] = [
 		{
 			type: "time",
@@ -32,12 +32,12 @@
 
 <main class="grid items-center justify-center gap-8">
 	{#if !$gameStarted || $gameOver}
-		<Gamebar {gameModes} {typeModes} bind:selectedVariantIndex />
+		<Gamebar {gameOptions} {typeModes} bind:selectedVariantIndex />
 	{:else}
 		<div class="flex items-center justify-between p-2">
-			{#if ["time", "rounds"].includes(typeModes[$selectedModeIndex].type)}
+			{#if ["time", "rounds"].includes(modeOptions[$selectedModeIndex])}
 				<span class="text-foreground-blue font-semibold">
-					{#if typeModes[$selectedModeIndex].type === "time"}
+					{#if modeOptions[$selectedModeIndex] === "time"}
 						{$timer}
 					{:else}
 						{$rounds}
@@ -51,7 +51,7 @@
 	{/if}
 
 	<Game
-		gameMode={gameModes[$selectedGameIndex]}
+		gameMode={gameOptions[$selectedGameIndex]}
 		typeMode={typeModes[$selectedModeIndex]}
 		typeModeVariant={typeModes[$selectedModeIndex].variances[selectedVariantIndex]}
 	/>
