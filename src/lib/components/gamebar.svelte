@@ -9,8 +9,13 @@
 </script>
 
 <div
-	class="bg-secondary fixed flex justify-center gap-3 rounded-lg bg-background-400 p-[10px] md:static"
+	class="text-foreground-blue mr-auto flex items-center justify-center gap-2 font-semibold md:hidden"
 >
+	<div class="rounded-md bg-background-400 p-2">{gameOptions[$selectedGameIndex]}</div>
+	<div class="rounded-md bg-background-400 p-2">{typeModes[$selectedModeIndex].type}</div>
+</div>
+
+<div class="hidden justify-center gap-3 rounded-lg bg-background-400 p-[10px] md:static md:flex">
 	<div class="flex gap-4 border-r-4 border-background-600 pr-4 text-sm">
 		{#each gameOptions as gameMode, i}
 			<button

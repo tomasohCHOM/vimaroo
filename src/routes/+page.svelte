@@ -30,7 +30,7 @@
 	let selectedRoundsIndex = 0;
 </script>
 
-<main class="grid items-center justify-center gap-8">
+<main class="grid items-center justify-center gap-6 md:gap-8">
 	{#if !$gameStarted || $gameOver}
 		<Gamebar {gameOptions} {typeModes} bind:selectedVariantIndex />
 	{:else}

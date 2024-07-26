@@ -42,6 +42,7 @@
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
+			wordWrap: "on",
 			lineNumbers: "relative",
 			fontFamily: "Fira Code",
 			fontSize: 16,
