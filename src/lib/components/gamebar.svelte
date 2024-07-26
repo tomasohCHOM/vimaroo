@@ -16,7 +16,7 @@
 		{#each gameModes as gameMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === selectedGameIndex ? 'text-contrast_b' : 'hover:text-contrast_g'}"
+        {i === selectedGameIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
 				on:click={() => (selectedGameIndex = i)}
 			>
 				{gameMode}
@@ -31,7 +31,7 @@
 		{#each typeModes as typeMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === selectedTypeIndex ? 'text-contrast_b' : 'hover:text-contrast_g'}"
+        {i === selectedTypeIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
 				on:click={() => (selectedTypeIndex = i)}
 			>
 				{typeMode.type}
@@ -43,7 +43,7 @@
 			{#each typeModes[selectedTypeIndex].variances as variant, i}
 				<button
 					class="text-sm font-semibold transition duration-150
-          {i === selectedVariantIndex ? 'text-contrast_b' : 'hover:text-contrast_g'}"
+          {i === selectedVariantIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
 					on:click={() => (selectedVariantIndex = i)}
 				>
 					{variant}

@@ -40,7 +40,7 @@
 	{:else}
 		<div class="flex items-center justify-between p-2">
 			{#if ["time", "rounds"].includes(typeModes[selectedTypeIndex].type)}
-				<span class="font-semibold text-contrast_b">
+				<span class="text-foreground-blue font-semibold">
 					{#if typeModes[selectedTypeIndex].type === "time"}
 						{$timer}
 					{:else}

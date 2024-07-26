@@ -1,6 +1,6 @@
 <svg
 	aria-hidden="true"
-	class="block h-12 w-12 animate-spin fill-contrast_g text-background-400"
+	class="fill-foreground-green block h-12 w-12 animate-spin text-background-400"
 	viewBox="0 0 100 101"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"

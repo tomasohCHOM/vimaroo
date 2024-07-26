@@ -7,9 +7,11 @@ export default {
 				"background-400": "rgb(var(--color-background-400))",
 				"background-500": "rgb(var(--color-background-500))",
 				"background-600": "rgb(var(--color-background-600))",
-				contrast: "rgb(var(--color-contrast))",
-				contrast_g: "rgb(var(--color-contrast-g))",
-				contrast_b: "rgb(var(--color-contrast-b))"
+
+				"foreground-neutral": "rgb(var(--color-foreground-neutral))",
+				"foreground-red": "rgb(var(--color-foreground-red))",
+				"foreground-green": "rgb(var(--color-foreground-green))",
+				"foreground-blue": "rgb(var(--color-foreground-blue))"
 			},
 			fontFamily: {
 				general: "var(--ff-general)",
