@@ -4,7 +4,7 @@
 		selectedModeIndex,
 		selectedRoundsIndex,
 		selectedTimeIndex
-	} from "$lib/test/game-index";
+	} from "$lib/test/stores/opts-index";
 	import { gameOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 </script>
 

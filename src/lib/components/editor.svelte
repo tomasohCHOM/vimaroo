@@ -3,11 +3,11 @@
 	import { onDestroy, onMount } from "svelte";
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/types";
-	import { timer } from "$lib/test/timer";
-	import { gameOver, gameStarted } from "$lib/test/status";
-	import { scores } from "$lib/test/scores";
-	import { rounds } from "$lib/test/rounds";
-	import { theme } from "$lib/theme";
+	import { timer } from "$lib/test/stores/timer";
+	import { gameOver, gameStarted } from "$lib/test/stores/status";
+	import { scores } from "$lib/test/stores/scores";
+	import { rounds } from "$lib/test/stores/rounds";
+	import { theme } from "$lib/editor/theme";
 
 	export let test: Test;
 	export let testType: string;
@@ -25,7 +25,7 @@
 
 	onMount(async () => {
 		// Import monaco code editor
-		const imports = (await import("$lib/monaco")).default;
+		const imports = (await import("$lib/editor/monaco")).default;
 		monaco = imports.monaco;
 
 		// Import editor theme
@@ -166,6 +166,6 @@
 
 <div class="h-full w-full" bind:this={editorContainer} />
 <p
-	class="text-foreground-blue mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2"
+	class="mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2 text-foreground-blue"
 	id="status-bar"
 />

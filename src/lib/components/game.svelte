@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { handleGameModeChange } from "$lib/test/game";
-	import { selectedRoundsIndex, selectedTimeIndex } from "$lib/test/game-index";
+	import { handleGameModeChange } from "$lib/test/tests/game";
+	import { selectedRoundsIndex, selectedTimeIndex } from "$lib/test/stores/opts-index";
 	import { roundOptions, timeOptions } from "$lib/test/options";
 	import { type Test } from "$lib/types";
 	import Editor from "./editor.svelte";

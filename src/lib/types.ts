@@ -6,7 +6,7 @@ type TypeMode = {
 enum TestType {
 	WORDS = "words",
 	CONTAINERS = "containers",
-	RELATIVE = "relative",
+	LINES = "lines",
 	MOVEMENT = "movement",
 	MIXED = "mixed"
 }
@@ -30,8 +30,8 @@ interface ContainersTest extends BaseTest {
 	type: TestType.CONTAINERS;
 }
 
-interface RelativeTest extends BaseTest {
-	type: TestType.RELATIVE;
+interface LinesTest extends BaseTest {
+	type: TestType.LINES;
 	targetWord: string;
 	targetPosition: number;
 }
@@ -52,7 +52,7 @@ interface MixedTest extends BaseTest {
 	targetPosition: number;
 }
 
-type Test = WordsTest | ContainersTest | RelativeTest | MovementTest | MixedTest;
+type Test = WordsTest | ContainersTest | LinesTest | MovementTest | MixedTest;
 
 export { TestType };
 export type {
@@ -60,7 +60,7 @@ export type {
 	BaseTest,
 	WordsTest,
 	ContainersTest,
-	RelativeTest,
+	LinesTest,
 	MovementTest,
 	MixedTest,
 	Test
