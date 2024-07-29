@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { handleGameModeChange } from "$lib/test/tests/game";
+	import { handleGameModeChange } from "$lib/test/tests";
 	import { selectedRoundsIndex, selectedTimeIndex } from "$lib/test/stores/opts-index";
 	import { roundOptions, timeOptions } from "$lib/test/options";
 	import { type Test } from "$lib/types";

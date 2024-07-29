@@ -1,7 +1,7 @@
-import { TestType, type MovementTest, type Test } from "$lib/types";
+import { TestType, type MovementTest } from "$lib/types";
 import { EXTRA_SYMBOLS } from "../utils";
 
-export const movementTest: Test = {
+export const movementTest: MovementTest = {
 	type: TestType.MOVEMENT,
 	targetCharacter: EXTRA_SYMBOLS[0],
 	populateCharacter: EXTRA_SYMBOLS[1],
@@ -46,4 +46,4 @@ export const movementTest: Test = {
 		targetRow = targetRow.join("");
 		movementTest.textBuffer[row] = targetRow;
 	}
-} satisfies MovementTest;
+};

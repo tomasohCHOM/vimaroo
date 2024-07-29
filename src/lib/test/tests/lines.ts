@@ -1,7 +1,7 @@
-import { TestType, type LinesTest, type Test } from "$lib/types";
+import { TestType, type LinesTest } from "$lib/types";
 import { EXTRA_DELETE_SENTENCES } from "../utils";
 
-export const linesTest: Test = {
+export const linesTest: LinesTest = {
 	type: TestType.LINES,
 	targetWord: EXTRA_DELETE_SENTENCES[1],
 	targetPosition: 0,
@@ -24,4 +24,4 @@ export const linesTest: Test = {
 		linesTest.targetWord = randomTarget;
 		linesTest.textBuffer[linesTest.targetPosition] = randomTarget;
 	}
-} satisfies LinesTest;
+};

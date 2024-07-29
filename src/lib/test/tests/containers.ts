@@ -1,7 +1,7 @@
-import { TestType, type ContainersTest, type Test } from "$lib/types";
+import { TestType, type ContainersTest } from "$lib/types";
 import { EXTRA_SENTENCES } from "../utils";
 
-export const containersTest: Test = {
+export const containersTest: ContainersTest = {
 	type: TestType.CONTAINERS,
 	initialPrompt: "Delete the contents of the containers (tip: use di)",
 	textBuffer: ["[", "DELETE_ME", "]"],
@@ -21,4 +21,4 @@ export const containersTest: Test = {
 		containersTest.textBuffer[1] =
 			EXTRA_SENTENCES[Math.floor(Math.random() * EXTRA_SENTENCES.length)];
 	}
-} satisfies ContainersTest;
+};

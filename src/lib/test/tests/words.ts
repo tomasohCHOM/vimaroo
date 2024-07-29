@@ -1,7 +1,7 @@
-import { TestType, type Test, type WordsTest } from "$lib/types";
+import { TestType, type WordsTest } from "$lib/types";
 import { EXTRA_WORDS } from "../utils";
 
-export const wordTest: Test = {
+export const wordTest: WordsTest = {
 	type: TestType.WORDS,
 	targetWord: EXTRA_WORDS[0],
 	populateWord: EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)],
@@ -26,4 +26,4 @@ export const wordTest: Test = {
 		wordTest.targetPosition = Math.floor(Math.random() * wordTest.textBuffer.length);
 		wordTest.textBuffer[wordTest.targetPosition] = wordTest.targetWord;
 	}
-} satisfies WordsTest;
+};
