@@ -1,5 +1,5 @@
 import { TestType, type WordsTest } from "$lib/types";
-import { EXTRA_WORDS } from "../utils";
+import { EXTRA_WORDS } from "../constants";
 
 export const wordTest: WordsTest = {
 	type: TestType.WORDS,

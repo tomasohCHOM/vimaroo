@@ -1,5 +1,5 @@
 import { TestType, type LinesTest } from "$lib/types";
-import { EXTRA_DELETE_SENTENCES } from "../utils";
+import { EXTRA_DELETE_SENTENCES } from "../constants";
 
 export const linesTest: LinesTest = {
 	type: TestType.LINES,

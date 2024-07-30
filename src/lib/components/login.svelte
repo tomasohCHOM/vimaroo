@@ -25,13 +25,5 @@
 			<Icon class="inline-block" width={32} inline={true} icon="mdi:github" />
 			<span class="align-middle font-medium">Continue with GitHub</span>
 		</button>
-		<button
-			type="submit"
-			formaction="/login/?/login&provider=discord"
-			class="flex w-full items-center justify-center gap-4 rounded-xl bg-[#7289da] py-1 text-slate-50 transition"
-		>
-			<Icon class="inline-block" width={32} inline={true} icon="ic:baseline-discord" />
-			<span class="align-middle font-medium">Continue with Discord</span>
-		</button>
 	</form>
 </PopupContainer>

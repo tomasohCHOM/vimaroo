@@ -1,5 +1,5 @@
 import { TestType, type MovementTest } from "$lib/types";
-import { EXTRA_SYMBOLS } from "../utils";
+import { EXTRA_SYMBOLS } from "../constants";
 
 export const movementTest: MovementTest = {
 	type: TestType.MOVEMENT,

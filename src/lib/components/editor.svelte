@@ -8,6 +8,7 @@
 	import { scores } from "$lib/test/stores/scores";
 	import { rounds } from "$lib/test/stores/rounds";
 	import { theme } from "$lib/editor/theme";
+	import { BEGIN_TEST_LINE } from "$lib/test/constants";
 
 	export let test: Test;
 	export let testType: string;
@@ -38,7 +39,7 @@
 
 		// Create editor & model to be displayed
 		const editor = monaco.editor.create(editorContainer, {
-			value: test.initialPrompt,
+			value: [test.initialPrompt, BEGIN_TEST_LINE].join("\n"),
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
@@ -70,9 +71,10 @@
 			// User decides to end the test early
 			imports.VimMode.Vim.defineEx("quit", "q", () => {
 				if (!$gameStarted) return;
-				// gameOver.set(true);
-				// triggeredByEditor = true;
-				// editor.setValue("Test cancelled!\nDelete this line to play");
+				timer.clear();
+				gameOver.set(true);
+				triggeredByEditor = true;
+				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}`);
 			});
 
 			// Helper function for updating the editor contents via the
@@ -85,6 +87,8 @@
 
 			// Prompt message is displayed, start the game now
 			if (!$gameOver && !$gameStarted) {
+				if (editor.getValue().includes(BEGIN_TEST_LINE)) return;
+
 				$gameStarted = true;
 				startTime = performance.now();
 				if (testType === "time") {
@@ -93,6 +97,7 @@
 				updateEditorContents();
 				return;
 			}
+
 			// If changes were triggered by the editor, ignore
 			if (triggeredByEditor) {
 				triggeredByEditor = false;
@@ -100,7 +105,7 @@
 			}
 
 			// Game is over and user wants to play again
-			if ($gameOver && !editor.getValue().includes("Want to play again?")) {
+			if ($gameOver && !editor.getValue().includes(BEGIN_TEST_LINE)) {
 				$gameOver = false;
 				$gameStarted = false;
 				timer.setInitivalValue(testTypeAmount);
@@ -124,10 +129,9 @@
 
 				const scoreSummary = `Your score is ${score}/${total} for the ${testTypeAmount} seconds test`;
 				const accuracySummary = `Your accuracy was ${accuracy}%`;
-				const playAgainPrompt = `Want to play again? [Delete this line]`;
 
 				triggeredByEditor = true;
-				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${playAgainPrompt}`);
+				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
 				return;
 			}
 
@@ -151,10 +155,9 @@
 				const scoreSummary = `Your score is ${score}/${total}`;
 				const accuracySummary = `Your accuracy was ${accuracy}%`;
 				const timeSummary = `Total time = ${totalTime} seconds`;
-				const playAgainPrompt = `Want to play again? [Delete this line]`;
 
 				triggeredByEditor = true;
-				editor.setValue(`${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${playAgainPrompt}`);
+				editor.setValue(`${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
 				return;
 			}
 

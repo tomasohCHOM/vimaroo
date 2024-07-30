@@ -1,3 +1,5 @@
+export const BEGIN_TEST_LINE = "Delete this line to begin the test!";
+
 export const EXTRA_WORDS = [
 	"aar",
 	"bar",
