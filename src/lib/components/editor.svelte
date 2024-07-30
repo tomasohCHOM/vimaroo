@@ -52,6 +52,10 @@
 		});
 		// Initialize vim mode
 		vimMode = imports.initVimMode(editor, document.getElementById("status-bar"));
+		// Placeholder for :q
+		imports.VimMode.Vim.defineEx("quit", "q", () => {
+			return;
+		});
 
 		loaded = true;
 		let startTime: number;
@@ -63,6 +67,14 @@
 		editor.focus();
 
 		editor.getModel()?.onDidChangeContent(() => {
+			// User decides to end the test early
+			imports.VimMode.Vim.defineEx("quit", "q", () => {
+				if (!$gameStarted) return;
+				// gameOver.set(true);
+				// triggeredByEditor = true;
+				// editor.setValue("Test cancelled!\nDelete this line to play");
+			});
+
 			// Helper function for updating the editor contents via the
 			// test object updateBuffer() method
 			const updateEditorContents = () => {

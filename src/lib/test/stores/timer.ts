@@ -1,5 +1,6 @@
 import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 import { writable } from "svelte/store";
+import { gameOver } from "./status";
 
 function createTimerStore(initialValue: number = 15) {
 	const { subscribe, set, update } = writable(initialValue);
