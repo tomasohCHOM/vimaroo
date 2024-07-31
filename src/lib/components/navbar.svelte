@@ -6,7 +6,9 @@
 
 <nav class="flex items-center justify-between px-4 md:px-14">
 	<h1 class="flex gap-2 text-3xl font-bold">
-		<span class="z-10">vimaroo</span>
+		<a href="/">
+			<span class="z-10">vimaroo</span>
+		</a>
 		<img src="/favicon.svg" alt="Favicon" class="w-10" />
 	</h1>
 	<div class="flex items-center justify-center gap-1">
