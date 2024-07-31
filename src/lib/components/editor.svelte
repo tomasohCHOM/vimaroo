@@ -188,7 +188,10 @@
 {/if}
 
 <div class="h-full w-full" bind:this={editorContainer} />
-<p
-	class="mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2 text-foreground-blue"
-	id="status-bar"
-/>
+<div class="flex items-center justify-between">
+	<p
+		class="mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2 text-foreground-blue"
+		id="status-bar"
+	></p>
+	<p class="text-sm">Tip: You can reset tests by using :q</p>
+</div>

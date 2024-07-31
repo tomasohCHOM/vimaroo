@@ -23,7 +23,7 @@ export const movementTest: MovementTest = {
 		const rowLength = movementTest.textBuffer.length;
 		const columnLength = movementTest.textBuffer[0].length;
 
-		// Populate the text buffer with a new random character
+		// Populate the text buffer with dots
 		movementTest.populateCharacter = ".";
 		movementTest.textBuffer = Array(rowLength).fill(
 			movementTest.populateCharacter.repeat(columnLength)
