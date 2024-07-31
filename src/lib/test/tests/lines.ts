@@ -5,7 +5,7 @@ export const linesTest: LinesTest = {
 	type: TestType.LINES,
 	targetWord: EXTRA_DELETE_SENTENCES[1],
 	targetPosition: 0,
-	initialPrompt: "Delete the lines by using relative line jumping",
+	initialPrompt: "Remove odd lines by using relative line jumping",
 	textBuffer: new Array(10).fill("\n"),
 	joinCharacter: "",
 	condition: (currentBuffer: string) => {

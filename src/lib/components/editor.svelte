@@ -49,6 +49,14 @@
 			fontSize: 16,
 			padding: {
 				top: 12
+			},
+			find: {
+				addExtraSpaceOnTop: false,
+				autoFindInSelection: "never",
+				seedSearchStringFromSelection: "never"
+			},
+			unicodeHighlight: {
+				ambiguousCharacters: false
 			}
 		});
 		// Initialize vim mode

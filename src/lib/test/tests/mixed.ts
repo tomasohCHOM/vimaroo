@@ -11,7 +11,7 @@ export let mixedTest: Test = {
 	targetCharacter: "",
 	populateCharacter: "",
 	targetPosition: 0,
-	initialPrompt: "A combination of all other tests into one!",
+	initialPrompt: "A combination of all other tests (words, containers, lines, movement) into one!",
 	textBuffer: [],
 	joinCharacter: "",
 	condition: () => false,
