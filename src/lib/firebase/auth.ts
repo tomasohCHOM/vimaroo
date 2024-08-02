@@ -1,10 +1,27 @@
-import { GoogleAuthProvider, GithubAuthProvider, signInWithRedirect } from "firebase/auth";
+import {
+	GoogleAuthProvider,
+	GithubAuthProvider,
+	signInWithRedirect,
+	signOut as firebaseSignOut
+} from "firebase/auth";
 import { auth } from "./";
 
-export async function signInWithGoogle() {
-	await signInWithRedirect(auth, new GoogleAuthProvider());
+async function getProvider(name: string) {
+	switch (name) {
+		case "google":
+			return new GoogleAuthProvider();
+		case "github":
+			return new GithubAuthProvider();
+		default:
+			throw "Unkown provider " + name;
+	}
 }
 
-export async function signInWithGithub() {
-	await signInWithRedirect(auth, new GithubAuthProvider());
+export async function signIn(providerName: string) {
+	const provider = await getProvider(providerName);
+	await signInWithRedirect(auth, provider);
+}
+
+export async function signOut() {
+	await firebaseSignOut(auth);
 }

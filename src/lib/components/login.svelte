@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte";
 	import PopupContainer from "$lib/components/popover.svelte";
-	import { signInWithGithub, signInWithGoogle } from "$lib/firebase/auth";
+	import { signIn } from "$lib/firebase/auth";
 	export let isLoginOpen = false;
 </script>
 
@@ -11,14 +11,14 @@
 
 	<div class="mt-4 flex flex-col items-center gap-2 rounded-xl">
 		<button
-			on:click={signInWithGoogle}
+			on:click={() => signIn("google")}
 			class="flex w-full items-center justify-center gap-4 rounded-xl bg-slate-50 py-1 text-background-400 transition"
 		>
 			<Icon class="inline-block" width={32} inline={true} icon="logos:google-icon" />
 			<span class="align-middle font-medium">Continue with Google</span>
 		</button>
 		<button
-			on:click={signInWithGithub}
+			on:click={() => signIn("github")}
 			class="flex w-full items-center justify-center gap-4 rounded-xl bg-[#24292e] py-1 text-slate-50 transition"
 		>
 			<Icon class="inline-block" width={32} inline={true} icon="mdi:github" />
