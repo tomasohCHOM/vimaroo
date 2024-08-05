@@ -4,7 +4,7 @@ type TypeMode = {
 };
 
 enum TestType {
-	WORDS = "words",
+	HORIZONTAL = "horizontal",
 	CONTAINERS = "containers",
 	LINES = "lines",
 	MOVEMENT = "movement",
@@ -19,9 +19,9 @@ type BaseTest = {
 	updateBuffer: () => void;
 };
 
-interface WordsTest extends BaseTest {
-	type: TestType.WORDS;
-	targetWord: string;
+interface HorizontalTest extends BaseTest {
+	type: TestType.HORIZONTAL;
+	targetCharacter: string;
 	populateWord: string;
 	targetPosition: number;
 }
@@ -52,13 +52,13 @@ interface MixedTest extends BaseTest {
 	targetPosition: number;
 }
 
-type Test = WordsTest | ContainersTest | LinesTest | MovementTest | MixedTest;
+type Test = HorizontalTest | ContainersTest | LinesTest | MovementTest | MixedTest;
 
 export { TestType };
 export type {
 	TypeMode,
 	BaseTest,
-	WordsTest,
+	HorizontalTest,
 	ContainersTest,
 	LinesTest,
 	MovementTest,

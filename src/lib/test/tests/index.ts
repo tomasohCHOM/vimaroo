@@ -1,6 +1,6 @@
 import { TestType } from "$lib/types";
 import type { Test } from "$lib/types";
-import { wordTest } from "./words";
+import { horizontalTest } from "./horizontal";
 import { containersTest } from "./containers";
 import { linesTest } from "./lines";
 import { movementTest } from "./movement";
@@ -8,8 +8,8 @@ import { mixedTest } from "./mixed";
 
 export function handleGameModeChange(gameMode: string): Test {
 	switch (gameMode) {
-		case TestType.WORDS:
-			return wordTest;
+		case TestType.HORIZONTAL:
+			return horizontalTest;
 		case TestType.CONTAINERS:
 			return containersTest;
 		case TestType.LINES:
@@ -19,5 +19,5 @@ export function handleGameModeChange(gameMode: string): Test {
 		case TestType.MIXED:
 			return mixedTest;
 	}
-	return wordTest;
+	return horizontalTest;
 }

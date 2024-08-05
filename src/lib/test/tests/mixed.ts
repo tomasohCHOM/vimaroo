@@ -2,7 +2,7 @@ import { TestType, type MixedTest, type Test } from "$lib/types";
 import { containersTest } from "./containers";
 import { linesTest } from "./lines";
 import { movementTest } from "./movement";
-import { wordTest } from "./words";
+import { horizontalTest } from "./horizontal";
 
 export let mixedTest: Test = {
 	type: TestType.MIXED,
@@ -16,21 +16,21 @@ export let mixedTest: Test = {
 	joinCharacter: "",
 	condition: () => false,
 	updateBuffer: () => {
-		const testTypes = [TestType.WORDS, TestType.CONTAINERS, TestType.LINES, TestType.MOVEMENT];
+		const testTypes = [TestType.HORIZONTAL, TestType.CONTAINERS, TestType.LINES, TestType.MOVEMENT];
 		const randomTest = testTypes[Math.floor(Math.random() * testTypes.length)];
 		const savedUpdatedBuffer = mixedTest.updateBuffer;
 		switch (randomTest) {
-			case TestType.WORDS:
-				wordTest.updateBuffer();
-				mixedTest.type = wordTest.type;
-				if (mixedTest.type !== TestType.WORDS) break;
+			case TestType.HORIZONTAL:
+				horizontalTest.updateBuffer();
+				mixedTest.type = horizontalTest.type;
+				if (mixedTest.type !== TestType.HORIZONTAL) break;
 
-				mixedTest.targetWord = wordTest.targetWord;
-				mixedTest.populateWord = wordTest.populateWord;
-				mixedTest.targetPosition = wordTest.targetPosition;
-				mixedTest.textBuffer = wordTest.textBuffer;
-				mixedTest.joinCharacter = wordTest.joinCharacter;
-				mixedTest.condition = wordTest.condition;
+				mixedTest.targetCharacter = horizontalTest.targetCharacter;
+				mixedTest.populateWord = horizontalTest.populateWord;
+				mixedTest.targetPosition = horizontalTest.targetPosition;
+				mixedTest.textBuffer = horizontalTest.textBuffer;
+				mixedTest.joinCharacter = horizontalTest.joinCharacter;
+				mixedTest.condition = horizontalTest.condition;
 				break;
 			case TestType.CONTAINERS:
 				containersTest.updateBuffer();
