@@ -12,7 +12,8 @@ enum TestType {
 }
 
 type BaseTest = {
-	initialPrompt: string;
+	prompt: string;
+	tip?: string;
 	textBuffer: string[];
 	joinCharacter: string;
 	condition: (currentBuffer: string) => boolean;
@@ -32,7 +33,7 @@ interface ContainersTest extends BaseTest {
 
 interface LinesTest extends BaseTest {
 	type: TestType.LINES;
-	targetWord: string;
+	targetLine: string;
 	targetPosition: number;
 }
 
@@ -45,7 +46,7 @@ interface MovementTest extends BaseTest {
 
 interface MixedTest extends BaseTest {
 	type: TestType.MIXED;
-	targetWord: string;
+	targetLine: string;
 	populateWord: string;
 	targetCharacter: string;
 	populateCharacter: string;

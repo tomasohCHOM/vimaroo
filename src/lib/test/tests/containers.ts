@@ -3,7 +3,8 @@ import { EXTRA_SENTENCES } from "../constants";
 
 export const containersTest: ContainersTest = {
 	type: TestType.CONTAINERS,
-	initialPrompt: "Delete the contents of the containers (tip: use di)",
+	prompt: "Delete the contents of the containers.",
+	tip: "Tip: use di to delete inside a specific container.",
 	textBuffer: ["[", "DELETE_ME", "]"],
 	joinCharacter: "",
 	condition: (currentBuffer: string) => {

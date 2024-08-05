@@ -39,7 +39,7 @@
 
 		// Create editor & model to be displayed
 		const editor = monaco.editor.create(editorContainer, {
-			value: [test.initialPrompt, BEGIN_TEST_LINE].join("\n"),
+			value: [test.prompt, test.tip, BEGIN_TEST_LINE].join("\n"),
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,

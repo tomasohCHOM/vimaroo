@@ -6,7 +6,8 @@ export const movementTest: MovementTest = {
 	targetCharacter: EXTRA_SYMBOLS[0],
 	populateCharacter: EXTRA_SYMBOLS[1],
 	targetPosition: 0,
-	initialPrompt: "Remove the odd character by moving around with hjkl (or use '/')",
+	prompt: "Remove the odd character from the buffer.",
+	tip: "Tip: you can move around using hjkl keys or use `/` as well.",
 	textBuffer: new Array(8).fill(".........."),
 	joinCharacter: "\n",
 	condition: (currentBuffer: string) => {

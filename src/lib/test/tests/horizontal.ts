@@ -6,7 +6,8 @@ export const horizontalTest: HorizontalTest = {
 	targetCharacter: EXTRA_SYMBOLS[0],
 	populateWord: EXTRA_WORDS[Math.floor(Math.random() * EXTRA_WORDS.length)],
 	targetPosition: 0,
-	initialPrompt: "Remove the odd character in a sequence of words",
+	prompt: "Remove the odd character in a sequence of words.",
+	tip: "Tip: use w/b to move between words, ^/_/$ for extremes, or f/F to find characters.",
 	textBuffer: new Array(10).fill(EXTRA_WORDS[1]),
 	joinCharacter: " ",
 	condition: (currentBuffer: string) => {

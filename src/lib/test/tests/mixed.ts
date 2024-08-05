@@ -6,12 +6,13 @@ import { horizontalTest } from "./horizontal";
 
 export let mixedTest: Test = {
 	type: TestType.MIXED,
-	targetWord: "",
+	targetLine: "",
 	populateWord: "",
 	targetCharacter: "",
 	populateCharacter: "",
 	targetPosition: 0,
-	initialPrompt: "A combination of all other tests (words, containers, lines, movement) into one!",
+	prompt: "A combination of all other tests (words, containers, lines, movement) into one.",
+	tip: "Tip: Good luck, it's pretty hard.",
 	textBuffer: [],
 	joinCharacter: "",
 	condition: () => false,
@@ -46,7 +47,7 @@ export let mixedTest: Test = {
 				mixedTest.type = linesTest.type;
 				if (mixedTest.type !== TestType.LINES) break;
 
-				mixedTest.targetWord = linesTest.targetWord;
+				mixedTest.targetLine = linesTest.targetLine;
 				mixedTest.targetPosition = linesTest.targetPosition;
 				mixedTest.textBuffer = linesTest.textBuffer;
 				mixedTest.joinCharacter = linesTest.joinCharacter;
