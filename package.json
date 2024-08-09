@@ -36,7 +36,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.12.4",
 		"monaco-editor": "^0.48.0",
 		"monaco-vim": "^0.4.1"
 	}
