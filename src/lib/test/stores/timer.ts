@@ -8,7 +8,7 @@ function createTimerStore(initialValue: number = 15) {
 	// Starts the timer using setInterval, clear when it reaches 0
 	const start = (editor: Monaco.editor.IStandaloneCodeEditor) => {
 		clear(); // Ensure no duplicate intervals
-		intervalId = setInterval(() => {
+		intervalId = window.setInterval(() => {
 			update((n) => {
 				n -= 1;
 				if (n === 0) {
