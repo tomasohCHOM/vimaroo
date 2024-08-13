@@ -25,7 +25,7 @@
 	<title>Vimaroo | Practice your VIM skills</title>
 </svelte:head>
 
-<Navbar bind:isLoginOpen />
+<Navbar bind:isLoginOpen user={data.user} />
 
 <slot />
 
