@@ -21,7 +21,7 @@
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		{#if user}
-			<a href="profile/{user.user_metadata.user_name}">
+			<a href="/profile/{user.user_metadata.user_name}">
 				<img src={user.user_metadata.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
 			</a>
 		{:else}
