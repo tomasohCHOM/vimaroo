@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte";
-	import type { User } from "@supabase/supabase-js";
 
 	export let isLoginOpen: boolean;
-	export let user: User | null;
+	export let profile: any;
 </script>
 
 <nav class="flex items-center justify-between px-4 md:px-14">
@@ -20,9 +19,9 @@
 		<button>
 			<Icon icon="mdi:settings" width={24} />
 		</button>
-		{#if user}
-			<a href="/profile/{user.user_metadata.user_name}">
-				<img src={user.user_metadata.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
+		{#if profile}
+			<a href="/profile/{profile.username}">
+				<img src={profile.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
 			</a>
 		{:else}
 			<button on:click={() => (isLoginOpen = true)}>
