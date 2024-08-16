@@ -1,7 +1,11 @@
 import type { LayoutServerLoad } from "./$types";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
-export const load: LayoutServerLoad = async ({ locals: { safeGetSession, supabase }, cookies }) => {
+export const load: LayoutServerLoad = async ({
+	url,
+	locals: { safeGetSession, supabase },
+	cookies
+}) => {
 	const { session, user } = await safeGetSession();
 
 	if (!session || !user) {
@@ -23,6 +27,10 @@ export const load: LayoutServerLoad = async ({ locals: { safeGetSession, supabas
 	}
 
 	if (userProfile && userProfile.length !== 0) {
+		if (userProfile[0].username == null && !url.href.endsWith("account/create")) {
+			redirect(303, "/account/create");
+		}
+
 		return {
 			session,
 			user,
