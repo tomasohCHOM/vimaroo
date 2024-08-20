@@ -13,10 +13,41 @@
 		year: "numeric"
 	});
 
-	const tests = Object.values(TestType);
+	const testStats = [
+		{
+			name: "horizontal",
+			testsCompleted: 109,
+			dps: 2.5,
+			accuracy: 94
+		},
+		{
+			name: "containers",
+			testsCompleted: 54,
+			dps: 3.7,
+			accuracy: 96
+		},
+		{
+			name: "lines",
+			testsCompleted: 210,
+			dps: 1.7,
+			accuracy: 99
+		},
+		{
+			name: "movement",
+			testsCompleted: 89,
+			dps: 1.02,
+			accuracy: 97
+		},
+		{
+			name: "mixed",
+			testsCompleted: 149,
+			dps: 0.9,
+			accuracy: 89
+		}
+	];
 </script>
 
-<main class="mx-12 grid max-w-screen-xl items-center gap-6 md:gap-8">
+<main class="mx-auto flex w-full max-w-screen-xl flex-col justify-center gap-6 px-12 md:gap-8">
 	<div class="flex flex-col gap-4 md:flex-row">
 		<div class="flex gap-4 rounded-md bg-background-400 p-4 md:w-2/5 lg:w-1/3">
 			<img src={profile.avatar_url} alt="User profile" class="w-24 rounded-full" />
@@ -40,30 +71,24 @@
 	</div>
 
 	<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-		{#each tests as test}
+		{#each testStats as test}
 			<div class="rounded-md bg-background-400 p-4">
-				<span class="text-sm font-semibold md:text-[1rem]">{test}:</span>
+				<span class="text-sm font-semibold md:text-[1rem]">{test.name}:</span>
 				<div class="mt-4 flex flex-col justify-around gap-4 sm:flex-row">
 					<div class="flex items-center gap-1 sm:flex-col">
-						<span class="text-3xl font-semibold">109</span>
+						<span class="text-3xl font-semibold">{test.testsCompleted}</span>
 						<span class="text-sm">tests</span>
 					</div>
 					<div class="flex items-center gap-1 sm:flex-col">
-						<span class="text-3xl font-semibold text-foreground-blue">2.5</span>
+						<span class="text-3xl font-semibold text-foreground-blue">{test.dps}</span>
 						<span class="text-sm">dps</span>
 					</div>
 					<div class="flex items-center gap-1 sm:flex-col">
-						<span class="text-3xl font-semibold text-foreground-green">94%</span>
+						<span class="text-3xl font-semibold text-foreground-green">{test.accuracy}</span>
 						<span class="text-sm">accuracy</span>
 					</div>
 				</div>
 			</div>
 		{/each}
 	</div>
-
-	<form action="/logout" method="post" class="flex items-center">
-		<button type="submit" class="border-contrast rounded-lg border-2 px-3 py-2 font-medium">
-			Log Out
-		</button>
-	</form>
 </main>
