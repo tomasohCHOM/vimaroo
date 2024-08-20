@@ -25,10 +25,10 @@
 	<title>Vimaroo | Practice your VIM skills</title>
 </svelte:head>
 
-<Navbar bind:isLoginOpen {profile} />
-
-<slot />
-
-<Footer />
+<main id="app" class="max-w-screen-2xl px-4 md:px-14">
+	<Navbar bind:isLoginOpen {profile} />
+	<slot />
+	<Footer />
+</main>
 
 <Login bind:isLoginOpen />

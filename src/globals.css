@@ -35,10 +35,17 @@ html {
 }
 
 body {
+	margin: 0;
+	padding: 0;
 	min-height: 100vh;
+	font-family: var(--ff-code);
+}
+
+#app {
 	padding-block: 2rem;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
-	font-family: var(--ff-code);
+	row-gap: 1rem;
+	margin-inline: auto;
 }

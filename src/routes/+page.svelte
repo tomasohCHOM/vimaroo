@@ -9,7 +9,7 @@
 	import { gameOptions, modeOptions } from "$lib/test/options";
 </script>
 
-<main class="grid items-center justify-center gap-6 md:gap-8">
+<section class="grid items-center justify-center gap-6 md:gap-8">
 	{#if !$gameStarted || $gameOver}
 		<Gamebar />
 	{:else}
@@ -30,4 +30,4 @@
 	{/if}
 
 	<Game gameMode={gameOptions[$selectedGameIndex]} typeMode={modeOptions[$selectedModeIndex]} />
-</main>
+</section>

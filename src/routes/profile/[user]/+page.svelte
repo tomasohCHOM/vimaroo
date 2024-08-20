@@ -47,7 +47,7 @@
 	];
 </script>
 
-<main class="mx-auto flex w-full max-w-screen-xl flex-col justify-center gap-6 px-12 md:gap-8">
+<section class="mx-auto flex w-full max-w-screen-xl flex-col justify-center gap-6 md:gap-8">
 	<div class="flex flex-col gap-4 md:flex-row">
 		<div class="flex gap-4 rounded-md bg-background-400 p-4 md:w-2/5 lg:w-1/3">
 			<img src={profile.avatar_url} alt="User profile" class="w-24 rounded-full" />
@@ -74,16 +74,16 @@
 		{#each testStats as test}
 			<div class="rounded-md bg-background-400 p-4">
 				<span class="text-sm font-semibold md:text-[1rem]">{test.name}:</span>
-				<div class="mt-4 flex flex-col justify-around gap-4 sm:flex-row">
-					<div class="flex items-center gap-1 sm:flex-col">
+				<div class="mt-4 flex flex-row justify-around gap-4 sm:flex-row">
+					<div class="flex flex-col items-center gap-1">
 						<span class="text-3xl font-semibold">{test.testsCompleted}</span>
 						<span class="text-sm">tests</span>
 					</div>
-					<div class="flex items-center gap-1 sm:flex-col">
+					<div class="flex flex-col items-center gap-1">
 						<span class="text-3xl font-semibold text-foreground-blue">{test.dps}</span>
 						<span class="text-sm">dps</span>
 					</div>
-					<div class="flex items-center gap-1 sm:flex-col">
+					<div class="flex flex-col items-center gap-1">
 						<span class="text-3xl font-semibold text-foreground-green">{test.accuracy}</span>
 						<span class="text-sm">accuracy</span>
 					</div>
@@ -91,4 +91,4 @@
 			</div>
 		{/each}
 	</div>
-</main>
+</section>

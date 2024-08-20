@@ -5,7 +5,7 @@
 	export let profile: any;
 </script>
 
-<nav class="flex items-center justify-between px-4 md:px-14">
+<nav class="flex items-center justify-between">
 	<h1 class="flex gap-2 text-3xl font-bold">
 		<a href="/">
 			<span class="z-10">vimaroo</span>
