@@ -1,17 +1,17 @@
 <script lang="ts">
-	import Game from "$lib/components/game.svelte";
-	import Gamebar from "$lib/components/gamebar.svelte";
-	import { gameOver, gameStarted } from "$lib/test/stores/status";
+	import Test from "$lib/components/test.svelte";
+	import TestSettings from "$lib/components/test-settings.svelte";
+	import { testOver, testStarted } from "$lib/test/stores/status";
 	import { timer } from "$lib/test/stores/timer";
 	import { rounds } from "$lib/test/stores/rounds";
 	import { scores } from "$lib/test/stores/scores";
-	import { selectedGameIndex, selectedModeIndex } from "$lib/test/stores/opts-index";
-	import { gameOptions, modeOptions } from "$lib/test/options";
+	import { selectedtestIndex, selectedModeIndex } from "$lib/test/stores/opts-index";
+	import { testOptions, modeOptions } from "$lib/test/options";
 </script>
 
 <section class="grid items-center justify-center gap-6 md:gap-8">
-	{#if !$gameStarted || $gameOver}
-		<Gamebar />
+	{#if !$testStarted || $testOver}
+		<TestSettings />
 	{:else}
 		<div class="flex items-center justify-between p-2">
 			{#if ["time", "rounds"].includes(modeOptions[$selectedModeIndex])}
@@ -29,5 +29,5 @@
 		</div>
 	{/if}
 
-	<Game gameMode={gameOptions[$selectedGameIndex]} typeMode={modeOptions[$selectedModeIndex]} />
+	<Test testMode={testOptions[$selectedtestIndex]} typeMode={modeOptions[$selectedModeIndex]} />
 </section>

@@ -4,7 +4,7 @@
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/types";
 	import { timer } from "$lib/test/stores/timer";
-	import { gameOver, gameStarted } from "$lib/test/stores/status";
+	import { testOver, testStarted } from "$lib/test/stores/status";
 	import { scores } from "$lib/test/stores/scores";
 	import { rounds } from "$lib/test/stores/rounds";
 	import { theme } from "$lib/editor/theme";
@@ -78,9 +78,9 @@
 		editor.getModel()?.onDidChangeContent(() => {
 			// User decides to end the test early
 			imports.VimMode.Vim.defineEx("quit", "q", () => {
-				if (!$gameStarted) return;
+				if (!$testStarted) return;
 				timer.clear();
-				gameOver.set(true);
+				testOver.set(true);
 				triggeredByEditor = true;
 				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}`);
 			});
@@ -93,11 +93,11 @@
 				editor.setValue(test.textBuffer.join(test.joinCharacter));
 			};
 
-			// Prompt message is displayed, start the game now
-			if (!$gameOver && !$gameStarted) {
+			// Prompt message is displayed, start the test now
+			if (!$testOver && !$testStarted) {
 				if (editor.getValue().includes(BEGIN_TEST_LINE)) return;
 
-				$gameStarted = true;
+				$testStarted = true;
 				startTime = performance.now();
 				if (testType === "time") {
 					timer.start(editor);
@@ -112,10 +112,10 @@
 				return;
 			}
 
-			// Game is over and user wants to play again
-			if ($gameOver && !editor.getValue().includes(BEGIN_TEST_LINE)) {
-				$gameOver = false;
-				$gameStarted = false;
+			// test is over and user wants to play again
+			if ($testOver && !editor.getValue().includes(BEGIN_TEST_LINE)) {
+				$testOver = false;
+				$testStarted = false;
 				timer.setInitivalValue(testTypeAmount);
 				rounds.setRounds(testTypeAmount);
 				(score = 0), (total = 0);
@@ -125,14 +125,14 @@
 				return;
 			}
 
-			if ($gameOver) {
+			if ($testOver) {
 				return;
 			}
 
 			// The user has reached the end of the test
 			// Case 1: test is type = "time"
 			if (testType === "time" && $timer <= 0) {
-				$gameOver = true;
+				$testOver = true;
 				const accuracy = !total ? "-.-" : ((score / total) * 100).toFixed(2);
 
 				const scoreSummary = `Your score is ${score}/${total} for the ${testTypeAmount} seconds test`;
@@ -155,7 +155,7 @@
 
 			// Case 2: test is type = "rounds"
 			if (testType === "rounds" && total >= testTypeAmount) {
-				$gameOver = true;
+				$testOver = true;
 				const endTime = performance.now();
 				const totalTime = ((endTime - startTime) / 1000).toFixed(2);
 				const accuracy = ((score / total) * 100).toFixed(2);

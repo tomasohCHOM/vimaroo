@@ -1,29 +1,29 @@
 <script lang="ts">
 	import {
-		selectedGameIndex,
+		selectedtestIndex,
 		selectedModeIndex,
 		selectedRoundsIndex,
 		selectedTimeIndex
 	} from "$lib/test/stores/opts-index";
-	import { gameOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
+	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 </script>
 
 <div
 	class="mr-auto flex items-center justify-center gap-2 font-semibold text-foreground-blue md:hidden"
 >
-	<div class="rounded-md bg-background-400 p-2">{gameOptions[$selectedGameIndex]}</div>
+	<div class="rounded-md bg-background-400 p-2">{testOptions[$selectedtestIndex]}</div>
 	<div class="rounded-md bg-background-400 p-2">{modeOptions[$selectedModeIndex]}</div>
 </div>
 
 <div class="hidden justify-center gap-3 rounded-lg bg-background-400 p-[10px] md:static md:flex">
 	<div class="flex gap-4 border-r-4 border-background-600 pr-4 text-sm">
-		{#each gameOptions as gameMode, i}
+		{#each testOptions as testMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === $selectedGameIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
-				on:click={() => selectedGameIndex.set(i)}
+        {i === $selectedtestIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
+				on:click={() => selectedtestIndex.set(i)}
 			>
-				{gameMode}
+				{testMode}
 			</button>
 		{/each}
 	</div>

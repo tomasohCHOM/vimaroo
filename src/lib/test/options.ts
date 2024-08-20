@@ -1,6 +1,6 @@
 import { TestType } from "$lib/types";
 
-const gameOptions = Object.values(TestType);
+const testOptions = Object.values(TestType);
 
 const modeOptions = ["time", "rounds", "zen"];
 // These options exist under modeOptions
@@ -8,4 +8,4 @@ const modeOptions = ["time", "rounds", "zen"];
 const timeOptions = [15, 30, 60, 120];
 const roundOptions = [10, 25, 50, 100];
 
-export { gameOptions, modeOptions, timeOptions, roundOptions };
+export { testOptions, modeOptions, timeOptions, roundOptions };
