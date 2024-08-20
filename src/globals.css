@@ -20,6 +20,8 @@
 
 	background-color: rgb(var(--color-background-500));
 	color: rgb(var(--color-foreground-neutral));
+
+	color-scheme: dark;
 }
 
 *,
