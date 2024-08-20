@@ -41,6 +41,113 @@ export type Database = {
           },
         ]
       }
+      user_stats: {
+        Row: {
+          containers_accuracy: number | null
+          containers_deletions_correct: number | null
+          containers_deletions_total: number | null
+          containers_tests_completed: number | null
+          containers_total_time: number | null
+          created_at: string
+          horizontal_accuracy: number | null
+          horizontal_deletions_correct: number | null
+          horizontal_deletions_total: number | null
+          horizontal_tests_completed: number | null
+          horizontal_total_time: number | null
+          id: string
+          lines_accuracy: number | null
+          lines_deletions_correct: number | null
+          lines_deletions_total: number | null
+          lines_tests_completed: number | null
+          lines_total_time: number | null
+          mixed_accuracy: number | null
+          mixed_deletions_correct: number | null
+          mixed_deletions_total: number | null
+          mixed_tests_completed: number | null
+          mixed_total_time: number | null
+          movement_accuracy: number | null
+          movement_deletions_correct: number | null
+          movement_deletions_total: number | null
+          movement_tests_completed: number | null
+          movement_total_time: number | null
+          tests_completed: number | null
+          tests_started: number | null
+          user_id: string | null
+        }
+        Insert: {
+          containers_accuracy?: number | null
+          containers_deletions_correct?: number | null
+          containers_deletions_total?: number | null
+          containers_tests_completed?: number | null
+          containers_total_time?: number | null
+          created_at?: string
+          horizontal_accuracy?: number | null
+          horizontal_deletions_correct?: number | null
+          horizontal_deletions_total?: number | null
+          horizontal_tests_completed?: number | null
+          horizontal_total_time?: number | null
+          id?: string
+          lines_accuracy?: number | null
+          lines_deletions_correct?: number | null
+          lines_deletions_total?: number | null
+          lines_tests_completed?: number | null
+          lines_total_time?: number | null
+          mixed_accuracy?: number | null
+          mixed_deletions_correct?: number | null
+          mixed_deletions_total?: number | null
+          mixed_tests_completed?: number | null
+          mixed_total_time?: number | null
+          movement_accuracy?: number | null
+          movement_deletions_correct?: number | null
+          movement_deletions_total?: number | null
+          movement_tests_completed?: number | null
+          movement_total_time?: number | null
+          tests_completed?: number | null
+          tests_started?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          containers_accuracy?: number | null
+          containers_deletions_correct?: number | null
+          containers_deletions_total?: number | null
+          containers_tests_completed?: number | null
+          containers_total_time?: number | null
+          created_at?: string
+          horizontal_accuracy?: number | null
+          horizontal_deletions_correct?: number | null
+          horizontal_deletions_total?: number | null
+          horizontal_tests_completed?: number | null
+          horizontal_total_time?: number | null
+          id?: string
+          lines_accuracy?: number | null
+          lines_deletions_correct?: number | null
+          lines_deletions_total?: number | null
+          lines_tests_completed?: number | null
+          lines_total_time?: number | null
+          mixed_accuracy?: number | null
+          mixed_deletions_correct?: number | null
+          mixed_deletions_total?: number | null
+          mixed_tests_completed?: number | null
+          mixed_total_time?: number | null
+          movement_accuracy?: number | null
+          movement_deletions_correct?: number | null
+          movement_deletions_total?: number | null
+          movement_tests_completed?: number | null
+          movement_total_time?: number | null
+          tests_completed?: number | null
+          tests_started?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_stats_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { TestType } from "$lib/types";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
