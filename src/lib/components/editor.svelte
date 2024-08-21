@@ -2,7 +2,7 @@
 	import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 	import { onDestroy, onMount } from "svelte";
 	import Spinner from "./spinner.svelte";
-	import type { Test } from "$lib/types";
+	import type { Test } from "$lib/test/types";
 	import { timer } from "$lib/test/stores/timer";
 	import { testOver, testStarted } from "$lib/test/stores/status";
 	import { scores } from "$lib/test/stores/scores";

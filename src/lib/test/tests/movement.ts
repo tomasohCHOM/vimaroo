@@ -1,4 +1,4 @@
-import { TestType, type MovementTest } from "$lib/types";
+import { TestType, type MovementTest } from "$lib/test/types";
 import { EXTRA_SYMBOLS } from "../constants";
 
 export const movementTest: MovementTest = {

@@ -1,5 +1,5 @@
-import { TestType } from "$lib/types";
-import type { Test } from "$lib/types";
+import { TestType } from "$lib/test/types";
+import type { Test } from "$lib/test/types";
 import { horizontalTest } from "./horizontal";
 import { containersTest } from "./containers";
 import { linesTest } from "./lines";

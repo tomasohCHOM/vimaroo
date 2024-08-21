@@ -1,4 +1,4 @@
-import { TestType, type ContainersTest } from "$lib/types";
+import { TestType, type ContainersTest } from "$lib/test/types";
 import { EXTRA_SENTENCES } from "../constants";
 
 export const containersTest: ContainersTest = {

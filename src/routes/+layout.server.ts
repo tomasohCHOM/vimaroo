@@ -58,6 +58,14 @@ export const load: LayoutServerLoad = async ({
 		error(Number(createdProfileErr.code), { message: createdProfileErr.message });
 	}
 
+	const { data: _, error: createdUserStatsErr } = await supabase.from("user_stats").insert({
+		user_id: user.id
+	});
+
+	if (createdUserStatsErr) {
+		error(Number(createdUserStatsErr.code), { message: createdUserStatsErr.message });
+	}
+
 	return {
 		session,
 		user,

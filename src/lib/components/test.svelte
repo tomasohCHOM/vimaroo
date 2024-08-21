@@ -2,7 +2,7 @@
 	import { handletestModeChange } from "$lib/test/tests";
 	import { selectedRoundsIndex, selectedTimeIndex } from "$lib/test/stores/opts-index";
 	import { roundOptions, timeOptions } from "$lib/test/options";
-	import { type Test } from "$lib/types";
+	import { type Test } from "$lib/test/types";
 	import Editor from "./editor.svelte";
 
 	export let testMode: string;
