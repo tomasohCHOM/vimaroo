@@ -25,6 +25,6 @@
 
 <div class="h-[400px] w-[min(1000px,_90vw)]">
 	{#key [testMode, typeMode, testTypeAmount]}
-		<Editor {test} testType={typeMode} {testTypeAmount} />
+		<Editor {test} {testMode} testType={typeMode} {testTypeAmount} />
 	{/key}
 </div>

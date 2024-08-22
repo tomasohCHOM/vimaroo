@@ -9,8 +9,10 @@
 	import { rounds } from "$lib/test/stores/rounds";
 	import { theme } from "$lib/editor/theme";
 	import { BEGIN_TEST_LINE } from "$lib/test/constants";
+	import { incrementTestsStarted, updateStats } from "$lib/db/update";
 
 	export let test: Test;
+	export let testMode: string;
 	export let testType: string;
 	export let testTypeAmount: number;
 
@@ -72,15 +74,16 @@
 
 		editor.focus();
 
-		editor.getModel()?.onDidChangeContent(() => {
+		editor.getModel()?.onDidChangeContent(async () => {
 			// User decides to end the test early
-			imports.VimMode.Vim.defineEx("quit", "q", () => {
+			imports.VimMode.Vim.defineEx("quit", "q", async () => {
 				if (!$testStarted) return;
 				timer.clear();
 				testCancelled.set(true);
 				testOver.set(true);
 				triggeredByEditor = true;
 				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}`);
+				await incrementTestsStarted();
 			});
 
 			// Helper function for updating the editor contents via the
@@ -139,6 +142,7 @@
 
 				triggeredByEditor = true;
 				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
+				await updateStats(testMode, score, total, testTypeAmount);
 				return;
 			}
 
@@ -166,6 +170,7 @@
 
 				triggeredByEditor = true;
 				editor.setValue(`${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
+				await updateStats(testMode, score, total, parseFloat(totalTime));
 				return;
 			}
 
