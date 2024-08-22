@@ -20,9 +20,30 @@
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		{#if profile}
-			<a href="/profile/{profile.username}">
-				<img src={profile.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
-			</a>
+			<div class="userProfileElem relative py-2 pl-4">
+				<a href="/profile/{profile.username}">
+					<img src={profile.avatar_url} alt="User Icon" class="w-8 rounded-[50%]" />
+				</a>
+				<div
+					class="userOptions absolute right-0 top-10 w-max flex-col gap-1 rounded-md bg-background-400 p-4 text-sm font-semibold"
+				>
+					<a href="/profile/{profile.username}">
+						<span class="transition hover:text-foreground-green">
+							<Icon icon="mdi:chart-line" class="inline" /> User Stats
+						</span>
+					</a>
+					<a href="/account/settings">
+						<span class="transition hover:text-foreground-green">
+							<Icon icon="mdi:settings" class="inline" /> Account Settings
+						</span>
+					</a>
+					<form method="post" action="/logout">
+						<button type="submit" class="transition hover:text-foreground-green">
+							<Icon icon="mdi:sign-out" class="inline" /> Sign Out
+						</button>
+					</form>
+				</div>
+			</div>
 		{:else}
 			<button on:click={() => (isLoginOpen = true)}>
 				<Icon icon="mdi:user-outline" width={24} />
@@ -30,3 +51,17 @@
 		{/if}
 	</div>
 </nav>
+
+<style>
+	.userOptions {
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity 150ms;
+	}
+
+	.userProfileElem:hover .userOptions {
+		visibility: visible;
+		opacity: 1;
+		display: flex;
+	}
+</style>

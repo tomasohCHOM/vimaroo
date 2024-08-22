@@ -3,7 +3,7 @@
 	import Navbar from "$lib/components/navbar.svelte";
 	import { onMount } from "svelte";
 	import "../globals.css";
-	import { invalidate } from "$app/navigation";
+	import { invalidate, invalidateAll } from "$app/navigation";
 	import Footer from "$lib/components/footer.svelte";
 
 	let isLoginOpen: boolean = false;
@@ -13,6 +13,7 @@
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
+      if (newSession) invalidateAll();
 			if (newSession?.expires_at !== session?.expires_at) {
 				invalidate("supabase:auth");
 			}
