@@ -1,6 +1,10 @@
 import { json, type RequestHandler } from "@sveltejs/kit";
 
-export const POST: RequestHandler = async ({ locals: { supabase, safeGetSession } }) => {
+export const POST: RequestHandler = async ({ request, locals: { supabase, safeGetSession } }) => {
+	if (request.method === "OPTIONS") {
+		return new Response("");
+	}
+
 	const { session, user } = await safeGetSession();
 	if (!user || !session) {
 		return json({ success: false, message: "Unauthorized" }, { status: 400 });
@@ -17,14 +21,14 @@ export const POST: RequestHandler = async ({ locals: { supabase, safeGetSession 
 
 	const testsStarted = data[0].tests_started;
 
-	console.log(testsStarted);
-
 	const update = await supabase
 		.from("user_stats")
 		.update({ tests_started: testsStarted != null ? testsStarted + 1 : 1 })
 		.eq("user_id", user.id);
 
-	console.log(update);
+	if (update.error) {
+		return json({ success: false, error: update.error.message }, { status: +update.error.code });
+	}
 
 	return json({ success: true });
 };

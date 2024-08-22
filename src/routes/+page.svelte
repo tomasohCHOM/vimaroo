@@ -15,6 +15,8 @@
 			return;
 		}
 
+		console.log("Triggered");
+
 		try {
 			const response = await fetch("/api/stats/increment", {
 				method: "POST",
