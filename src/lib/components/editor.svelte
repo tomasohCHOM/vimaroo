@@ -4,7 +4,7 @@
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/test/types";
 	import { timer } from "$lib/test/stores/timer";
-	import { testOver, testStarted } from "$lib/test/stores/status";
+	import { testCancelled, testOver, testStarted } from "$lib/test/stores/status";
 	import { scores } from "$lib/test/stores/scores";
 	import { rounds } from "$lib/test/stores/rounds";
 	import { theme } from "$lib/editor/theme";
@@ -20,9 +20,6 @@
 
 	let vimMode: any;
 	let loaded: boolean = false;
-
-	let score = 0;
-	let total = 0;
 
 	onMount(async () => {
 		// Import monaco code editor
@@ -80,6 +77,7 @@
 			imports.VimMode.Vim.defineEx("quit", "q", () => {
 				if (!$testStarted) return;
 				timer.clear();
+				testCancelled.set(true);
 				testOver.set(true);
 				triggeredByEditor = true;
 				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}`);
@@ -112,13 +110,12 @@
 				return;
 			}
 
-			// test is over and user wants to play again
+			// Test is over and user wants to play again
 			if ($testOver && !editor.getValue().includes(BEGIN_TEST_LINE)) {
 				$testOver = false;
 				$testStarted = false;
 				timer.setInitivalValue(testTypeAmount);
 				rounds.setRounds(testTypeAmount);
-				(score = 0), (total = 0);
 				scores.reset();
 				startTime = performance.now();
 				updateEditorContents();
@@ -128,6 +125,8 @@
 			if ($testOver) {
 				return;
 			}
+
+			let [score, total] = $scores;
 
 			// The user has reached the end of the test
 			// Case 1: test is type = "time"
@@ -146,12 +145,13 @@
 			// Check if we count it as a success or failure
 			// In either case, increment the total count
 			if (test.condition(editor.getValue())) {
-				score++;
+				scores.incrementScore();
 			}
-			total++;
+			scores.incrementTotal();
 
-			scores.set([score, total]);
 			rounds.updateRounds();
+
+			[score, total] = $scores;
 
 			// Case 2: test is type = "rounds"
 			if (testType === "rounds" && total >= testTypeAmount) {

@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { UserProfile } from "$lib/types/profile";
 	import Icon from "@iconify/svelte";
 
+	export let isHelpOpen: boolean;
+	export let isSettingsOpen: boolean;
 	export let isLoginOpen: boolean;
-	export let profile: any;
+	export let profile: UserProfile | null;
 </script>
 
 <nav class="flex items-center justify-between">
@@ -13,10 +16,10 @@
 		<img src="/favicon.svg" alt="Favicon" class="w-10" />
 	</h1>
 	<div class="flex items-center justify-center gap-1">
-		<button>
-			<Icon icon="mdi:about-circle-outline" width={24} />
+		<button on:click={() => (isHelpOpen = true)}>
+			<Icon icon="mdi:help-circle-outline" width={24} />
 		</button>
-		<button>
+		<button on:click={() => (isSettingsOpen = true)}>
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		{#if profile}

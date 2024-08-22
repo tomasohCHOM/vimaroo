@@ -5,8 +5,41 @@
 	import { timer } from "$lib/test/stores/timer";
 	import { rounds } from "$lib/test/stores/rounds";
 	import { scores } from "$lib/test/stores/scores";
-	import { selectedtestIndex, selectedModeIndex } from "$lib/test/stores/opts-index";
+	import { selectedTestIndex, selectedModeIndex } from "$lib/test/stores/opts-index";
 	import { testOptions, modeOptions } from "$lib/test/options";
+
+	export let data;
+
+	async function updateStats() {
+		if (!data.session) {
+			return;
+		}
+
+		try {
+			const response = await fetch("/api/stats/increment", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			});
+			if (response.ok) {
+				console.log("Number of user tests incremented.");
+			} else {
+				console.error("Failed to increment tests:", await response.text());
+			}
+		} catch (error) {
+			console.error(error);
+		}
+
+		const deletionsCorrect = $scores[0];
+		const deletionsTotal = $scores[1];
+		const testType = testOptions[$selectedTestIndex];
+		const totalTime = 15;
+	}
+
+	$: if ($testOver) {
+		updateStats();
+	}
 </script>
 
 <section class="grid items-center justify-center gap-6 md:gap-8">
@@ -29,5 +62,5 @@
 		</div>
 	{/if}
 
-	<Test testMode={testOptions[$selectedtestIndex]} typeMode={modeOptions[$selectedModeIndex]} />
+	<Test testMode={testOptions[$selectedTestIndex]} typeMode={modeOptions[$selectedModeIndex]} />
 </section>

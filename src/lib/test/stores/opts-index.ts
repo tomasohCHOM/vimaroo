@@ -20,8 +20,8 @@ if (browser) {
 }
 
 // Create the test index store
-export const selectedtestIndex = writable(testIndex);
-selectedtestIndex.subscribe((value) => {
+export const selectedTestIndex = writable(testIndex);
+selectedTestIndex.subscribe((value) => {
 	if (browser) {
 		window.localStorage.setItem("test-index", JSON.stringify(value));
 	}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import {
-		selectedtestIndex,
+		selectedTestIndex,
 		selectedModeIndex,
 		selectedRoundsIndex,
 		selectedTimeIndex
@@ -11,7 +11,7 @@
 <div
 	class="mr-auto flex items-center justify-center gap-2 font-semibold text-foreground-blue md:hidden"
 >
-	<div class="rounded-md bg-background-400 p-2">{testOptions[$selectedtestIndex]}</div>
+	<div class="rounded-md bg-background-400 p-2">{testOptions[$selectedTestIndex]}</div>
 	<div class="rounded-md bg-background-400 p-2">{modeOptions[$selectedModeIndex]}</div>
 </div>
 
@@ -20,8 +20,8 @@
 		{#each testOptions as testMode, i}
 			<button
 				class="font-semibold transition duration-150
-        {i === $selectedtestIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
-				on:click={() => selectedtestIndex.set(i)}
+        {i === $selectedTestIndex ? 'text-foreground-blue' : 'hover:text-foreground-green'}"
+				on:click={() => selectedTestIndex.set(i)}
 			>
 				{testMode}
 			</button>

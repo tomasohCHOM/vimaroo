@@ -1,3 +1,4 @@
+import type { UserProfile } from "$lib/types/profile";
 import type { LayoutServerLoad } from "./$types";
 import { error, redirect } from "@sveltejs/kit";
 
@@ -20,7 +21,8 @@ export const load: LayoutServerLoad = async ({
 	const { data: userProfile, error: err } = await supabase
 		.from("profiles")
 		.select("*")
-		.eq("id", user.id);
+		.eq("id", user.id)
+		.returns<UserProfile[]>();
 
 	if (err) {
 		error(Number(err.code), { message: err.message });
@@ -52,7 +54,8 @@ export const load: LayoutServerLoad = async ({
 	const { data: createdProfile, error: createdProfileErr } = await supabase
 		.from("profiles")
 		.select("*")
-		.eq("id", user.id);
+		.eq("id", user.id)
+		.returns<UserProfile[]>();
 
 	if (createdProfileErr) {
 		error(Number(createdProfileErr.code), { message: createdProfileErr.message });

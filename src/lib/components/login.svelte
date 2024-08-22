@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte";
 	import PopupContainer from "$lib/components/popover.svelte";
+
 	export let isLoginOpen = false;
 </script>
 
