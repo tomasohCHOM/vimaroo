@@ -10,6 +10,7 @@
 	import { theme } from "$lib/editor/theme";
 	import { BEGIN_TEST_LINE } from "$lib/test/constants";
 	import { incrementTestsStarted, updateStats } from "$lib/db/update";
+	import { ASCII_LOGO } from "$lib/editor/ascii";
 
 	export let test: Test;
 	export let testMode: string;
@@ -38,11 +39,11 @@
 
 		// Create editor & model to be displayed
 		const editor = monaco.editor.create(editorContainer, {
-			value: [test.prompt, test.tip, BEGIN_TEST_LINE].join("\n"),
+			value: [test.prompt, test.tip, BEGIN_TEST_LINE, ASCII_LOGO].join("\n"),
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
-			wordWrap: "on",
+			// wordWrap: "on",
 			lineNumbers: "relative",
 			fontFamily: "Fira Code",
 			fontSize: 16,
@@ -82,7 +83,7 @@
 				testCancelled.set(true);
 				testOver.set(true);
 				triggeredByEditor = true;
-				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}`);
+				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}\n${ASCII_LOGO}`);
 				await incrementTestsStarted();
 			});
 
@@ -141,7 +142,7 @@
 				const accuracySummary = `Your accuracy was ${accuracy}%`;
 
 				triggeredByEditor = true;
-				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
+				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}\n${ASCII_LOGO}`);
 				await updateStats(testMode, score, total, testTypeAmount);
 				return;
 			}
@@ -169,7 +170,9 @@
 				const timeSummary = `Total time = ${totalTime} seconds`;
 
 				triggeredByEditor = true;
-				editor.setValue(`${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}`);
+				editor.setValue(
+					`${scoreSummary}\n${timeSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}\n${ASCII_LOGO}`
+				);
 				await updateStats(testMode, score, total, parseFloat(totalTime));
 				return;
 			}
