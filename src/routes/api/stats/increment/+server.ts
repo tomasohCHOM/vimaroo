@@ -10,24 +10,25 @@ export const POST: RequestHandler = async ({ request, locals: { supabase, safeGe
 		return json({ success: false, message: "Unauthorized" }, { status: 400 });
 	}
 
-	const { data, error } = await supabase
+	const testsStartedQuery = await supabase
 		.from("user_stats")
 		.select("tests_started")
-		.eq("user_id", user.id);
+		.eq("user_id", user.id)
+		.single();
 
-	if (!data) {
-		return json(500);
+	if (testsStartedQuery.error) {
+		return json({ success: false, message: testsStartedQuery.error.message }, { status: 500 });
 	}
 
-	const testsStarted = data[0].tests_started;
+	const testsStarted = testsStartedQuery.data.tests_started;
 
-	const update = await supabase
+	const updateTestsStartedQuery = await supabase
 		.from("user_stats")
 		.update({ tests_started: testsStarted != null ? testsStarted + 1 : 1 })
 		.eq("user_id", user.id);
 
-	if (update.error) {
-		return json({ success: false, error: update.error.message }, { status: +update.error.code });
+	if (updateTestsStartedQuery.error) {
+		return json({ success: false, error: updateTestsStartedQuery.error.message }, { status: 500 });
 	}
 
 	return json({ success: true });

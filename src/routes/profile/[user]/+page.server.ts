@@ -4,29 +4,33 @@ import { getTestStats } from "$lib/db/stats";
 
 export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
 	const username = url.toString().substring(url.toString().lastIndexOf("/") + 1);
-	const { data: profile, error: err } = await supabase
+	const profileQuery = await supabase
 		.from("profiles")
 		.select("*")
-		.eq("username", username);
+		.eq("username", username)
+		.maybeSingle();
 
-	if (err) {
-		error(Number(err.code), { message: err.message });
+	if (profileQuery.error) {
+		error(500, { message: profileQuery.error.message });
 	}
 
-	if (!profile || profile.length === 0) {
+	const profile = profileQuery.data;
+	if (!profile) {
 		error(404, "Not found");
 	}
 
-	const { data: userStats, error: userStatsErr } = await supabase
+	const userStatsQuery = await supabase
 		.from("user_stats")
 		.select("*")
-		.eq("user_id", profile[0].id);
+		.eq("user_id", profile.id)
+		.single();
 
-	if (userStatsErr) {
-		error(500, "Server error");
+	if (userStatsQuery.error) {
+		error(500, { message: userStatsQuery.error.message });
 	}
 
-	const stats = userStats[0];
+	const stats = userStatsQuery.data;
+
 	const overallStats = {
 		testsStarted: stats.tests_started ?? 0,
 		testsCompleted: stats.tests_completed ?? 0
@@ -35,7 +39,7 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
 	const testStats = getTestStats(stats);
 
 	return {
-		profile: profile[0],
+		profile: profile,
 		overallStats: overallStats,
 		testStats: testStats
 	};

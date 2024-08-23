@@ -14,15 +14,15 @@ export const actions: Actions = {
 		if (!OAUTH_PROVIDERS.includes(provider)) {
 			return fail(400, { message: "Provider not supported" });
 		}
-		const { data, error: err } = await supabase.auth.signInWithOAuth({
+		const signInQuery = await supabase.auth.signInWithOAuth({
 			provider: provider
 		});
 
-		if (err) {
-			console.error(err);
+		if (signInQuery.error) {
+			console.error(signInQuery.error.message);
 			return fail(400, { message: "Something went wrong" });
 		}
 
-		redirect(303, data.url);
+		redirect(303, signInQuery.data.url);
 	}
 };

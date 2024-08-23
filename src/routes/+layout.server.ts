@@ -1,4 +1,3 @@
-import type { UserProfile } from "$lib/types/profile";
 import type { LayoutServerLoad } from "./$types";
 import { error, redirect } from "@sveltejs/kit";
 
@@ -18,61 +17,57 @@ export const load: LayoutServerLoad = async ({
 		};
 	}
 
-	const { data: userProfile, error: err } = await supabase
+	const userProfileQuery = await supabase
 		.from("profiles")
 		.select("*")
 		.eq("id", user.id)
-		.returns<UserProfile[]>();
+		.maybeSingle();
 
-	if (err) {
-		error(Number(err.code), { message: err.message });
+	if (userProfileQuery.error) {
+		error(500, { message: userProfileQuery.error.message });
 	}
 
-	if (userProfile && userProfile.length !== 0) {
-		if (userProfile[0].username == null && !url.href.endsWith("account/create")) {
+	const userProfile = userProfileQuery.data;
+
+	if (userProfile) {
+		if (userProfile.username == null && !url.href.endsWith("account/create")) {
 			redirect(303, "/account/create");
 		}
 
 		return {
 			session,
 			user,
-			profile: userProfile[0],
+			profile: userProfile,
 			cookies: cookies.getAll()
 		};
 	}
 
-	const { error: insertErr } = await supabase.from("profiles").insert({
-		id: user.id,
-		email: user.email,
-		avatar_url: user.user_metadata.avatar_url
-	});
-
-	if (insertErr) {
-		error(Number(insertErr.code), { message: insertErr.message });
-	}
-
-	const { data: createdProfile, error: createdProfileErr } = await supabase
+	const insertNewProfileQuery = await supabase
 		.from("profiles")
+		.insert({
+			id: user.id,
+			email: user.email,
+			avatar_url: user.user_metadata.avatar_url
+		})
 		.select("*")
-		.eq("id", user.id)
-		.returns<UserProfile[]>();
+		.single();
 
-	if (createdProfileErr) {
-		error(Number(createdProfileErr.code), { message: createdProfileErr.message });
+	if (insertNewProfileQuery.error || !insertNewProfileQuery.data) {
+		error(500, { message: insertNewProfileQuery.error.message });
 	}
 
-	const { data: _, error: createdUserStatsErr } = await supabase.from("user_stats").insert({
+	const createUserStatsQuery = await supabase.from("user_stats").insert({
 		user_id: user.id
 	});
 
-	if (createdUserStatsErr) {
-		error(Number(createdUserStatsErr.code), { message: createdUserStatsErr.message });
+	if (createUserStatsQuery.error) {
+		error(500, { message: createUserStatsQuery.error.message });
 	}
 
 	return {
 		session,
 		user,
-		profile: createdProfile[0],
+		profile: insertNewProfileQuery.data,
 		cookies: cookies.getAll()
 	};
 };

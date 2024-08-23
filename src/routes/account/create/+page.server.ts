@@ -6,11 +6,19 @@ export const load: PageServerLoad = async ({ locals: { supabase, safeGetSession 
 	if (!session || !user) {
 		error(400, "User not authenticated");
 	}
-	const { data, error: err } = await supabase.from("profiles").select("username").eq("id", user.id);
-	if (err) {
-		error(Number(err.code), { message: err.message });
+
+	const profileQuery = await supabase
+		.from("profiles")
+		.select("username")
+		.eq("id", user.id)
+		.single();
+
+	if (profileQuery.error) {
+		error(500, { message: profileQuery.error.message });
 	}
-	if (data && data.length !== 0 && data[0].username != null) {
+
+	const profile = profileQuery.data;
+	if (profile && profile.username != null) {
 		redirect(303, "/");
 	}
 };
@@ -34,23 +42,27 @@ export const actions: Actions = {
 			return fail(400, { message: "Username should be between 3-32 characters" });
 		}
 
-		const { data: usernameInDB } = await supabase
+		const usernameQuery = await supabase
 			.from("profiles")
-			.select("*")
+			.select("*", { count: "exact" })
 			.eq("username", username);
-		if (usernameInDB && usernameInDB.length !== 0) {
+
+		if (usernameQuery.error) {
+			return fail(500, { message: "Something went wrong, please try again." });
+		}
+		if (usernameQuery.count) {
 			return fail(400, { message: "Username already selected" });
 		}
 
-		const { error: err } = await supabase
+		const updateUsernameQuery = await supabase
 			.from("profiles")
 			.update({
 				username: username.toString()
 			})
 			.eq("id", user.id);
 
-		if (err) {
-			error(Number(err.code), { message: err.message });
+		if (updateUsernameQuery.error) {
+			error(500, { message: updateUsernameQuery.error.message });
 		}
 
 		redirect(303, "/");
