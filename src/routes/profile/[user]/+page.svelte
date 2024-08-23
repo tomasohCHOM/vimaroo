@@ -48,11 +48,15 @@
 						<span class="text-sm">tests</span>
 					</div>
 					<div class="flex flex-col items-center gap-1">
-						<span class="text-3xl font-semibold text-foreground-blue">{test.dps ?? "-"}</span>
+						<span class="text-3xl font-semibold text-foreground-blue"
+							>{test.dps?.toFixed(2) ?? "-"}</span
+						>
 						<span class="text-sm">dps</span>
 					</div>
 					<div class="flex flex-col items-center gap-1">
-						<span class="text-3xl font-semibold text-foreground-green">{test.accuracy ?? "-"}</span>
+						<span class="text-3xl font-semibold text-foreground-green"
+							>{test.accuracy?.toFixed(2) ?? "-"}</span
+						>
 						<span class="text-sm">accuracy</span>
 					</div>
 				</div>

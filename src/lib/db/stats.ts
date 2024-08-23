@@ -15,10 +15,9 @@ function calculateStats(
 	deletionsCorrect: number | null,
 	totalTime: number | null
 ): TestStats {
-	const dps =
-		deletionsCorrect != null && deletionsTotal != null ? deletionsCorrect / deletionsTotal : null;
+	const dps = deletionsCorrect != null && totalTime != null ? deletionsCorrect / totalTime : null;
 	const accuracy =
-		deletionsCorrect != null && totalTime != null ? deletionsCorrect / totalTime : null;
+		deletionsCorrect != null && deletionsTotal != null ? deletionsCorrect / deletionsTotal : null;
 
 	return {
 		testName,
