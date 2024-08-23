@@ -6,7 +6,7 @@ import { linesTest } from "./lines";
 import { movementTest } from "./movement";
 import { mixedTest } from "./mixed";
 
-export function handletestModeChange(testMode: string): Test {
+export function handleTestModeChange(testMode: string): Test {
 	switch (testMode) {
 		case TestType.HORIZONTAL:
 			return horizontalTest;
