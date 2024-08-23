@@ -32,6 +32,31 @@ export const POST: RequestHandler = async ({ request, locals: { supabase, safeGe
 		return json({ success: false, error: "Invalid input data." }, { status: 500 });
 	}
 
+	const testsTotalQuery = await supabase
+		.from("user_stats")
+		.select("tests_started, tests_completed")
+		.eq("user_id", user.id)
+		.single();
+
+	if (testsTotalQuery.error || !testsTotalQuery.data) {
+		return json({ success: false, error: testsTotalQuery.error.message }, { status: 500 });
+	}
+
+	const testsStarted = testsTotalQuery.data.tests_started;
+	const testsCompleted = testsTotalQuery.data.tests_completed;
+
+	const updateTestsTotalQuery = await supabase
+		.from("user_stats")
+		.update({
+			tests_started: testsStarted ? testsStarted + 1 : 1,
+			tests_completed: testsCompleted ? testsCompleted + 1 : 1
+		})
+		.eq("user_id", user.id);
+
+	if (updateTestsTotalQuery.error) {
+		return json({ success: false, error: updateTestsTotalQuery.error.message }, { status: 500 });
+	}
+
 	switch (testName) {
 		case "horizontal":
 			const horizontalStats = await supabase
