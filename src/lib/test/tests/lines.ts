@@ -13,7 +13,10 @@ export const linesTest: LinesTest = {
 		if (currentBuffer.length === 0) return false;
 		if (linesTest.type !== TestType.LINES) return false;
 
-		return !currentBuffer.includes(linesTest.targetLine);
+		const parsedBuffer = currentBuffer.split("\n").join("");
+		const rowLength = linesTest.textBuffer.length;
+		const columnLength = linesTest.targetLine.length;
+		return parsedBuffer === ".".repeat((rowLength - 1) * columnLength);
 	},
 	updateBuffer: () => {
 		if (linesTest.type !== TestType.LINES) return;
