@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
 
 @tailwind base;
@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 :root {
-	--ff-general: "Inter", sans-serif;
+	--ff-general: "Lato", sans-serif;
 	--ff-code: "Fira Code", monospace;
 
 	--color-background-400: 32, 35, 44;
@@ -48,4 +48,8 @@ body {
 	flex-direction: column;
 	row-gap: 1rem;
 	margin-inline: auto;
+}
+
+code {
+	font-family: var(--ff-code);
 }

@@ -2,6 +2,9 @@
 	import { fade, fly } from "svelte/transition";
 
 	export let isOpen: boolean = false;
+	export let containerWidth: string = "w-[min(23rem,_80vw)]";
+	export let extraStyles: string = "";
+
 	function toggleContainer() {
 		isOpen = !isOpen;
 	}
@@ -9,8 +12,10 @@
 
 {#key isOpen}
 	<div
-		class="floating z-20 flex flex-col gap-4 rounded-lg bg-background-500 shadow-lg"
-		class:active={isOpen}
+		class="{containerWidth} {extraStyles} fixed left-1/2 top-[55%] z-20 hidden
+    -translate-x-1/2 -translate-y-1/2 rounded-lg bg-background-500 p-6 font-general
+    shadow-lg transition-all"
+		class:containerOpen={isOpen}
 		in:fly={{ y: 40, duration: 150 }}
 		out:fly={{ y: 40, duration: 150 }}
 	>
@@ -30,18 +35,7 @@
 {/key}
 
 <style>
-	.floating {
-		display: none;
-		width: min(23rem, 80vw);
-		padding: 1.5rem;
-		position: fixed;
-		left: 50%;
-		top: 55%;
-		transform: translate(-50%, -50%);
-		transition: all 0.125s ease-in;
-	}
-
-	.floating.active {
+	.containerOpen {
 		top: 50%;
 		display: block;
 	}
