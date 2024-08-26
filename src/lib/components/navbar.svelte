@@ -6,6 +6,8 @@
 	export let isSettingsOpen: boolean;
 	export let isLoginOpen: boolean;
 	export let profile: UserProfile | null;
+
+	let isDropdownOpen: boolean = false;
 </script>
 
 <nav class="flex items-center justify-between">
@@ -23,19 +25,21 @@
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		{#if profile}
-			<div class="userProfileElem relative py-2 pl-4">
-				<a href="/profile/{profile.username}">
-					<img src={profile.avatar_url} alt="User Icon" class="w-8 rounded-[50%]" />
-				</a>
+			<div class="userProfileElem relative py-2">
+				<button class="block" on:click={() => (isDropdownOpen = !isDropdownOpen)}>
+					<img src={profile.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
+				</button>
 				<div
-					class="userOptions absolute right-0 top-10 w-max flex-col gap-1 rounded-md bg-background-400 p-4 text-sm font-semibold"
+					class="userOptions absolute right-0 top-11 w-max flex-col gap-1
+          rounded-md bg-background-400 p-4 text-sm font-semibold"
+					class:userOptionsActive={isDropdownOpen}
 				>
-					<a href="/profile/{profile.username}">
+					<a href="/profile/{profile.username}" on:click={() => (isDropdownOpen = false)}>
 						<span class="transition hover:text-foreground-green">
 							<Icon icon="mdi:chart-line" class="inline" /> User Stats
 						</span>
 					</a>
-					<a href="/account/settings">
+					<a href="/account/settings" on:click={() => (isDropdownOpen = false)}>
 						<span class="transition hover:text-foreground-green">
 							<Icon icon="mdi:settings" class="inline" /> Account Settings
 						</span>
@@ -62,7 +66,7 @@
 		transition: opacity 150ms;
 	}
 
-	.userProfileElem:hover .userOptions {
+	.userOptionsActive {
 		visibility: visible;
 		opacity: 1;
 		display: flex;

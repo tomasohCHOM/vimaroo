@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from "@iconify/svelte";
 	import { fade, fly } from "svelte/transition";
 
 	export let isOpen: boolean = false;
@@ -19,6 +20,9 @@
 		in:fly={{ y: 40, duration: 150 }}
 		out:fly={{ y: 40, duration: 150 }}
 	>
+		<button class="absolute right-6 top-4" on:click={() => (isOpen = false)}>
+			<Icon icon="mdi:close" width={24} />
+		</button>
 		<slot />
 	</div>
 

@@ -6,7 +6,7 @@
 	export let isSettingsOpen: boolean = false;
 
 	const themeOptions = ["Light", "Dark"];
-	const fontSizeOptions = [""];
+	const fontSizeOptions = Array.from({ length: 24 - 12 + 1 }, (_, i) => i + 12);
 	const disableAsciiLogo = ["Yes", "No"];
 </script>
 
@@ -18,7 +18,7 @@
 				<h3 class="text-lg font-semibold">Switch Theme</h3>
 				<p class="text-sm">Switch between light / dark mode for this site</p>
 			</div>
-			<Dropdown>
+			<Dropdown dropdownOptions={themeOptions}>
 				<button>
 					<Icon icon="mdi:moon" />
 				</button>
@@ -29,7 +29,7 @@
 				<h3 class="text-lg font-semibold">Font Size</h3>
 				<p class="text-sm">Change the editor font size</p>
 			</div>
-			<Dropdown>
+			<Dropdown dropdownOptions={fontSizeOptions}>
 				<button>
 					<Icon icon="mdi:moon" />
 				</button>
@@ -40,7 +40,7 @@
 				<h3 class="text-lg font-semibold">Disable ASCII Logo</h3>
 				<p class="text-sm">Disable the ASCII logo inside the editor</p>
 			</div>
-			<Dropdown>
+			<Dropdown dropdownOptions={disableAsciiLogo}>
 				<button>
 					<Icon icon="mdi:moon" />
 				</button>

@@ -16,7 +16,7 @@
 			class="flex w-full items-center justify-center gap-4 rounded-xl bg-slate-50 py-1 text-background-400 transition"
 		>
 			<Icon class="inline-block" width={32} inline={true} icon="logos:google-icon" />
-			<span class="align-middle font-medium">Continue with Google</span>
+			<span class="align-middle font-semibold">Continue with Google</span>
 		</button>
 		<button
 			type="submit"
@@ -24,7 +24,7 @@
 			class="flex w-full items-center justify-center gap-4 rounded-xl bg-[#24292e] py-1 text-slate-50 transition"
 		>
 			<Icon class="inline-block" width={32} inline={true} icon="mdi:github" />
-			<span class="align-middle font-medium">Continue with GitHub</span>
+			<span class="align-middle font-semibold">Continue with GitHub</span>
 		</button>
 	</form>
 </PopupContainer>
