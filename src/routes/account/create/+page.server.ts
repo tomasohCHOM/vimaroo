@@ -45,7 +45,7 @@ export const actions: Actions = {
 		const usernameQuery = await supabase
 			.from("profiles")
 			.select("*", { count: "exact" })
-			.eq("username", username);
+			.eq("username", username.toString());
 
 		if (usernameQuery.error) {
 			return fail(500, { message: "Something went wrong, please try again." });
