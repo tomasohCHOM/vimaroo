@@ -23,20 +23,11 @@
 		unsubscribeAscii();
 		unsubscribeFontSize();
 	});
-
-	const themeOptions = ["Light", "Dark"];
 </script>
 
-<Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(40rem,_90vw)]">
-	<h2 class="text-2xl font-semibold md:text-3xl">Settings</h2>
+<Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(35rem,_90vw)]">
+	<h2 class="text-2xl font-semibold md:text-3xl">Editor Settings</h2>
 	<div class="mt-4 flex flex-col gap-4">
-		<div class="flex items-center justify-between">
-			<div class="flex flex-col">
-				<h3 class="text-lg font-semibold">Switch Theme</h3>
-				<p class="text-sm">Switch between light / dark mode for this site</p>
-			</div>
-			<Dropdown dropdownOptions={themeOptions} />
-		</div>
 		<div class="flex items-center justify-between">
 			<div class="flex flex-col">
 				<h3 class="text-lg font-semibold">Font Size</h3>

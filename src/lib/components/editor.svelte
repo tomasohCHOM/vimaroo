@@ -2,12 +2,12 @@
 	import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 	import { onDestroy, onMount } from "svelte";
 	import Spinner from "./spinner.svelte";
-	import type { Test } from "$lib/test/types";
+	import type { Test } from "$lib/types/test";
 	import { timer } from "$lib/stores/test/timer";
 	import { testCancelled, testOver, testStarted } from "$lib/stores/test/status";
 	import { scores } from "$lib/stores/test/scores";
 	import { rounds } from "$lib/stores/test/rounds";
-	import { theme } from "$lib/editor/theme";
+	import { editorTheme } from "$lib/editor/theme";
 	import { BEGIN_TEST_LINE } from "$lib/test/constants";
 	import { incrementTestsStarted, updateStats } from "$lib/db/update";
 	import { ASCII_LOGO } from "$lib/editor/ascii";
@@ -36,7 +36,7 @@
 		monaco = imports.monaco;
 
 		// Import editor theme
-		monaco.editor.defineTheme("Theme", theme);
+		monaco.editor.defineTheme("Theme", editorTheme);
 
 		// Set editor creation event to set theme
 		monaco.editor.onDidCreateEditor((_) => {

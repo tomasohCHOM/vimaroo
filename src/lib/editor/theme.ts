@@ -1,6 +1,6 @@
 import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
-export const theme: Monaco.editor.IStandaloneThemeData = {
+export const editorTheme: Monaco.editor.IStandaloneThemeData = {
 	base: "vs-dark",
 	inherit: true,
 	rules: [],
