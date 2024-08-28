@@ -30,8 +30,8 @@
 					<img src={profile.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
 				</button>
 				<div
-					class="userOptions absolute right-0 top-11 w-max flex-col gap-1
-          rounded-md bg-background-400 p-4 text-sm font-semibold"
+					class="userOptions absolute right-0 top-11 z-30 w-max flex-col
+          gap-1 rounded-md bg-background-400 p-4 text-sm font-semibold"
 					class:userOptionsActive={isDropdownOpen}
 				>
 					<a href="/profile/{profile.username}" on:click={() => (isDropdownOpen = false)}>

@@ -202,7 +202,7 @@
 {/if}
 
 <div class="h-full w-full" bind:this={editorContainer} />
-<div class="flex items-center justify-between">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between">
 	<p
 		class="mb-4 mt-1 max-w-max rounded-lg bg-background-400 px-2 text-foreground-blue"
 		id="status-bar"
