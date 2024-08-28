@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
+	import Popover from "$lib/components/popover.svelte";
 	import type { SubmitFunction } from "@sveltejs/kit";
 
 	export let form;
@@ -15,7 +16,7 @@
 	};
 </script>
 
-<div class="floating ng z-20 flex max-w-96 flex-col gap-4 rounded-lg bg-background-400 shadow-lg">
+<Popover locked={true}>
 	<h2 class="text-center text-lg font-semibold md:text-xl">Account Username</h2>
 	<p class="mt-1 text-center">Please provide a username to continue</p>
 	<form
@@ -44,16 +45,4 @@
 			<p class="text-sm font-semibold text-red-400">{form.message}</p>
 		{/if}
 	</form>
-</div>
-
-<style>
-	.floating {
-		width: min(23rem, 80vw);
-		padding: 1.5rem;
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		transition: all 0.125s ease-in;
-	}
-</style>
+</Popover>
