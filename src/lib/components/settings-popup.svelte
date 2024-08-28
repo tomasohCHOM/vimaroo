@@ -1,12 +1,30 @@
 <script lang="ts">
 	import Popover from "./popover.svelte";
 	import Dropdown from "./dropdown.svelte";
+	import { asciiLogoEnabled, enableAsciiLogoOptions } from "$lib/stores/settings/ascii-logo";
+	import { onDestroy } from "svelte";
+	import { browser } from "$app/environment";
+	import { fontSize, fontSizeOptions } from "$lib/stores/settings/font";
 
 	export let isSettingsOpen: boolean = false;
 
+	const unsubscribeAscii = asciiLogoEnabled.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("ascii-option", JSON.stringify(value));
+		}
+	});
+	const unsubscribeFontSize = fontSize.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("font-size-option", JSON.stringify(value));
+		}
+	});
+
+	onDestroy(() => {
+		unsubscribeAscii();
+		unsubscribeFontSize();
+	});
+
 	const themeOptions = ["Light", "Dark"];
-	const fontSizeOptions = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-	const disableAsciiLogo = ["Yes", "No"];
 </script>
 
 <Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(40rem,_90vw)]">
@@ -24,14 +42,14 @@
 				<h3 class="text-lg font-semibold">Font Size</h3>
 				<p class="text-sm">Change the editor font size</p>
 			</div>
-			<Dropdown dropdownOptions={fontSizeOptions} />
+			<Dropdown dropdownOptions={fontSizeOptions} bind:selectedOption={$fontSize} />
 		</div>
 		<div class="flex items-center justify-between">
 			<div class="flex flex-col">
-				<h3 class="text-lg font-semibold">Disable ASCII Logo</h3>
-				<p class="text-sm">Disable the ASCII logo inside the editor</p>
+				<h3 class="text-lg font-semibold">Enable ASCII Logo</h3>
+				<p class="text-sm">Enable the ASCII logo inside the editor</p>
 			</div>
-			<Dropdown dropdownOptions={disableAsciiLogo} />
+			<Dropdown dropdownOptions={enableAsciiLogoOptions} bind:selectedOption={$asciiLogoEnabled} />
 		</div>
 	</div>
 </Popover>

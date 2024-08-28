@@ -14,8 +14,41 @@
 	import Editor from "$lib/components/editor.svelte";
 	import { handleTestModeChange } from "$lib/test/tests";
 	import type { Test } from "$lib/test/types";
+	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo.js";
+	import { browser } from "$app/environment";
+	import { onDestroy } from "svelte";
+	import { fontSize } from "$lib/stores/settings/font.js";
 
 	export let data;
+
+	const unsubscribeTestIndex = selectedTestIndex.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("test-index", JSON.stringify(value));
+		}
+	});
+	const unsubscribeModeIndex = selectedModeIndex.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("mode-index", JSON.stringify(value));
+		}
+	});
+	const unsubscribeTimeIndex = selectedTimeIndex.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("time-index", JSON.stringify(value));
+		}
+	});
+	const unsubscribeRoundsIndex = selectedRoundsIndex.subscribe((value) => {
+		if (browser) {
+			window.localStorage.setItem("rounds-index", JSON.stringify(value));
+		}
+	});
+
+	// Clean up
+	onDestroy(() => {
+		unsubscribeTestIndex();
+		unsubscribeModeIndex();
+		unsubscribeTimeIndex();
+		unsubscribeRoundsIndex();
+	});
 
 	let testTypeAmount: number;
 	let test: Test = handleTestModeChange(testOptions[$selectedTestIndex]);
@@ -56,7 +89,7 @@
 	{/if}
 
 	<div class="h-[400px] w-[min(1000px,_90vw)]">
-		{#key [testMode, typeMode, testTypeAmount]}
+		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize]}
 			<Editor {test} {testMode} testType={typeMode} {testTypeAmount} session={data.session} />
 		{/key}
 	</div>

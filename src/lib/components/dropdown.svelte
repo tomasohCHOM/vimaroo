@@ -2,9 +2,9 @@
 	import Icon from "@iconify/svelte";
 
 	export let dropdownOptions: string[] | number[];
+	export let selectedOption: number = 0;
 
 	let isDropdownOpen = false;
-	let selectedOption = 0;
 </script>
 
 <div class="relative w-24 cursor-pointer rounded-md bg-background-400 p-2">

@@ -21,32 +21,12 @@ if (browser) {
 
 // Create the test index store
 export const selectedTestIndex = writable(testIndex);
-selectedTestIndex.subscribe((value) => {
-	if (browser) {
-		window.localStorage.setItem("test-index", JSON.stringify(value));
-	}
-});
 
 // Create the mode index store
 export const selectedModeIndex = writable(modeIndex);
-selectedModeIndex.subscribe((value) => {
-	if (browser) {
-		window.localStorage.setItem("mode-index", JSON.stringify(value));
-	}
-});
 
 // Create a time index store (when user selects time mode)
 export const selectedTimeIndex = writable(timeIndex);
-selectedTimeIndex.subscribe((value) => {
-	if (browser) {
-		window.localStorage.setItem("time-index", JSON.stringify(value));
-	}
-});
 
 // Create a rounds index store (when user selects rounds mode)
 export const selectedRoundsIndex = writable(roundsIndex);
-selectedRoundsIndex.subscribe((value) => {
-	if (browser) {
-		window.localStorage.setItem("rounds-index", JSON.stringify(value));
-	}
-});

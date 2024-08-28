@@ -78,4 +78,15 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
+const theme: Handle = async ({ event, resolve }) => {
+	const theme = event.cookies.get("theme");
+
+	if (theme) {
+		return await resolve(event, {
+			transformPageChunk: ({ html }) => html.replace('data-theme=""', `data-theme="${theme}"`)
+		});
+	}
+	return await resolve(event);
+};
+
 export const handle: Handle = sequence(supabase, authGuard);

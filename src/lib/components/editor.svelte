@@ -12,6 +12,8 @@
 	import { incrementTestsStarted, updateStats } from "$lib/db/update";
 	import { ASCII_LOGO } from "$lib/editor/ascii";
 	import type { Session } from "@supabase/supabase-js";
+	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo";
+	import { fontSize, fontSizeOptions } from "$lib/stores/settings/font";
 
 	export let session: Session | null;
 
@@ -24,6 +26,7 @@
 	let editorContainer: HTMLElement;
 	let monaco: typeof Monaco;
 
+	let asciiLogo = $asciiLogoEnabled === 0 ? ASCII_LOGO : "";
 	let vimMode: any;
 	let loaded: boolean = false;
 
@@ -42,14 +45,13 @@
 
 		// Create editor & model to be displayed
 		const editor = monaco.editor.create(editorContainer, {
-			value: [test.prompt, test.tip, BEGIN_TEST_LINE, ASCII_LOGO].join("\n"),
+			value: [test.prompt, test.tip, BEGIN_TEST_LINE, asciiLogo].join("\n"),
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
-			// wordWrap: "on",
 			lineNumbers: "relative",
 			fontFamily: "Fira Code",
-			fontSize: 16,
+			fontSize: fontSizeOptions[$fontSize],
 			padding: {
 				top: 12
 			},
@@ -87,7 +89,7 @@
 				testOver.set(true);
 				triggeredByEditor = true;
 
-				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}\n${ASCII_LOGO}`);
+				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}\n${asciiLogo}`);
 				if (session) await incrementTestsStarted();
 			});
 
@@ -146,7 +148,7 @@
 				const accuracySummary = `Your accuracy was ${accuracy}%`;
 
 				triggeredByEditor = true;
-				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}\n${ASCII_LOGO}`);
+				editor.setValue(`${scoreSummary}\n${accuracySummary}\n${BEGIN_TEST_LINE}\n${asciiLogo}`);
 				if (session) await updateStats(testMode, score, total, testTypeAmount);
 				return;
 			}
