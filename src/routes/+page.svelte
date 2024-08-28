@@ -1,19 +1,19 @@
 <script lang="ts">
 	import TestSettings from "$lib/components/test-settings.svelte";
-	import { testOver, testStarted } from "$lib/test/stores/status";
-	import { timer } from "$lib/test/stores/timer";
-	import { rounds } from "$lib/test/stores/rounds";
-	import { scores } from "$lib/test/stores/scores";
+	import { testOver, testStarted } from "$lib/stores/test/status.js";
+	import { timer } from "$lib/stores/test/timer.js";
+	import { rounds } from "$lib/stores/test/rounds.js";
+	import { scores } from "$lib/stores/test/scores.js";
 	import {
 		selectedTestIndex,
 		selectedModeIndex,
 		selectedTimeIndex,
 		selectedRoundsIndex
-	} from "$lib/test/stores/opts-index";
+	} from "$lib/stores/test/opts-index.js";
 	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 	import Editor from "$lib/components/editor.svelte";
 	import { handleTestModeChange } from "$lib/test/tests";
-	import type { Test } from "$lib/test/types";
+	import type { Test } from "$lib/types/test";
 	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo.js";
 	import { browser } from "$app/environment";
 	import { onDestroy } from "svelte";

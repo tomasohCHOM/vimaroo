@@ -3,10 +3,10 @@
 	import { onDestroy, onMount } from "svelte";
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/test/types";
-	import { timer } from "$lib/test/stores/timer";
-	import { testCancelled, testOver, testStarted } from "$lib/test/stores/status";
-	import { scores } from "$lib/test/stores/scores";
-	import { rounds } from "$lib/test/stores/rounds";
+	import { timer } from "$lib/stores/test/timer";
+	import { testCancelled, testOver, testStarted } from "$lib/stores/test/status";
+	import { scores } from "$lib/stores/test/scores";
+	import { rounds } from "$lib/stores/test/rounds";
 	import { theme } from "$lib/editor/theme";
 	import { BEGIN_TEST_LINE } from "$lib/test/constants";
 	import { incrementTestsStarted, updateStats } from "$lib/db/update";

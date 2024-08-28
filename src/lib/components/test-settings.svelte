@@ -4,7 +4,7 @@
 		selectedModeIndex,
 		selectedRoundsIndex,
 		selectedTimeIndex
-	} from "$lib/test/stores/opts-index";
+	} from "$lib/stores/test/opts-index";
 	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 </script>
 

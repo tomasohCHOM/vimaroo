@@ -1,4 +1,4 @@
-import { TestType } from "$lib/test/types";
+import { TestType } from "$lib/types/test";
 
 const testOptions = Object.values(TestType);
 

@@ -1,4 +1,4 @@
-import { TestType, type MixedTest, type Test } from "$lib/test/types";
+import { TestType, type MixedTest, type Test } from "$lib/types/test";
 import { containersTest } from "./containers";
 import { linesTest } from "./lines";
 import { movementTest } from "./movement";

@@ -1,4 +1,4 @@
-import type { Database } from "./types";
+import type { Database } from "$lib/types/supabase";
 
 type UserStats = Database["public"]["Tables"]["user_stats"]["Row"];
 type TestStats = {

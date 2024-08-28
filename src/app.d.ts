@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { Database } from "$lib/db/types";
+import type { Database } from "$lib/types/supabase";
 import type { SupabaseClient, Session, User } from "@supabase/supabase-js";
 
 // for information about these interfaces

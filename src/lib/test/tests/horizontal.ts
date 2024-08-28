@@ -1,4 +1,4 @@
-import { TestType, type HorizontalTest } from "$lib/test/types";
+import { TestType, type HorizontalTest } from "$lib/types/test";
 import { EXTRA_SYMBOLS, EXTRA_WORDS } from "../constants";
 
 export const horizontalTest: HorizontalTest = {
