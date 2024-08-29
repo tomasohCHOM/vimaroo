@@ -14,6 +14,7 @@
 	import type { Session } from "@supabase/supabase-js";
 	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo";
 	import { fontSize, fontSizeOptions } from "$lib/stores/settings/font";
+	import { enableWordWrapOptions, wordWrapEnabled } from "$lib/stores/settings/word-wrap";
 
 	export let session: Session | null;
 
@@ -52,6 +53,7 @@
 			lineNumbers: "relative",
 			fontFamily: "Fira Code",
 			fontSize: fontSizeOptions[$fontSize],
+			wordWrap: enableWordWrapOptions[$wordWrapEnabled] === "Yes" ? "on" : "off",
 			padding: {
 				top: 12
 			},

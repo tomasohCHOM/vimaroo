@@ -8,8 +8,11 @@
 	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 </script>
 
+<!-- SMALL SCREN SIZES -->
 <div class="mr-auto flex w-full flex-col gap-2 font-semibold md:hidden">
-	<div class="flex items-center justify-center gap-2 rounded-md bg-background-400 p-2 text-sm">
+	<div
+		class="flex flex-wrap items-center justify-center gap-2 rounded-md bg-background-400 p-2 text-sm"
+	>
 		{#each testOptions as testMode, i}
 			<button
 				class="font-semibold transition duration-150
@@ -59,6 +62,7 @@
 	{/if}
 </div>
 
+<!-- DESKTOP SCREN SIZES -->
 <div class="hidden justify-center gap-3 rounded-lg bg-background-400 p-[10px] md:static md:flex">
 	<div class="flex gap-4 border-r-4 border-background-600 pr-4 text-sm">
 		{#each testOptions as testMode, i}

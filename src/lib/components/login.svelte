@@ -10,14 +10,14 @@
 	<p class="mt-2 text-center">Continue with one of the following social login providers</p>
 
 	<form method="post" class="mt-4 flex flex-col items-center gap-2 rounded-xl">
-		<button
+		<!-- <button
 			type="submit"
 			formaction="/login/?/login&provider=google"
 			class="flex w-full items-center justify-center gap-4 rounded-xl bg-slate-50 py-1 text-background-400 transition"
 		>
 			<Icon class="inline-block" width={32} inline={true} icon="logos:google-icon" />
 			<span class="align-middle font-semibold">Continue with Google</span>
-		</button>
+		</button> -->
 		<button
 			type="submit"
 			formaction="/login/?/login&provider=github"

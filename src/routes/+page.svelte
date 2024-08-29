@@ -18,6 +18,7 @@
 	import { browser } from "$app/environment";
 	import { onDestroy } from "svelte";
 	import { fontSize } from "$lib/stores/settings/font.js";
+	import { wordWrapEnabled } from "$lib/stores/settings/word-wrap.js";
 
 	export let data;
 
@@ -89,7 +90,7 @@
 	{/if}
 
 	<div class="h-[400px] w-[min(1000px,_90vw)]">
-		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize]}
+		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize, $wordWrapEnabled]}
 			<Editor {test} {testMode} testType={typeMode} {testTypeAmount} session={data.session} />
 		{/key}
 	</div>
