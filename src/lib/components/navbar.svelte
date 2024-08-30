@@ -44,7 +44,7 @@
 							<Icon icon="mdi:settings" class="inline" /> Account Settings
 						</span>
 					</a>
-					<form method="post" action="/logout">
+					<form method="post" action="/api/logout">
 						<button type="submit" class="transition hover:text-foreground-green">
 							<Icon icon="mdi:sign-out" class="inline" /> Sign Out
 						</button>

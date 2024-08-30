@@ -85,7 +85,7 @@ export const actions: Actions = {
 			fail(500, { message: deleteAccountQuery.error.message });
 		}
 		// Sign out the user
-		const response = await fetch("/logout", {
+		const response = await fetch("/api/logout", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
