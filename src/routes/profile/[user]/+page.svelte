@@ -55,7 +55,7 @@
 					</div>
 					<div class="flex flex-col items-center gap-1">
 						<span class="text-3xl font-semibold text-foreground-green"
-							>{test.accuracy?.toFixed(2) ?? "-"}</span
+							>{test.accuracy != null ? (test.accuracy * 100).toFixed(1) + "%" : "-"}</span
 						>
 						<span class="text-sm">accuracy</span>
 					</div>
