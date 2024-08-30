@@ -19,5 +19,7 @@ export default {
 			}
 		}
 	},
-	plugins: []
+	corePlugins: {
+		listStyleType: true
+	}
 };
