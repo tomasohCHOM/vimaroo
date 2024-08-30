@@ -12,9 +12,14 @@
 	import { incrementTestsStarted, updateStats } from "$lib/db/update";
 	import { ASCII_LOGO } from "$lib/editor/ascii";
 	import type { Session } from "@supabase/supabase-js";
-	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo";
-	import { fontSize, fontSizeOptions } from "$lib/stores/settings/font";
-	import { enableWordWrapOptions, wordWrapEnabled } from "$lib/stores/settings/word-wrap";
+	import {
+		fontSizeOptions,
+		enableAsciiLogoOptions,
+		enableWordWrapOptions,
+		fontSize,
+		wordWrapEnabled,
+		asciiLogoEnabled
+	} from "$lib/stores/settings/settings";
 
 	export let session: Session | null;
 
@@ -27,7 +32,7 @@
 	let editorContainer: HTMLElement;
 	let monaco: typeof Monaco;
 
-	let asciiLogo = $asciiLogoEnabled === 0 ? ASCII_LOGO : "";
+	let asciiLogo = enableAsciiLogoOptions[$asciiLogoEnabled] === "Yes" ? ASCII_LOGO : "";
 	let vimMode: any;
 	let loaded: boolean = false;
 

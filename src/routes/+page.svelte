@@ -1,55 +1,38 @@
 <script lang="ts">
 	import TestSettings from "$lib/components/test-settings.svelte";
-	import { testOver, testStarted } from "$lib/stores/test/status.js";
-	import { timer } from "$lib/stores/test/timer.js";
-	import { rounds } from "$lib/stores/test/rounds.js";
-	import { scores } from "$lib/stores/test/scores.js";
+	import { testOver, testStarted } from "$lib/stores/test/status";
+	import { timer } from "$lib/stores/test/timer";
+	import { rounds } from "$lib/stores/test/rounds";
+	import { scores } from "$lib/stores/test/scores";
 	import {
+		TEST_INDEX_KEY,
+		MODE_INDEX_KEY,
+		TIME_INDEX_KEY,
+		ROUNDS_INDEX_KEY,
 		selectedTestIndex,
 		selectedModeIndex,
 		selectedTimeIndex,
 		selectedRoundsIndex
-	} from "$lib/stores/test/opts-index.js";
+	} from "$lib/stores/test/options";
+	import { fontSize, wordWrapEnabled, asciiLogoEnabled } from "$lib/stores/settings/settings";
 	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 	import Editor from "$lib/components/editor.svelte";
 	import { handleTestModeChange } from "$lib/test/tests";
 	import type { Test } from "$lib/types/test";
-	import { asciiLogoEnabled } from "$lib/stores/settings/ascii-logo.js";
-	import { browser } from "$app/environment";
 	import { onDestroy } from "svelte";
-	import { fontSize } from "$lib/stores/settings/font.js";
-	import { wordWrapEnabled } from "$lib/stores/settings/word-wrap.js";
+	import { syncStoresToLocalStorage } from "$lib/stores/persistent.js";
 
 	export let data;
 
-	const unsubscribeTestIndex = selectedTestIndex.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("test-index", JSON.stringify(value));
-		}
-	});
-	const unsubscribeModeIndex = selectedModeIndex.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("mode-index", JSON.stringify(value));
-		}
-	});
-	const unsubscribeTimeIndex = selectedTimeIndex.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("time-index", JSON.stringify(value));
-		}
-	});
-	const unsubscribeRoundsIndex = selectedRoundsIndex.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("rounds-index", JSON.stringify(value));
-		}
+	const unsubscribeAll = syncStoresToLocalStorage({
+		[TEST_INDEX_KEY]: selectedTestIndex,
+		[MODE_INDEX_KEY]: selectedModeIndex,
+		[TIME_INDEX_KEY]: selectedTimeIndex,
+		[ROUNDS_INDEX_KEY]: selectedRoundsIndex
 	});
 
 	// Clean up
-	onDestroy(() => {
-		unsubscribeTestIndex();
-		unsubscribeModeIndex();
-		unsubscribeTimeIndex();
-		unsubscribeRoundsIndex();
-	});
+	onDestroy(unsubscribeAll);
 
 	let testTypeAmount: number;
 	let test: Test = handleTestModeChange(testOptions[$selectedTestIndex]);

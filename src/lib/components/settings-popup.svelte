@@ -1,36 +1,29 @@
 <script lang="ts">
 	import Popover from "./popover.svelte";
 	import Dropdown from "./dropdown.svelte";
-	import { asciiLogoEnabled, enableAsciiLogoOptions } from "$lib/stores/settings/ascii-logo";
 	import { onDestroy } from "svelte";
-	import { browser } from "$app/environment";
-	import { fontSize, fontSizeOptions } from "$lib/stores/settings/font";
-	import { enableWordWrapOptions, wordWrapEnabled } from "$lib/stores/settings/word-wrap";
+	import { syncStoresToLocalStorage } from "$lib/stores/persistent";
+	import {
+		FONT_SIZE_OPTION_KEY,
+		WORD_WRAP_OPTION_KEY,
+		ASCII_OPTION_KEY,
+		fontSizeOptions,
+		enableAsciiLogoOptions,
+		enableWordWrapOptions,
+		fontSize,
+		wordWrapEnabled,
+		asciiLogoEnabled
+	} from "$lib/stores/settings/settings";
 
 	export let isSettingsOpen: boolean = false;
 
-	const unsubscribeAscii = asciiLogoEnabled.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("ascii-option", JSON.stringify(value));
-		}
-	});
-	const unsubscribeFontSize = fontSize.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("font-size-option", JSON.stringify(value));
-		}
+	const unsubscribeAll = syncStoresToLocalStorage({
+		[FONT_SIZE_OPTION_KEY]: fontSize,
+		[WORD_WRAP_OPTION_KEY]: wordWrapEnabled,
+		[ASCII_OPTION_KEY]: asciiLogoEnabled
 	});
 
-	const unsubscribeWordWrap = wordWrapEnabled.subscribe((value) => {
-		if (browser) {
-			window.localStorage.setItem("word-wrap-option", JSON.stringify(value));
-		}
-	});
-
-	onDestroy(() => {
-		unsubscribeAscii();
-		unsubscribeFontSize();
-		unsubscribeWordWrap();
-	});
+	onDestroy(unsubscribeAll);
 </script>
 
 <Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(35rem,_90vw)]">
