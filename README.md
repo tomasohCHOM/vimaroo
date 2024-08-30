@@ -1,9 +1,15 @@
-# vimaroo
+# vimaroo <img src="static/favicon.svg" width="24" />
 
-vimaroo is a web application that aims at making it easy to practice VIM
-motions without any extra configurations. It was inspired by ThePrimeagen's
-[vim-be-good](https://github.com/ThePrimeagen/vim-be-good) Neovim plugin and
-[Monkeytype](https://monkeytype.com/).
+<img src="static/vimaroo-demo.gif" alt="Vimaroo demo gif" />
+
+This website was created with the intent of making it easy to practice Vim keybinds with a set of motion-focused test. This website was inspired by ThePrimeagen's [vim-be-good](https://github.com/ThePrimeagen/vim-be-good) Neovim plugin and [Monkeytype](https://monkeytype.com/).
+
+## Tech Stack
+
+- SvelteKit
+- TypeScript
+- TailwindCSS
+- Supabase (and PostgreSQL)
 
 ## Setup / Development
 
@@ -30,4 +36,4 @@ npm run preview
 
 ---
 
-Developed with 🔥 by Tomas
+Developed with 🔥 by Chom.
