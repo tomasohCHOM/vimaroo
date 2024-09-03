@@ -7,6 +7,7 @@
 	import Footer from "$lib/components/footer.svelte";
 	import SettingsPopup from "$lib/components/settings-popup.svelte";
 	import HelpPopup from "$lib/components/help-popup.svelte";
+	import { fade, fly } from "svelte/transition";
 
 	let isHelpOpen: boolean = false;
 	let isSettingsOpen: boolean = false;
@@ -31,9 +32,13 @@
 </svelte:head>
 
 <main id="app" class="max-w-screen-2xl px-4 md:px-14">
-	<Navbar bind:isHelpOpen bind:isSettingsOpen bind:isLoginOpen {profile} />
-	<slot />
-	<Footer />
+	{#key data.url}
+		<Navbar bind:isHelpOpen bind:isSettingsOpen bind:isLoginOpen {profile} />
+		<div in:fly={{ y: 15, duration: 300, delay: 150 }}>
+			<slot />
+		</div>
+		<Footer />
+	{/key}
 </main>
 
 <HelpPopup bind:isHelpOpen />
