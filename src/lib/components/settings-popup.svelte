@@ -2,7 +2,7 @@
 	import Popover from "./popover.svelte";
 	import Dropdown from "./dropdown.svelte";
 	import { onDestroy } from "svelte";
-	import { syncStoresToLocalStorage } from "$lib/stores/persistent";
+	import { syncStoresToCookies } from "$lib/stores/persistent";
 	import {
 		FONT_SIZE_OPTION_KEY,
 		WORD_WRAP_OPTION_KEY,
@@ -17,7 +17,7 @@
 
 	export let isSettingsOpen: boolean = false;
 
-	const unsubscribeAll = syncStoresToLocalStorage({
+	const unsubscribeAll = syncStoresToCookies({
 		[FONT_SIZE_OPTION_KEY]: fontSize,
 		[WORD_WRAP_OPTION_KEY]: wordWrapEnabled,
 		[ASCII_OPTION_KEY]: asciiLogoEnabled

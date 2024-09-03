@@ -19,17 +19,19 @@
 	import Editor from "$lib/components/editor.svelte";
 	import { handleTestModeChange } from "$lib/test/tests";
 	import type { Test } from "$lib/types/test";
-	import { onDestroy } from "svelte";
-	import { syncStoresToLocalStorage } from "$lib/stores/persistent.js";
+	import { onDestroy, onMount } from "svelte";
+	import { syncStoresToCookies } from "$lib/stores/persistent.js";
 	import { getFlash } from "sveltekit-flash-message";
 	import { page } from "$app/stores";
 	import { beforeNavigate } from "$app/navigation";
-	import { fly } from "svelte/transition";
+	import { fade, fly } from "svelte/transition";
 	import Icon from "@iconify/svelte";
 
 	export let data;
 
 	let playFlashAnimation = false;
+	let transitionReady = false;
+	onMount(() => (transitionReady = true));
 
 	const flash = getFlash(page);
 	beforeNavigate((navigation) => {
@@ -38,7 +40,7 @@
 		}
 	});
 
-	const unsubscribeAll = syncStoresToLocalStorage({
+	const unsubscribeAll = syncStoresToCookies({
 		[TEST_INDEX_KEY]: selectedTestIndex,
 		[MODE_INDEX_KEY]: selectedModeIndex,
 		[TIME_INDEX_KEY]: selectedTimeIndex,
@@ -105,7 +107,11 @@
 
 <section class="grid items-center justify-center gap-6 md:gap-8">
 	{#if !$testStarted || $testOver}
-		<TestSettings />
+		{#if transitionReady}
+			<div in:fade={{ duration: 50 }}>
+				<TestSettings />
+			</div>
+		{/if}
 	{:else}
 		<div class="flex items-center justify-between p-2">
 			{#if ["time", "rounds"].includes(modeOptions[$selectedModeIndex])}
