@@ -8,6 +8,22 @@
 	export let profile: UserProfile | null;
 
 	let isDropdownOpen: boolean = false;
+
+	const handleDropdownFocusLoss = ({
+		relatedTarget,
+		currentTarget
+	}: {
+		relatedTarget: EventTarget | null;
+		currentTarget: EventTarget & HTMLElement;
+	}) => {
+		// use "focusout" event to ensure that we can close the dropdown when
+		// clicking outside or when we leave the dropdown with the "Tab" button
+
+		// check if the new focus target doesn't present in the dropdown tree (exclude ul\li padding
+		// area because relatedTarget, in this case, will be null)
+		if (relatedTarget instanceof HTMLElement && currentTarget.contains(relatedTarget)) return;
+		isDropdownOpen = false;
+	};
 </script>
 
 <nav class="flex items-center justify-between">
@@ -25,7 +41,7 @@
 			<Icon icon="mdi:settings" width={24} />
 		</button>
 		{#if profile}
-			<div class="userProfileElem relative py-2">
+			<div class="userProfileElem relative py-2" on:focusout={handleDropdownFocusLoss}>
 				<button class="block" on:click={() => (isDropdownOpen = !isDropdownOpen)}>
 					<img src={profile.avatar_url} alt="User Icon" class="w-6 rounded-[50%]" />
 				</button>

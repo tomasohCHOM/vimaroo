@@ -5,9 +5,28 @@
 	export let selectedOption: number = 0;
 
 	let isDropdownOpen = false;
+
+	const handleDropdownFocusLoss = ({
+		relatedTarget,
+		currentTarget
+	}: {
+		relatedTarget: EventTarget | null;
+		currentTarget: EventTarget & HTMLElement;
+	}) => {
+		// use "focusout" event to ensure that we can close the dropdown when
+		// clicking outside or when we leave the dropdown with the "Tab" button
+
+		// check if the new focus target doesn't present in the dropdown tree (exclude ul\li padding
+		// area because relatedTarget, in this case, will be null)
+		if (relatedTarget instanceof HTMLElement && currentTarget.contains(relatedTarget)) return;
+		isDropdownOpen = false;
+	};
 </script>
 
-<div class="relative w-24 cursor-pointer rounded-md bg-background-400 p-2">
+<div
+	on:focusout={handleDropdownFocusLoss}
+	class="relative w-24 cursor-pointer rounded-md bg-background-400 p-2"
+>
 	<div
 		class="flex items-center justify-between"
 		role="button"
