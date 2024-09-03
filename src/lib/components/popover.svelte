@@ -23,7 +23,7 @@
 		out:fly={{ y: 40, duration: 150 }}
 	>
 		{#if !locked}
-			<button class="absolute right-4 top-4" on:click={toggleContainer}>
+			<button class="absolute right-2 top-2" on:click={toggleContainer}>
 				<Icon icon="mdi:close" width={24} />
 			</button>
 		{/if}

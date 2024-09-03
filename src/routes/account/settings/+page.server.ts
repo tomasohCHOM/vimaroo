@@ -62,12 +62,12 @@ export const actions: Actions = {
 
 		const deleteStatsQuery = await supabase.from("user_stats").delete().eq("user_id", user.id);
 		if (deleteStatsQuery.error) {
-			setFlash({ type: "success", message: deleteStatsQuery.error.message }, cookies);
+			setFlash({ type: "error", message: deleteStatsQuery.error.message }, cookies);
 			fail(500, { message: deleteStatsQuery.error.message });
 		}
 		const resetStatsQuery = await supabase.from("user_stats").insert({ user_id: user.id });
 		if (resetStatsQuery.error) {
-			setFlash({ type: "success", message: resetStatsQuery.error.message }, cookies);
+			setFlash({ type: "error", message: resetStatsQuery.error.message }, cookies);
 			fail(500, { message: resetStatsQuery.error.message });
 		}
 		setFlash({ type: "success", message: "Stats resetted successfully." }, cookies);
@@ -81,7 +81,7 @@ export const actions: Actions = {
 		// and delete the associated record in the user_stats table as well
 		const deleteAccountQuery = await supabase.from("profiles").delete().eq("id", user.id);
 		if (deleteAccountQuery.error) {
-			setFlash({ type: "success", message: "Something went wrong, please try again." }, cookies);
+			setFlash({ type: "error", message: "Something went wrong, please try again." }, cookies);
 			fail(500, { message: deleteAccountQuery.error.message });
 		}
 		// Sign out the user

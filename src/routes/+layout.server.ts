@@ -62,11 +62,6 @@ export const load: LayoutServerLoad = loadFlash(
 			error(500, { message: createUserStatsQuery.error.message });
 		}
 
-		return {
-			session,
-			user,
-			profile: insertNewProfileQuery.data,
-			cookies: cookies.getAll()
-		};
+		redirect(303, "/account/create");
 	}
 );

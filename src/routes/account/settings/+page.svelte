@@ -97,21 +97,16 @@
 		<h3 class="text-lg font-semibold text-foreground-neutral">Danger Zone</h3>
 
 		<div class="flex flex-col gap-2">
-			<form
-				method="POST"
-				action="?/resetStats"
-				class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
-				use:enhance={handleSubmit}
-			>
+			<div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
 				<h3 class="font-medium">Reset user statistics</h3>
 				<button
-					type="submit"
+					on:click={() => (isResetStatsOpen = true)}
 					class="rounded-lg border-2 border-foreground-red bg-background-500 p-2
-         font-semibold text-foreground-red transition hover:brightness-110"
+          font-semibold text-foreground-red transition hover:brightness-110"
 				>
 					Reset User Stats
 				</button>
-			</form>
+			</div>
 		</div>
 
 		<div class="flex flex-col gap-2">
@@ -128,6 +123,29 @@
 		</div>
 	{/if}
 </section>
+
+<Popover containerWidth="w-[min(30rem,_90vw)]" bind:isOpen={isResetStatsOpen}>
+	<form method="POST" action="?/resetStats" use:enhance={handleSubmit}>
+		<p class="font-medium">
+			Are you sure you want to reset your vimaroo stats. <b>This action is irreversible!</b>
+		</p>
+		<div class="mt-4 flex items-center justify-center gap-2">
+			<button
+				type="submit"
+				on:click={() => (isResetStatsOpen = false)}
+				class="rounded-md bg-red-400 p-2 font-semibold text-slate-50 transition hover:brightness-110"
+			>
+				Yes, Reset Stats
+			</button>
+			<button
+				on:click|preventDefault={() => (isResetStatsOpen = false)}
+				class="rounded-md p-2 font-semibold transition hover:bg-background-600"
+			>
+				No, Nevermind
+			</button>
+		</div>
+	</form>
+</Popover>
 
 <Popover containerWidth="w-[min(30rem,_90vw)]" bind:isOpen={isDeleteOpen}>
 	<form method="POST" action="?/deleteAccount" use:enhance={handleSubmit}>
