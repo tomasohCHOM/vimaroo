@@ -5,7 +5,7 @@ export const linesTest: LinesTest = {
 	type: TestType.LINES,
 	targetLine: EXTRA_DELETE_SENTENCES[1],
 	targetPosition: 0,
-	prompt: "Remove the sentences from the buffer.",
+	prompt: "Remove the sentences from the buffer (you can ONLY delete the sentence itself).",
 	tip: "Tip: j and k are fast, but relative line jumping can be faster.",
 	textBuffer: new Array(10).fill(".".repeat(EXTRA_DELETE_SENTENCES[1].length)),
 	joinCharacter: "\n",
