@@ -53,15 +53,6 @@ export const load: LayoutServerLoad = loadFlash(
 		if (insertNewProfileQuery.error || !insertNewProfileQuery.data) {
 			error(500, { message: insertNewProfileQuery.error.message });
 		}
-
-		const createUserStatsQuery = await supabase.from("user_stats").insert({
-			user_id: user.id
-		});
-
-		if (createUserStatsQuery.error) {
-			error(500, { message: createUserStatsQuery.error.message });
-		}
-
 		redirect(303, "/account/create");
 	}
 );

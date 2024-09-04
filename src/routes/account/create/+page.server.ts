@@ -65,6 +65,15 @@ export const actions: Actions = {
 			error(500, { message: updateUsernameQuery.error.message });
 		}
 
+		// Create user stats
+		const createUserStatsQuery = await supabase.from("user_stats").insert({
+			user_id: user.id
+		});
+
+		if (createUserStatsQuery.error) {
+			error(500, { message: createUserStatsQuery.error.message });
+		}
+
 		redirect(303, "/");
 	}
 };
