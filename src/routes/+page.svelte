@@ -35,6 +35,7 @@
 
 	const flash = getFlash(page);
 	beforeNavigate((navigation) => {
+		($testStarted = false), ($testOver = false);
 		if ($flash && navigation.from?.url.toString() != navigation.to?.url.toString()) {
 			$flash = undefined;
 		}

@@ -5,8 +5,7 @@
 	</h1>
 	<p>
 		I'm Tomas and I love using Vim. This website was created with the intent of making it easy to
-		practice Vim keybinds with a set of motion-focused test. This website was inspired by
-		ThePrimeagen's <a
+		practice Vim keybinds with a set of motion-focused test. It was inspired by ThePrimeagen's <a
 			class="font-semibold underline underline-offset-2"
 			href="https://github.com/ThePrimeagen/vim-be-good"
 			target="_blank"
