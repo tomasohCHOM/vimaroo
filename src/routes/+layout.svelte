@@ -2,12 +2,14 @@
 	import Login from "$lib/components/login.svelte";
 	import Navbar from "$lib/components/navbar.svelte";
 	import { onMount } from "svelte";
-	import "../globals.css";
 	import { invalidate, invalidateAll } from "$app/navigation";
+	import { navigating } from "$app/stores";
 	import Footer from "$lib/components/footer.svelte";
 	import SettingsPopup from "$lib/components/settings-popup.svelte";
 	import HelpPopup from "$lib/components/help-popup.svelte";
-	import { fade, fly } from "svelte/transition";
+	import { fly } from "svelte/transition";
+	import "../globals.css";
+	import Spinner from "$lib/components/spinner.svelte";
 
 	let isHelpOpen: boolean = false;
 	let isSettingsOpen: boolean = false;
@@ -34,9 +36,15 @@
 <main id="app" class="max-w-screen-2xl px-4 md:px-14">
 	{#key data.url}
 		<Navbar bind:isHelpOpen bind:isSettingsOpen bind:isLoginOpen {profile} />
-		<div in:fly={{ y: 15, duration: 300, delay: 150 }}>
-			<slot />
-		</div>
+		{#if $navigating}
+			<div class="grid items-center justify-center">
+				<Spinner />
+			</div>
+		{:else}
+			<div in:fly={{ y: 15, duration: 300, delay: 150 }}>
+				<slot />
+			</div>
+		{/if}
 		<Footer />
 	{/key}
 </main>
