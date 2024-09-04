@@ -21,7 +21,7 @@
 	<p class="mt-1 text-center">Please provide a username to continue</p>
 	<form
 		method="post"
-		action="?/createUsername"
+		action="?/createAccount"
 		class="mt-4 flex flex-col items-center gap-2 rounded-xl"
 		use:enhance={handleSubmit}
 	>

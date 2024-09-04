@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ locals: { supabase, safeGetSession 
 };
 
 export const actions: Actions = {
-	createUsername: async ({ request, locals: { supabase, safeGetSession } }) => {
+	createAccount: async ({ request, locals: { supabase, safeGetSession } }) => {
 		const { session, user } = await safeGetSession();
 
 		if (!session || !user) {

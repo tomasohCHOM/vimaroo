@@ -7,7 +7,7 @@
 	import Footer from "$lib/components/footer.svelte";
 	import SettingsPopup from "$lib/components/settings-popup.svelte";
 	import HelpPopup from "$lib/components/help-popup.svelte";
-	import { fly } from "svelte/transition";
+	import { blur, fly } from "svelte/transition";
 	import "../globals.css";
 	import Spinner from "$lib/components/spinner.svelte";
 
@@ -41,7 +41,7 @@
 				<Spinner />
 			</div>
 		{:else}
-			<div in:fly={{ y: 15, duration: 300, delay: 150 }}>
+			<div in:blur={{ duration: 100, delay: 125 }}>
 				<slot />
 			</div>
 		{/if}
