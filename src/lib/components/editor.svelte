@@ -4,7 +4,7 @@
 	import Spinner from "./spinner.svelte";
 	import type { Test } from "$lib/types/test";
 	import { timer } from "$lib/stores/test/timer";
-	import { testCancelled, testOver, testStarted } from "$lib/stores/test/status";
+	import { testOver, testStarted } from "$lib/stores/test/status";
 	import { scores } from "$lib/stores/test/scores";
 	import { rounds } from "$lib/stores/test/rounds";
 	import { editorTheme } from "$lib/editor/theme";
@@ -82,7 +82,7 @@
 		let startTime: number;
 		let triggeredByEditor = false;
 
-		timer.setInitivalValue(testTypeAmount);
+		timer.setTimer(testTypeAmount);
 		rounds.setRounds(testTypeAmount);
 
 		editor.focus();
@@ -92,12 +92,9 @@
 			imports.VimMode.Vim.defineEx("quit", "q", async () => {
 				if (!$testStarted) return;
 				timer.clear();
-				testCancelled.set(true);
 				testOver.set(true);
 				triggeredByEditor = true;
-
 				editor.setValue(`Test cancelled!\n${BEGIN_TEST_LINE}\n${asciiLogo}`);
-				if (session) await incrementTestsStarted();
 			});
 
 			// Helper function for updating the editor contents via the
@@ -108,16 +105,26 @@
 				editor.setValue(test.textBuffer.join(test.joinCharacter));
 			};
 
+			// Helper function to reset timer, rounds, and scores
+			const resetTestItems = () => {
+				timer.clear();
+				timer.setTimer(testTypeAmount);
+				rounds.setRounds(testTypeAmount);
+				scores.reset();
+			};
+
 			// Prompt message is displayed, start the test now
 			if (!$testOver && !$testStarted) {
 				if (editor.getValue().includes(BEGIN_TEST_LINE)) return;
 
+				resetTestItems();
 				$testStarted = true;
-				startTime = performance.now();
 				if (testType === "time") {
 					timer.start(editor);
 				}
 				updateEditorContents();
+				startTime = performance.now();
+				if (session) await incrementTestsStarted();
 				return;
 			}
 
@@ -131,11 +138,8 @@
 			if ($testOver && !editor.getValue().includes(BEGIN_TEST_LINE)) {
 				$testOver = false;
 				$testStarted = false;
-				timer.setInitivalValue(testTypeAmount);
-				rounds.setRounds(testTypeAmount);
-				scores.reset();
-				startTime = performance.now();
 				updateEditorContents();
+				startTime = performance.now();
 				return;
 			}
 
