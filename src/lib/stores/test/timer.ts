@@ -24,14 +24,14 @@ function createTimerStore(initialValue: number = 15) {
 	const clear = () => {
 		if (intervalId) clearInterval(intervalId);
 	};
-	const setInitivalValue = (value: number) => {
+	const setTimer = (value: number) => {
 		set(value);
 	};
 	return {
 		subscribe,
 		start,
 		clear,
-		setInitivalValue
+		setTimer
 	};
 }
 
