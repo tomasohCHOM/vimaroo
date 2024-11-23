@@ -14,7 +14,12 @@
 		selectedTimeIndex,
 		selectedRoundsIndex
 	} from "$lib/stores/test/options";
-	import { fontSize, wordWrapEnabled, asciiLogoEnabled } from "$lib/stores/settings/settings";
+	import {
+		fontSize,
+		wordWrapEnabled,
+		asciiLogoEnabled,
+		relativeLinesEnabled
+	} from "$lib/stores/settings/settings";
 	import { testOptions, modeOptions, roundOptions, timeOptions } from "$lib/test/options";
 	import Editor from "$lib/components/editor.svelte";
 	import { handleTestModeChange } from "$lib/test/tests";
@@ -131,7 +136,7 @@
 	{/if}
 
 	<div class="h-[400px] w-[min(1000px,_90vw)]">
-		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize, $wordWrapEnabled]}
+		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize, $wordWrapEnabled, $relativeLinesEnabled]}
 			<Editor {test} {testMode} testType={typeMode} {testTypeAmount} session={data.session} />
 		{/key}
 	</div>

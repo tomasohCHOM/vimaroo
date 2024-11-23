@@ -16,9 +16,11 @@
 		fontSizeOptions,
 		enableAsciiLogoOptions,
 		enableWordWrapOptions,
+		enableRelativeLinesOptions,
 		fontSize,
 		wordWrapEnabled,
-		asciiLogoEnabled
+		asciiLogoEnabled,
+		relativeLinesEnabled
 	} from "$lib/stores/settings/settings";
 
 	export let session: Session | null;
@@ -55,10 +57,10 @@
 			minimap: { enabled: false },
 			scrollBeyondLastLine: false,
 			automaticLayout: true,
-			lineNumbers: "relative",
 			fontFamily: "Fira Code",
 			fontSize: fontSizeOptions[$fontSize],
 			wordWrap: enableWordWrapOptions[$wordWrapEnabled] === "Yes" ? "on" : "off",
+			lineNumbers: enableRelativeLinesOptions[$relativeLinesEnabled] === "Yes" ? "relative" : "on",
 			padding: {
 				top: 12
 			},
