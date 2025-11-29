@@ -4,7 +4,7 @@
 
 	export let locked: boolean = false;
 	export let isOpen: boolean = locked;
-	export let containerWidth: string = "w-[min(23rem,_80vw)]";
+	export let containerWidth: string = "w-[min(23rem,80vw)]";
 	export let extraStyles: string = "";
 
 	function toggleContainer() {

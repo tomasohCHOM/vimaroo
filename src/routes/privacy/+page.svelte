@@ -1,4 +1,4 @@
-<section class="mx-auto flex w-full max-w-screen-xl flex-col gap-6 p-4">
+<section class="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4">
 	<h1 class="text-2xl font-semibold md:text-4xl">Vimaroo Privacy Policy</h1>
 	<p><strong>Effective Date:</strong> August 30, 2024</p>
 	<p>

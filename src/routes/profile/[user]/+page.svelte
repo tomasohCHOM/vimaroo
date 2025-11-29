@@ -15,7 +15,7 @@
 	});
 </script>
 
-<section class="mx-auto flex w-full max-w-screen-xl flex-col justify-center gap-6 md:gap-8">
+<section class="mx-auto flex w-full max-w-(--breakpoint-xl) flex-col justify-center gap-6 md:gap-8">
 	<div class="flex flex-col gap-4 md:flex-row">
 		<div class="flex gap-4 rounded-md bg-background-400 p-4 md:w-2/5 lg:w-1/3">
 			<img src={profile.avatar_url} alt="User profile" class="w-24 rounded-full" />

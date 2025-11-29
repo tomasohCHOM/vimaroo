@@ -44,7 +44,7 @@
 {#if $flash && playFlashAnimation}
 	<div
 		transition:fly={{ y: 10, duration: 75 }}
-		class="fixed bottom-12 right-8 z-[9999] rounded-md bg-background-600 p-3"
+		class="fixed bottom-12 right-8 z-9999 rounded-md bg-background-600 p-3"
 	>
 		<span>
 			{#if $flash.type === "success"}
@@ -68,7 +68,7 @@
 	</div>
 {/if}
 
-<section class="mx-auto flex w-full max-w-[40rem] flex-col justify-center gap-6 md:gap-8">
+<section class="mx-auto flex w-full max-w-160 flex-col justify-center gap-6 md:gap-8">
 	{#if formLoading}
 		<div class="grid items-center justify-center">
 			<Spinner />
@@ -83,7 +83,7 @@
 					type="text"
 					name="update-username"
 					placeholder="Enter you new username"
-					class="w-full rounded-lg bg-background-400 p-2 outline-none"
+					class="w-full rounded-lg bg-background-400 p-2 outline-hidden"
 				/>
 				<button
 					type="submit"
@@ -124,7 +124,7 @@
 	{/if}
 </section>
 
-<Popover containerWidth="w-[min(30rem,_90vw)]" bind:isOpen={isResetStatsOpen}>
+<Popover containerWidth="w-[min(30rem,90vw)]" bind:isOpen={isResetStatsOpen}>
 	<form method="POST" action="?/resetStats" use:enhance={handleSubmit}>
 		<p class="font-medium">
 			Are you sure you want to reset your vimaroo stats. <b>This action is irreversible!</b>
@@ -147,7 +147,7 @@
 	</form>
 </Popover>
 
-<Popover containerWidth="w-[min(30rem,_90vw)]" bind:isOpen={isDeleteOpen}>
+<Popover containerWidth="w-[min(30rem,90vw)]" bind:isOpen={isDeleteOpen}>
 	<form method="POST" action="?/deleteAccount" use:enhance={handleSubmit}>
 		<p class="font-medium">
 			Are you sure you want to delete your vimaroo account. <b>This action is irreversible!</b>

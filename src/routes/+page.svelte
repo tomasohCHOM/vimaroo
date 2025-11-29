@@ -87,7 +87,7 @@
 {#if $flash && playFlashAnimation}
 	<div
 		transition:fly={{ y: 10, duration: 75 }}
-		class="fixed bottom-12 right-8 z-[9999] rounded-md bg-background-600 p-3"
+		class="fixed bottom-12 right-8 z-9999 rounded-md bg-background-600 p-3"
 	>
 		<span>
 			{#if $flash.type === "success"}
@@ -135,7 +135,7 @@
 		</div>
 	{/if}
 
-	<div class="h-[400px] w-[min(1000px,_90vw)]">
+	<div class="h-[400px] w-[min(1000px,90vw)]">
 		{#key [testMode, typeMode, testTypeAmount, $asciiLogoEnabled, $fontSize, $wordWrapEnabled, $relativeLinesEnabled]}
 			<Editor {test} {testMode} testType={typeMode} {testTypeAmount} session={data.session} />
 		{/key}

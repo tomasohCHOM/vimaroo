@@ -5,11 +5,11 @@
 
 <section class="grid items-center justify-center gap-4">
 	<div class="relative flex justify-center">
-		<div class="absolute left-[40%] -translate-x-2/4 -rotate-[20deg] opacity-30">
+		<div class="absolute left-[40%] -translate-x-2/4 -rotate-20 opacity-30">
 			<Icon icon="fa:question" width={40} />
 		</div>
 		<Icon icon="fa:question" width={40} />
-		<div class="absolute left-[60%] -translate-x-2/4 rotate-[24deg] opacity-60">
+		<div class="absolute left-[60%] -translate-x-2/4 rotate-24 opacity-60">
 			<Icon icon="fa:question" width={40} />
 		</div>
 	</div>

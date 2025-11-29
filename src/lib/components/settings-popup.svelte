@@ -30,7 +30,7 @@
 	onDestroy(unsubscribeAll);
 </script>
 
-<Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(35rem,_90vw)]">
+<Popover bind:isOpen={isSettingsOpen} containerWidth="w-[min(35rem,90vw)]">
 	<h2 class="text-2xl font-semibold md:text-3xl">Editor Settings</h2>
 	<div class="mt-4 flex flex-col gap-4">
 		<div class="flex items-center justify-between">

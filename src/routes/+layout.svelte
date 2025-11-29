@@ -33,7 +33,7 @@
 	<title>Vimaroo | Practice your VIM skills</title>
 </svelte:head>
 
-<main id="app" class="max-w-screen-2xl px-4 md:px-14">
+<main id="app" class="max-w-(--breakpoint-2xl) px-4 md:px-14">
 	{#key data.url}
 		<Navbar bind:isHelpOpen bind:isSettingsOpen bind:isLoginOpen {profile} />
 		{#if $navigating}

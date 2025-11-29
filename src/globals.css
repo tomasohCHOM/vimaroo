@@ -1,9 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 :root {
 	--ff-general: "Lato", sans-serif;
@@ -22,6 +34,19 @@
 	color: rgb(var(--color-foreground-neutral));
 
 	color-scheme: dark;
+}
+
+@theme inline {
+  --color-background-400: rgb(var(--color-background-400));
+  --color-background-500: rgb(var(--color-background-500));
+  --color-background-600: rgb(var(--color-background-600));
+  --color-foreground-neutral: rgb(var(--color-foreground-neutral));
+  --color-foreground-red: rgb(var(--color-foreground-red));
+  --color-foreground-green: rgb(var(--color-foreground-green));
+  --color-foreground-blue: rgb(var(--color-foreground-blue));
+
+  --font-general: var(--ff-general);
+  --font-code: var(--ff-code);
 }
 
 *,

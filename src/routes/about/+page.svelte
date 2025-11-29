@@ -1,4 +1,4 @@
-<section class="mx-auto flex w-full max-w-screen-xl flex-col gap-6 p-4">
+<section class="mx-auto flex w-full max-w-7xl flex-col gap-6 p-4">
 	<h1 class="flex items-center gap-1 text-2xl font-semibold md:text-4xl">
 		About vimaroo
 		<img src="/favicon.svg" alt="Website Logo" class="w-10" />

@@ -6,8 +6,8 @@
 
 <Popover
 	bind:isOpen={isHelpOpen}
-	containerWidth="w-[min(35rem,_90vw)]"
-	extraStyles="h-[30rem] overflow-y-auto"
+	containerWidth="w-[min(35rem,90vw)]"
+	extraStyles="h-120 overflow-y-auto"
 >
 	<h2 class="text-2xl font-semibold md:text-3xl">Help❓</h2>
 	<p class="mt-4">

@@ -29,7 +29,7 @@
 			type="text"
 			name="username"
 			placeholder="username"
-			class="w-full rounded-xl bg-background-400 p-2 shadow-sm outline-none transition"
+			class="w-full rounded-xl bg-background-400 p-2 shadow-xs outline-hidden transition"
 		/>
 		<button
 			type="submit"
